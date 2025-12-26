@@ -1,8 +1,7 @@
 namespace Core.DTOs.PropertyAdministration;
 
-public class PropertyAdministrationGetAllDto
+public class PropertyAdministrationUpdateDto
 {
-    public int Id { get; set; }
     public required string Name { get; set; }
     public string Logo { get; set; } = string.Empty;
 }

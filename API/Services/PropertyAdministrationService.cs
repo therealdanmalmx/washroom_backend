@@ -20,17 +20,41 @@ public class PropertyAdministrationService : IPropertyAdministrationService
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 
-    public List<PropertyAdministrationGetAllDto> GetPropertyAdministration(Guid id)
+    public PropertyAdministrationGetAllDto GetPropertyAdministration(int id)
     {
-        throw new NotImplementedException();
+        var  result = _propertyAdministrationRepository.GetPropertyAdministration(id);
+        return result.Adapt<PropertyAdministrationGetAllDto>();
     }
 
     public List<PropertyAdministrationGetAllDto> CreatePropertyAdministration(PropertyAdministrationCreateDto newPropertyAdministration)
     {
         
         var newEntry = newPropertyAdministration.Adapt<PropertyAdministration>();
-
         var result = _propertyAdministrationRepository.CreatePropertyAdministration(newEntry);
+        return result.Adapt<List<PropertyAdministrationGetAllDto>>();
+    }
+
+    public List<PropertyAdministrationGetAllDto>? UpdatePropertyAdministration(int id, PropertyAdministrationUpdateDto updatePropertyAdministration)
+    {
+        var propertyAdministrationToUpdate = updatePropertyAdministration.Adapt<PropertyAdministration>();
+        
+        var result = _propertyAdministrationRepository.UpdatePropertyAdministration(id, propertyAdministrationToUpdate);
+        if (result is null)
+        {
+            return null;
+        }
+        
+        return result.Adapt<List<PropertyAdministrationGetAllDto>>();
+    }
+
+    public List<PropertyAdministrationGetAllDto>? DeletePropertyAdministration(int id)
+    {
+        var result = _propertyAdministrationRepository.DeletePropertyAdministration(id);
+        if (result is null)
+        {
+            return null;
+        }
+
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 }

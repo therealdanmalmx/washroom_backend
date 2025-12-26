@@ -23,11 +23,11 @@ namespace API.Controllers
             return Ok(_propertyAdministrationService.GetAllPropertyAdministrations());
         }
 
-        // [HttpGet("{id}")]
-        // public ActionResult<PropertyAdministration> GetPropertyAdministration(Guid id)
-        // {
-        //     return _propertyAdministrationRepository.GetPropertyAdministration(id);
-        // }
+        [HttpGet("{id}")]
+        public ActionResult<PropertyAdministrationGetAllDto> GetPropertyAdministration(int id)
+        {
+            return Ok(_propertyAdministrationService.GetPropertyAdministration(id));
+        }
 
         [HttpPost]
         public ActionResult<List<PropertyAdministrationGetAllDto>> CreatePropertyAdministration(
@@ -37,22 +37,27 @@ namespace API.Controllers
             return Ok(_propertyAdministrationService);
         }
 
-        // [HttpPut("{id}")]
-        // public Action<PropertyAdministration> UpdatateProprtyAdministration(Guid id,
-        //     PropertyAdministration propertyAdministration)
-        // {
-        //     PropertyAdministration? paToUpate = _propertyAdministrations.SingleOrDefault(p => p.Id == id);
-        //
-        //     if (!string.IsNullOrEmpty(paToUpate.Name))
-        //     {
-        //         paToUpate.Name = propertyAdministration.Name;
-        //     }
-        //     if (!string.IsNullOrEmpty(paToUpate.Logo))
-        //     {
-        //         paToUpate.Logo = propertyAdministration.Logo;
-        //     }
-        //
-        //     return some;
-        // }
+        [HttpPut("{id}")]
+        public ActionResult<List<PropertyAdministrationGetAllDto>> UpdatePropertyAdministration(int id,
+            PropertyAdministrationUpdateDto updatedPropertyAdministration)
+        {
+            var result = _propertyAdministrationService.UpdatePropertyAdministration(id, updatedPropertyAdministration);
+            if (result == null)
+            {
+                return NotFound($"Property administration with id: {id} not found");
+            }
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<List<PropertyAdministrationGetAllDto>> DeletePropertyAdministration(int id)
+        {
+            var result = _propertyAdministrationService.DeletePropertyAdministration(id);
+            if (result == null)
+            {
+                return NotFound($"Property administration with id: {id} not found");
+            }
+            return Ok(result);
+        }
 }
 }
