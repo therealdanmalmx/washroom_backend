@@ -1,3 +1,4 @@
+using API.Repositories;
 using Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,43 +8,31 @@ namespace API.Controllers
     [ApiController]
     public class PropertyAdministrationController : ControllerBase
     {
-        private static List<PropertyAdministration> _propertyAdministrations =
-        [
-            new PropertyAdministration
-            {
-                Id = Guid.NewGuid(),
-                Name = "HSB",
-                Logo = "https://www.hsb.se/contentassets/2ba369972d73485598f9c965076774cc/logo_apsis.jpg",
-                CreatedAt = DateTime.Now,
-            },
-            new PropertyAdministration
-            {
-                Id = Guid.NewGuid(),
-                Name = "Riksbyggen",
-                Logo =
-                    "https://mnd-assets.mynewsdesk.com/image/upload/c_fill,dpr_auto,f_auto,g_xy_center,q_auto:good,w_1782,x_299,y_207/0wwly1zv6uf8oro3hq4sj6",
-                CreatedAt = DateTime.Now,
-            },
-        ];
+        private readonly IPropertyAdministrationRepository _propertyAdministrationRepository;
+
+        public PropertyAdministrationController(IPropertyAdministrationRepository propertyAdministrationRepository)
+        {
+            _propertyAdministrationRepository = propertyAdministrationRepository;
+        }
 
         [HttpGet]
         public ActionResult<List<PropertyAdministration>> GetAllPropertyAdministrations()
         {
-            return Ok(_propertyAdministrations);
+            return Ok(_propertyAdministrationRepository.GetAllPropertyAdministrations());
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<PropertyAdministration> GetPropertyAdministration(Guid id)
-        {
-            return _propertyAdministrations.SingleOrDefault(p => p.Id == id);
-        }
+        // [HttpGet("{id}")]
+        // public ActionResult<PropertyAdministration> GetPropertyAdministration(Guid id)
+        // {
+        //     return _propertyAdministrationRepository.GetPropertyAdministration(id);
+        // }
 
         [HttpPost]
         public ActionResult<List<PropertyAdministration>> CreatePropertyAdministration(
             PropertyAdministration propertyAdministration)
         {
-            _propertyAdministrations.Add(propertyAdministration);
-            return Ok(_propertyAdministrations);
+            _propertyAdministrationRepository.CreatePropertyAdministration(propertyAdministration);
+            return Ok(_propertyAdministrationRepository);
         }
 
         // [HttpPut("{id}")]

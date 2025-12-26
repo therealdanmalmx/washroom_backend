@@ -4,7 +4,7 @@ namespace API.Repositories;
 
 public interface IPropertyAdministrationRepository
 {
-    List<PropertyAdministration> GetPropertyAdministrations();
-    List<PropertyAdministration> GetPropertyAdministration(Guid propertyAdministrationId);
+    List<PropertyAdministration> GetAllPropertyAdministrations();
+    List<PropertyAdministration> GetPropertyAdministration(Guid id);
     List<PropertyAdministration> CreatePropertyAdministration(PropertyAdministration newPropertyAdministration);
 }
