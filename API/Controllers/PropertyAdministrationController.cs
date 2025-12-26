@@ -1,5 +1,7 @@
 using API.Repositories;
+using API.Services;
 using Core.Models;
+using Core.DTOs.PropertyAdministration;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -8,17 +10,17 @@ namespace API.Controllers
     [ApiController]
     public class PropertyAdministrationController : ControllerBase
     {
-        private readonly IPropertyAdministrationRepository _propertyAdministrationRepository;
+        private readonly IPropertyAdministrationService _propertyAdministrationService;
 
-        public PropertyAdministrationController(IPropertyAdministrationRepository propertyAdministrationRepository)
+        public PropertyAdministrationController(IPropertyAdministrationService propertyAdministrationService)
         {
-            _propertyAdministrationRepository = propertyAdministrationRepository;
+            _propertyAdministrationService = propertyAdministrationService;
         }
 
         [HttpGet]
-        public ActionResult<List<PropertyAdministration>> GetAllPropertyAdministrations()
+        public ActionResult<List<PropertyAdministrationGetAllDto>> GetAllPropertyAdministrations()
         {
-            return Ok(_propertyAdministrationRepository.GetAllPropertyAdministrations());
+            return Ok(_propertyAdministrationService.GetAllPropertyAdministrations());
         }
 
         // [HttpGet("{id}")]
@@ -28,11 +30,11 @@ namespace API.Controllers
         // }
 
         [HttpPost]
-        public ActionResult<List<PropertyAdministration>> CreatePropertyAdministration(
-            PropertyAdministration propertyAdministration)
+        public ActionResult<List<PropertyAdministrationGetAllDto>> CreatePropertyAdministration(
+            PropertyAdministrationCreateDto newPropertyAdministration)
         {
-            _propertyAdministrationRepository.CreatePropertyAdministration(propertyAdministration);
-            return Ok(_propertyAdministrationRepository);
+            _propertyAdministrationService.CreatePropertyAdministration(newPropertyAdministration);
+            return Ok(_propertyAdministrationService);
         }
 
         // [HttpPut("{id}")]
