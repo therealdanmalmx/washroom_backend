@@ -1,5 +1,6 @@
 using API.Repositories;
 using API.Services;
+using API.Services.PropertyManager;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IPropertyAdministrationRepository, PropertyAdministrationRepository>();
 builder.Services.AddScoped<IPropertyAdministrationService, PropertyAdministrationService>();
+builder.Services.AddScoped<IPropertyManagerRepository, PropertyManagerRepository>();
+builder.Services.AddScoped<IPropertyManagerService, PropertyManagerService>();
 
 var app = builder.Build();
 
