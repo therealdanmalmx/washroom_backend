@@ -6,6 +6,18 @@
 # dotenv files
 .env
 
+bin/
+obj/
+*.cache
+*.dll
+*.pdb
+*.deps.json
+*.AssemblyInfo.cs
+*.AssemblyInfoInputs.cache
+*.assets.cache
+*.csproj.*.cache
+*.csproj.nuget.*
+
 # User-specific files
 *.rsuser
 *.suo
