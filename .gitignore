@@ -6,20 +6,25 @@
 # dotenv files
 .env
 
-
 bin/
 obj/
-**/obj/
 *.cache
+*.dll
+*.pdb
 *.AssemblyInfo.cs
-*.AssemblyInfoInputs.cache
-*.assets.cache
-*.csproj.*.cache
-*.csproj.nuget.*
+*.editorconfig
+appsettings.*.json
 project.assets.json
 project.nuget.cache
 project.packagespec.json
-*.project.restore.info
+*.nuget.g.props
+*.nuget.g.targets
+*.csproj.Up2Date
+*.dswa.cache.json
+*.build.endpoints.json
+*.build.json
+*.swae.build.ex.cache
+rider.project.*
 
 # User-specific files
 *.rsuser
