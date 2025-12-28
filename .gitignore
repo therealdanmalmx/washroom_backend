@@ -33,7 +33,6 @@ rider.project.*
 [Rr]elease/
 
 # Build outputs
-*.dll
 *.exe
 *.pdb
 *.cache
