@@ -6,6 +6,8 @@ namespace API.Repositories
     {
         List<PropertyManager> GetAllPropertyManagers();
         List<PropertyManager> CreatePropertyManager(PropertyManager newPropertyManager);
+        PropertyManager GetPropertyManagerById(int id);
+
     }
     
 }
