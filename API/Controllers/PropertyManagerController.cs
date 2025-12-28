@@ -20,5 +20,12 @@ namespace API.Controllers
         {
             return Ok(_propertyManagerService.GetAllPropertyManagers());
         }
+
+        [HttpPost]
+        public ActionResult<List<PropertyManagerGetAllDto>> CreatePropertyManager(
+            PropertyManagerCreateDto newPropertyManager)
+        {
+            return Ok(_propertyManagerService.CreatePropertyManager(newPropertyManager));
+        }
     }
 }
