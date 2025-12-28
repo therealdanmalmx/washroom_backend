@@ -7,6 +7,9 @@ public interface IPropertyManagerService
     List<PropertyManagerGetAllDto> GetAllPropertyManagers();
     List<PropertyManagerGetAllDto> CreatePropertyManager(PropertyManagerCreateDto newPropertyManager);
     PropertyManagerGetAllDto GetPropertyManagerById(int id);
+    List<PropertyManagerGetAllDto>? DeletePropertyManager(int id);
+
+
 
 
 }
