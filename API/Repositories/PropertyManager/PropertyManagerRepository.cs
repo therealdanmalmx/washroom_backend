@@ -47,6 +47,16 @@ namespace API.Repositories
             return singlePropertyManager;
         }
 
+        public List<PropertyManager> UpdatePropertyManager(int id, PropertyManager updatePropertyManager)
+        {
+            var propertyManagerToUpdateIndex = _propertyManagers.FindIndex(pa => pa.Id == id);
+            if (propertyManagerToUpdateIndex == -1)
+            {
+                return null;
+            }
+            _propertyManagers[propertyManagerToUpdateIndex] = updatePropertyManager;
+            return _propertyManagers;        }
+
         public List<PropertyManager>? DeletePropertyManager(int id)
         {
             var propertyManagerToDelete = _propertyManagers.FirstOrDefault(pm => pm.Id == id);

@@ -32,13 +32,28 @@ public class PropertyManagerService : IPropertyManagerService
         return result.Adapt<PropertyManagerGetAllDto>();
     }
 
-    public List<PropertyManagerGetAllDto>? DeletePropertyManager(int id)
+    public List<PropertyManagerGetAllDto>? UpdatePropertyManager(int id, PropertyManagerUpdateDto updatePropertyManager)
     {
-        var result = _propertyManagerRepository.DeletePropertyManager(id);
-        if (result is null)
+        var propertyManagerToUpdate = updatePropertyManager.Adapt<Core.Models.PropertyManager>();
+
+        var result = _propertyManagerRepository.UpdatePropertyManager(id, propertyManagerToUpdate);
+
+        if (result == null)
         {
             return null;
         }
         return result.Adapt<List<PropertyManagerGetAllDto>>();
+    }
+
+    public List<PropertyManagerGetAllDto>? DeletePropertyManager(int id)
+    {
+        var propertyAdministrationToUpdate = _propertyManagerRepository.DeletePropertyManager(id);
+        
+        
+        if (propertyAdministrationToUpdate is null)
+        {
+            return null;
+        }
+        return propertyAdministrationToUpdate.Adapt<List<PropertyManagerGetAllDto>>();
     }
 }
