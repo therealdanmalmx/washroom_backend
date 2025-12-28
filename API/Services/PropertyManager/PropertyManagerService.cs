@@ -31,4 +31,14 @@ public class PropertyManagerService : IPropertyManagerService
         var result = _propertyManagerRepository.GetPropertyManagerById(id);
         return result.Adapt<PropertyManagerGetAllDto>();
     }
+
+    public List<PropertyManagerGetAllDto>? DeletePropertyManager(int id)
+    {
+        var result = _propertyManagerRepository.DeletePropertyManager(id);
+        if (result is null)
+        {
+            return null;
+        }
+        return result.Adapt<List<PropertyManagerGetAllDto>>();
+    }
 }
