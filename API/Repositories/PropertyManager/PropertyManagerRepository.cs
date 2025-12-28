@@ -1,4 +1,3 @@
-
 using Core.Models;
 
 namespace API.Repositories
@@ -35,6 +34,17 @@ namespace API.Repositories
         {
             _propertyManagers.Add(newPropertyManager);
            return _propertyManagers;
+        }
+
+        public PropertyManager GetPropertyManagerById(int id)
+        {
+            var singlePropertyManager = _propertyManagers.FirstOrDefault(p => p.Id == id);
+            if (singlePropertyManager == null)
+            {
+                return null;
+            }
+
+            return singlePropertyManager;
         }
     }
 }
