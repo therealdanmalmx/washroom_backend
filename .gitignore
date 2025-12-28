@@ -26,6 +26,19 @@ project.packagespec.json
 *.swae.build.ex.cache
 rider.project.*
 
+# Build results
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+# Build outputs
+*.dll
+*.exe
+*.pdb
+*.cache
+*.deps.json
+
 # User-specific files
 *.rsuser
 *.suo
