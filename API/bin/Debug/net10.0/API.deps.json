@@ -9,6 +9,7 @@
       "API/1.0.0": {
         "dependencies": {
           "Core": "1.0.0",
+          "Mapster": "9.0.0-pre01",
           "Microsoft.AspNetCore.OpenApi": "10.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.1",
           "Scalar.AspNetCore": "2.11.8"
@@ -554,6 +555,25 @@
         "resources": {
           "lib/net6.0/zh-Hant/Humanizer.resources.dll": {
             "locale": "zh-Hant"
+          }
+        }
+      },
+      "Mapster/9.0.0-pre01": {
+        "dependencies": {
+          "Mapster.Core": "9.0.0-pre01"
+        },
+        "runtime": {
+          "lib/net9.0/Mapster.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.0.0"
+          }
+        }
+      },
+      "Mapster.Core/9.0.0-pre01": {
+        "runtime": {
+          "lib/net9.0/Mapster.Core.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.0.0"
           }
         }
       },
@@ -2068,6 +2088,20 @@
       "sha512": "sha512-VIXB7HCUC34OoaGnO3HJVtSv2/wljPhjV7eKH4+TFPgQdJj2lvHNKY41Dtg0Bphu7X5UaXFR4zrYYyo+GNOjbA==",
       "path": "humanizer.core.zh-hant/2.14.1",
       "hashPath": "humanizer.core.zh-hant.2.14.1.nupkg.sha512"
+    },
+    "Mapster/9.0.0-pre01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-T9B4KSYi0LJ124i+Y6nedUh/PUPWHloVJSErCRAkrH8AqGNj7NXy2poCxz9vPCdeOC1RLNvUhhN1HxhaDSPbFg==",
+      "path": "mapster/9.0.0-pre01",
+      "hashPath": "mapster.9.0.0-pre01.nupkg.sha512"
+    },
+    "Mapster.Core/9.0.0-pre01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-POm9O/8rZcm9d/4ikWET85vg27U+1uJxfpKdQdYKB/fX3Wj7ql3t6FdX9g4MYUaiIIkEnhCUnyuC3oUaYN6rRQ==",
+      "path": "mapster.core/9.0.0-pre01",
+      "hashPath": "mapster.core.9.0.0-pre01.nupkg.sha512"
     },
     "Microsoft.AspNetCore.OpenApi/10.0.0": {
       "type": "package",
