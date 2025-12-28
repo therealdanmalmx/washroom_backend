@@ -30,5 +30,11 @@ namespace API.Repositories
         {
             return _propertyManagers;
         }
+
+        public List<PropertyManager> CreatePropertyManager(PropertyManager newPropertyManager)
+        {
+            _propertyManagers.Add(newPropertyManager);
+           return _propertyManagers;
+        }
     }
 }
