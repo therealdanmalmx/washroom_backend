@@ -21,6 +21,12 @@ namespace API.Controllers
             return Ok(_propertyManagerService.GetAllPropertyManagers());
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<PropertyManagerGetAllDto> GetPropertyManagerById(int id)
+        {
+            return Ok(_propertyManagerService.GetPropertyManagerById(id));
+        }
+
         [HttpPost]
         public ActionResult<List<PropertyManagerGetAllDto>> CreatePropertyManager(
             PropertyManagerCreateDto newPropertyManager)

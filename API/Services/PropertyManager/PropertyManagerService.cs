@@ -25,5 +25,10 @@ public class PropertyManagerService : IPropertyManagerService
         var result = _propertyManagerRepository.CreatePropertyManager(newEntry);
         return result.Adapt<List<PropertyManagerGetAllDto>>();
     }
-    
+
+    public PropertyManagerGetAllDto GetPropertyManagerById(int id)
+    {
+        var result = _propertyManagerRepository.GetPropertyManagerById(id);
+        return result.Adapt<PropertyManagerGetAllDto>();
+    }
 }
