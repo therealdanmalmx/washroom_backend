@@ -33,6 +33,13 @@ namespace API.Controllers
         {
             return Ok(_propertyManagerService.CreatePropertyManager(newPropertyManager));
         }
+
+        [HttpPut("{id}")]
+        public ActionResult<List<PropertyManagerGetAllDto>> UpdatePropertyManager(int id,
+            PropertyManagerUpdateDto updatePropertyManager)
+        {
+            return Ok(_propertyManagerService.UpdatePropertyManager(id, updatePropertyManager));
+        }
         
         [HttpDelete("{id}")]
         public ActionResult<List<PropertyManagerGetAllDto>>? DeletePropertyManager(int id)
