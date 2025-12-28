@@ -1,6 +1,4 @@
-using API.Repositories;
 using API.Services;
-using Core.Models;
 using Core.DTOs.PropertyAdministration;
 using Microsoft.AspNetCore.Mvc;
 
