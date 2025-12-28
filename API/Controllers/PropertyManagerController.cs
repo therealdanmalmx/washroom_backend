@@ -33,5 +33,16 @@ namespace API.Controllers
         {
             return Ok(_propertyManagerService.CreatePropertyManager(newPropertyManager));
         }
+        
+        [HttpDelete("{id}")]
+        public ActionResult<List<PropertyManagerGetAllDto>>? DeletePropertyManager(int id)
+        {
+            var result = _propertyManagerService.DeletePropertyManager(id);
+            if (result == null)
+            {
+                return NotFound($"Property manager with id: {id} not found");
+            }
+            return Ok(result);
+        }
     }
 }
