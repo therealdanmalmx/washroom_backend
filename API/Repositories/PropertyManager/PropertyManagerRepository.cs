@@ -38,13 +38,24 @@ namespace API.Repositories
 
         public PropertyManager GetPropertyManagerById(int id)
         {
-            var singlePropertyManager = _propertyManagers.FirstOrDefault(p => p.Id == id);
+            var singlePropertyManager = _propertyManagers.FirstOrDefault(pm => pm.Id == id);
             if (singlePropertyManager == null)
             {
                 return null;
             }
 
             return singlePropertyManager;
+        }
+
+        public List<PropertyManager>? DeletePropertyManager(int id)
+        {
+            var propertyManagerToDelete = _propertyManagers.FirstOrDefault(pm => pm.Id == id);
+            if (propertyManagerToDelete == null)
+            {
+            return null;
+            }
+            _propertyManagers.Remove(propertyManagerToDelete);
+            return _propertyManagers;
         }
     }
 }
