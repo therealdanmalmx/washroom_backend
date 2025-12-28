@@ -18,4 +18,12 @@ public class PropertyManagerService : IPropertyManagerService
         var result = _propertyManagerRepository.GetAllPropertyManagers();
         return result.Adapt<List<PropertyManagerGetAllDto>>();;
     }
+
+    public List<PropertyManagerGetAllDto> CreatePropertyManager(PropertyManagerCreateDto newPropertyManager)
+    {
+        var newEntry = newPropertyManager.Adapt<Core.Models.PropertyManager>();
+        var result = _propertyManagerRepository.CreatePropertyManager(newEntry);
+        return result.Adapt<List<PropertyManagerGetAllDto>>();
+    }
+    
 }
