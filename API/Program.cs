@@ -1,5 +1,6 @@
 using API.Repositories;
 using API.Services;
+using API.Services.Association;
 using API.Services.PropertyManager;
 using Scalar.AspNetCore;
 
@@ -16,6 +17,9 @@ builder.Services.AddScoped<IPropertyAdministrationService, PropertyAdministratio
 
 builder.Services.AddScoped<IPropertyManagerRepository, PropertyManagerRepository>();
 builder.Services.AddScoped<IPropertyManagerService, PropertyManagerService>();
+
+builder.Services.AddScoped<IAssociationRepository, AssociationRepository>();
+builder.Services.AddScoped<IAssociationService, AssociationService>();
 
 var app = builder.Build();
 
