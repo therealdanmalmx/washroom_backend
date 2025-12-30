@@ -1,5 +1,6 @@
 using API.Repositories;
 using API.Services;
+using API.Services.Apartment;
 using API.Services.Association;
 using API.Services.AssociationManager;
 using API.Services.Property;
@@ -28,6 +29,9 @@ builder.Services.AddScoped<IAssociationManagerService, AssociationManagerService
 
 builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 builder.Services.AddScoped<IPropertyService, PropertyService>();
+
+builder.Services.AddScoped<IApartmentRepository, ApartmentRepository>();
+builder.Services.AddScoped<IApartmentService, ApartmentService>();
 
 var app = builder.Build();
 
