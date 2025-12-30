@@ -36,7 +36,7 @@ namespace API.Repositories
            return _propertyManagers;
         }
 
-        public PropertyManager GetPropertyManagerById(int id)
+        public PropertyManager? GetPropertyManagerById(int id)
         {
             var singlePropertyManager = _propertyManagers.FirstOrDefault(pm => pm.Id == id);
             if (singlePropertyManager == null)
@@ -47,7 +47,7 @@ namespace API.Repositories
             return singlePropertyManager;
         }
 
-        public List<PropertyManager> UpdatePropertyManager(int id, PropertyManager updatePropertyManager)
+        public List<PropertyManager>? UpdatePropertyManager(int id, PropertyManager updatePropertyManager)
         {
             var propertyManagerToUpdateIndex = _propertyManagers.FindIndex(pa => pa.Id == id);
             if (propertyManagerToUpdateIndex == -1)
