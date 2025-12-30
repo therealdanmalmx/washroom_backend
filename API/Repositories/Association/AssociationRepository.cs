@@ -41,7 +41,7 @@ public class AssociationRepository : IAssociationRepository
         
     }
 
-    public List<Association> UpdateAssociation(int id, Association association)
+    public List<Association>? UpdateAssociation(int id, Association association)
     {
         var associationToUpdateIndex = _associations.FindIndex(a => a.Id == id);
         if (associationToUpdateIndex == -1)
