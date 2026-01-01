@@ -1,3 +1,4 @@
+using API.Data;
 using API.Repositories;
 using API.Repositories.ScheduleRepository;
 using API.Repositories.SheduleStatus;
@@ -11,6 +12,7 @@ using API.Services.Schedule;
 using API.Services.Tenant;
 using API.Services.TenantWashroomBooking;
 using API.Services.WashRoomSchedule;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +22,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Add Database Connection
+builder.Services.AddDbContext<DataContext>(options => 
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPropertyAdministrationRepository, PropertyAdministrationRepository>();
 builder.Services.AddScoped<IPropertyAdministrationService, PropertyAdministrationService>();
