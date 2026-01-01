@@ -42,7 +42,7 @@ namespace API.Controllers
         }
         
         [HttpDelete("{id}")]
-        public ActionResult<List<PropertyManagerGetAllDto>>? DeletePropertyManager(int id)
+        public ActionResult<List<PropertyManagerGetAllDto>> DeletePropertyManager(int id)
         {
             var result = _propertyManagerService.DeletePropertyManager(id);
             if (result == null)
