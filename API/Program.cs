@@ -24,8 +24,10 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // Add Database Connection
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<DataContext>(options => 
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddScoped<IPropertyAdministrationRepository, PropertyAdministrationRepository>();
 builder.Services.AddScoped<IPropertyAdministrationService, PropertyAdministrationService>();
