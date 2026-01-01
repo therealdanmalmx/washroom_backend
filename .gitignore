@@ -13,6 +13,8 @@ obj/
 *.pdb
 *.AssemblyInfo.cs
 *.editorconfig
+appsettings.Development.json
+appsettings.Production.json
 appsettings.*.json
 project.assets.json
 project.nuget.cache
