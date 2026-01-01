@@ -57,7 +57,7 @@ builder.Services.AddScoped<ITenantWashroomService, TenantWashroomService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.MapScalarApiReference();
     app.MapOpenApi();
