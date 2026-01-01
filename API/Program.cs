@@ -1,12 +1,16 @@
 using API.Repositories;
+using API.Repositories.ScheduleRepository;
+using API.Repositories.SheduleStatus;
 using API.Services;
 using API.Services.Apartment;
 using API.Services.Association;
 using API.Services.AssociationManager;
 using API.Services.Property;
 using API.Services.PropertyManager;
+using API.Services.Schedule;
 using API.Services.Tenant;
-using API.Services.WashRoom;
+using API.Services.TenantWashroomBooking;
+using API.Services.WashRoomSchedule;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -38,9 +42,17 @@ builder.Services.AddScoped<IApartmentService, ApartmentService>();
 builder.Services.AddScoped<ITenantRepository, TenantRepository>();
 builder.Services.AddScoped<ITenantService, TenantService>();
 
-builder.Services.AddScoped<IWashroomRepository, WashroomRepository>();
-builder.Services.AddScoped<IWashroomService, WashroomService>();
+builder.Services.AddScoped<IScheduleStatusRepository, ScheduleStatusRepository>();
+builder.Services.AddScoped<IScheduleStatusService, ScheduleStatusService>();
 
+builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
+
+builder.Services.AddScoped<IWashoomscheduleRepository, WashroomscheduleRepository>();
+builder.Services.AddScoped<IWashroomScheduleService, WashroomScheduleService>();
+
+builder.Services.AddScoped<ITenantWashroomBookingRepository, TenantWashroomBookingRepository>();
+builder.Services.AddScoped<ITenantWashroomService, TenantWashroomService>();
 
 var app = builder.Build();
 

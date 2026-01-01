@@ -1,7 +1,5 @@
 using Core.Models;
-
 namespace API.Repositories;
-
 public interface ITenantRepository
 {
     List<Tenant> GetAllTenant();
