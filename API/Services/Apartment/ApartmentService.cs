@@ -7,7 +7,6 @@ namespace API.Services.Apartment;
 public class ApartmentService : IApartmentService
 {
     public readonly IApartmentRepository _apartmentRepository;
-
     public ApartmentService(IApartmentRepository apartmentRepository)
     {
         _apartmentRepository = apartmentRepository;
@@ -19,10 +18,11 @@ public class ApartmentService : IApartmentService
         return result.Adapt<List<ApartmentGetAllDto>>();
     }
 
-    public List<ApartmentGetAllDto> CreateApartment(ApartmentCreateDto newApartment)
+    public async Task<List<ApartmentGetAllDto>>? CreateApartment(ApartmentCreateDto newApartment)
     {
         var newApartmentEntry = newApartment.Adapt<Core.Models.Apartment>();
-        var result = _apartmentRepository.CreateApartment(newApartmentEntry);
+        var result = await _apartmentRepository.CreateApartment(newApartmentEntry);
+        newApartmentEntry.CreatedAt = DateTime.UtcNow;
         if (result == null)
         {
             return null;
