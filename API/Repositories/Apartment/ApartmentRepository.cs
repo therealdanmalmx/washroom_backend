@@ -1,9 +1,16 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class ApartmentRepository : IApartmentRepository
 {
+    private readonly DataContext _dB;
+    public ApartmentRepository(DataContext dB)
+    {
+        _dB = dB;
+    }
     private List<Apartment> _apartments =
     [
         new Apartment()
@@ -19,15 +26,18 @@ public class ApartmentRepository : IApartmentRepository
             PropertyId = 2,
         }
     ];
+
+
     public List<Apartment> GetAllApartments()
     {
         return _apartments;
     }
 
-    public List<Apartment> CreateApartment(Apartment newApartment)
+    public async Task<List<Apartment>> CreateApartment(Apartment newApartment)
     {
-        _apartments.Add(newApartment);
-        return _apartments;
+        _dB.Apartments.Add(newApartment);
+        await _dB.SaveChangesAsync();
+        return await _dB.Apartments.ToListAsync();
     }
 
     public Apartment? GetApartment(int id)

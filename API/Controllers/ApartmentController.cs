@@ -23,9 +23,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ApartmentCreateDto> CreateApartment(ApartmentCreateDto newApartment)
+        public async Task<ActionResult<ApartmentGetAllDto>> CreateApartment(ApartmentCreateDto newApartment)
         {
-            return Ok(_apartmentService.CreateApartment(newApartment));
+            return Ok(await _apartmentService.CreateApartment(newApartment));
         }
 
         [HttpGet("{id}")]
