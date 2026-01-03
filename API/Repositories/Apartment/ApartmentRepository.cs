@@ -28,9 +28,9 @@ public class ApartmentRepository : IApartmentRepository
     ];
 
 
-    public List<Apartment> GetAllApartments()
+    public async Task<List<Apartment>> GetAllApartments()
     {
-        return _apartments;
+        return await _dB.Apartments.ToListAsync();
     }
 
     public async Task<List<Apartment>> CreateApartment(Apartment newApartment)
@@ -40,9 +40,9 @@ public class ApartmentRepository : IApartmentRepository
         return await _dB.Apartments.ToListAsync();
     }
 
-    public Apartment? GetApartment(int id)
+    public async Task<Apartment>? GetApartment(int id)
     {
-        var singleApartment = _apartments.FirstOrDefault(x => x.Id == id);
+        var singleApartment = await _dB.Apartments.FindAsync(id);
         if (singleApartment == null)
         {
             return null;
@@ -50,25 +50,33 @@ public class ApartmentRepository : IApartmentRepository
         return singleApartment;
     }
 
-    public List<Apartment>? UpdateApartment(int id, Apartment updateApartment)
+    public async Task<List<Apartment>>? UpdateApartment(int id, Apartment updateApartment)
     {
-        var apartmentToUpdateIndex = _apartments.FindIndex(x => x.Id == id);
-        if (apartmentToUpdateIndex == -1)
+        var dBApartmentEntry = await _dB.Apartments.FindAsync(id);
+
+        if (dBApartmentEntry == null)
         {
             return null;
         }
-        _apartments[apartmentToUpdateIndex] = updateApartment;
-        return _apartments;
+
+        if (!string.IsNullOrEmpty(updateApartment.Number))
+        {
+            dBApartmentEntry.Number = updateApartment.Number;
+        }
+        
+        await _dB.SaveChangesAsync();
+        return await _dB.Apartments.ToListAsync();
     }
 
-    public List<Apartment>? DeleteApartment(int id)
+    public async Task<List<Apartment>>? DeleteApartment(int id)
     {
-        var result = _apartments.FirstOrDefault(x => x.Id == id);
+        var result = await _dB.Apartments.FindAsync(id);
         if (result == null)
         {
             return null;
         }
-        _apartments.Remove(result);
-        return _apartments;
+        _dB.Apartments.Remove(result);
+        await _dB.SaveChangesAsync();
+        return await _dB.Apartments.ToListAsync();
     }
 }
