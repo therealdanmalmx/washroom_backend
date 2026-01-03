@@ -11,22 +11,6 @@ public class ApartmentRepository : IApartmentRepository
     {
         _dB = dB;
     }
-    private List<Apartment> _apartments =
-    [
-        new Apartment()
-        {
-            Id = 1,
-            Number = "1101",
-            PropertyId = 1,
-        },
-        new Apartment()
-        {
-            Id = 2,
-            Number = "1201",
-            PropertyId = 2,
-        }
-    ];
-
 
     public async Task<List<Apartment>> GetAllApartments()
     {
