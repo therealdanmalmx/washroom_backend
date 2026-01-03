@@ -12,35 +12,31 @@ public class ApartmentService : IApartmentService
         _apartmentRepository = apartmentRepository;
     }
 
-    public List<ApartmentGetAllDto> GetAllApartments()
+    public async Task<List<ApartmentGetAllDto>> GetAllApartments()
     {
-        var result = _apartmentRepository.GetAllApartments();
+        var result =await _apartmentRepository.GetAllApartments();
         return result.Adapt<List<ApartmentGetAllDto>>();
     }
 
-    public async Task<List<ApartmentGetAllDto>>? CreateApartment(ApartmentCreateDto newApartment)
+    public async Task<List<ApartmentGetAllDto>> CreateApartment(ApartmentCreateDto newApartment)
     {
         var newApartmentEntry = newApartment.Adapt<Core.Models.Apartment>();
         var result = await _apartmentRepository.CreateApartment(newApartmentEntry);
         newApartmentEntry.CreatedAt = DateTime.UtcNow;
-        if (result == null)
+        if (result is null)
         {
             return null;
         }
         return result.Adapt<List<ApartmentGetAllDto>>();
     }
 
-    public ApartmentGetAllDto? GetApartmentById(int id)
+    public async Task<ApartmentGetAllDto?> GetApartmentById(int id)
     {
-        var  result = _apartmentRepository.GetApartment(id);
-        if (result == null)
-        {
-            return null;
-        }
+        var  result = await _apartmentRepository.GetApartment(id);
         return result.Adapt<ApartmentGetAllDto>();
     }
 
-    public List<ApartmentGetAllDto>? UpdateApartment(int id, ApartmentUpdateDto updatedApartment)
+    public async Task<List<ApartmentGetAllDto>>? UpdateApartment(int id, ApartmentUpdateDto updatedApartment)
     {
         var apartmentUpdate = updatedApartment.Adapt<Core.Models.Apartment>();
         var result = _apartmentRepository.UpdateApartment(id, apartmentUpdate);
@@ -51,9 +47,9 @@ public class ApartmentService : IApartmentService
         return result.Adapt<List<ApartmentGetAllDto>>();
     }
 
-    public List<ApartmentGetAllDto>? DeleteApartment(int id)
+    public async Task<List<ApartmentGetAllDto>>? DeleteApartment(int id)
     {
-        var result = _apartmentRepository.DeleteApartment(id);
+        var result = await _apartmentRepository.DeleteApartment(id);
         if (result == null)
         {
             return null;
