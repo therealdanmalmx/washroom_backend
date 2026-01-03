@@ -1,38 +1,33 @@
+using API.Data;
 using Core.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class AssociationRepository : IAssociationRepository
 {
-    private List<Association> _associations =
-    [
-        new Association
-        {
-            Id = 1,
-            Name = "BRF Kråkan",
-        },
-        new Association
-        {
-            Id = 2,
-            Name = "BRF Kullerstenen"
-        }
-    ];
     
-    public List<Association> GetAllAssociations()
+    private readonly DataContext _dB;
+    public AssociationRepository(DataContext dB)
     {
-        return _associations;
+        _dB = dB;
+    }
+    
+    public async Task<List<Association>> GetAllAssociations()
+    {
+        return await _dB.Associations.ToListAsync();
     }
 
-    public List<Association> CreateAssociation(Association association)
+    public async Task<List<Association>> CreateAssociation(Association association)
     {
-        _associations.Add(association);
-        return _associations;
+        _dB.Associations.AddAsync(association);
+        await _dB.SaveChangesAsync();
+        return await _dB.Associations.ToListAsync();
     }
 
-    public Association? GetAssociationById(int id)
+    public async Task<Association>? GetAssociationById(int id)
     {
-        var singleAssociation = _associations.FirstOrDefault(a => a.Id == id);
+        var singleAssociation = await _dB.Associations.FindAsync(id);
         if (singleAssociation == null)
         {
             return null;
@@ -41,26 +36,31 @@ public class AssociationRepository : IAssociationRepository
         
     }
 
-    public List<Association>? UpdateAssociation(int id, Association association)
+    public async Task<List<Association>>? UpdateAssociation(int id, Association association)
     {
-        var associationToUpdateIndex = _associations.FindIndex(a => a.Id == id);
-        if (associationToUpdateIndex == -1)
+        var associationToUpdate = await _dB.Associations.FindAsync(id);
+        if (associationToUpdate != null)
         {
             return null;
         }
-        _associations[associationToUpdateIndex] =  association;
-        return _associations;
+
+        if (!string.IsNullOrWhiteSpace(association.Name))
+        {
+            associationToUpdate.Name = association.Name;
+        }
+        await _dB.SaveChangesAsync();
+        return await _dB.Associations.ToListAsync();
 
     }
 
-    public List<Association>? DeleteAssociation(int id)
+    public async Task<List<Association>>? DeleteAssociation(int id)
     {
-        var associationToDelete =  _associations.FirstOrDefault(a => a.Id == id);
+        var associationToDelete = await _dB.Associations.FindAsync(id);
         if (associationToDelete == null)
         {
             return null;
         }
-        _associations.Remove(associationToDelete);
-        return _associations;
+        await _dB.SaveChangesAsync();
+        return await _dB.Associations.ToListAsync();
     }
 }
