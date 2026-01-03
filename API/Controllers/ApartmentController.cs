@@ -17,9 +17,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ApartmentGetAllDto>> GetAllApartments()
+        public async Task<ActionResult<List<ApartmentGetAllDto>>> GetAllApartments()
         {
-            return Ok(_apartmentService.GetAllApartments());
+            return Ok(await _apartmentService.GetAllApartments());
         }
 
         [HttpPost]
@@ -29,9 +29,9 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<PropertyGetAllDto> GetPropertyById(int id)
+        public async Task<ActionResult<PropertyGetAllDto>> GetPropertyById(int id)
         {
-            var result = _apartmentService.GetApartmentById(id);
+            var result = await _apartmentService.GetApartmentById(id);
             if (result == null)
             {
                 return NotFound();
@@ -40,10 +40,10 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ApartmentGetAllDto> UpdateProperty(int id, ApartmentUpdateDto propertyUpdateDto)
+        public async Task<ActionResult<List<ApartmentGetAllDto>>> UpdateProperty(int id, ApartmentUpdateDto propertyUpdateDto)
         {
-            var result = _apartmentService.UpdateApartment(id, propertyUpdateDto);
-            if (result == null)
+            var result = await _apartmentService.UpdateApartment(id, propertyUpdateDto)!;
+            if (result is null)
             {
                 return NotFound();
             }
@@ -51,9 +51,9 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<ApartmentGetAllDto>> DeleteApartment(int id)
+        public async Task<ActionResult<List<ApartmentGetAllDto>>> DeleteApartment(int id)
         {
-            var result = _apartmentService.DeleteApartment(id);
+            var result = await _apartmentService.DeleteApartment(id);
             if (result == null)
             {
                 return NotFound();

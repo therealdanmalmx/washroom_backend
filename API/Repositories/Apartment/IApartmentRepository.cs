@@ -4,9 +4,9 @@ namespace API.Repositories;
 
 public interface IApartmentRepository
 {
-    List<Apartment> GetAllApartments();
+    Task<List<Apartment>> GetAllApartments();
     Task<List<Apartment>> CreateApartment(Apartment newApartment);
-    Apartment? GetApartment(int id);
-    List<Apartment>? UpdateApartment(int id, Apartment updateApartment);
-    List<Apartment>? DeleteApartment(int id);
+    Task<Apartment>? GetApartment(int id);
+    Task<List<Apartment>>? UpdateApartment(int id, Apartment updateApartment);
+    Task<List<Apartment>>? DeleteApartment(int id);
 }
