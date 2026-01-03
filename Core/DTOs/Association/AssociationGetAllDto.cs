@@ -4,5 +4,5 @@ public class AssociationGetAllDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = String.Empty;
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
