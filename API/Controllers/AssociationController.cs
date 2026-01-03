@@ -16,33 +16,33 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<AssociationGetAllDto>> GetAllAssociations()
+        public async Task<ActionResult<List<AssociationGetAllDto>>> GetAllAssociations()
         {
-            return Ok(_associationService.GetAllAssociations());
+            return Ok(await _associationService.GetAllAssociations());
         }
 
         [HttpPost]
-        public ActionResult<List<AssociationCreateDto>> CreateAssociation(AssociationCreateDto newAssociation)
+        public async Task<ActionResult<List<AssociationCreateDto>>> CreateAssociation(AssociationCreateDto newAssociation)
         {
-            return Ok(_associationService.CreateAssociation(newAssociation));
+            return Ok(await _associationService.CreateAssociation(newAssociation));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<AssociationGetAllDto> GetAssociationById(int id)
+        public async Task<ActionResult<AssociationGetAllDto>> GetAssociationById(int id)
         {
-            return Ok(_associationService.GetAssociationById(id));
+            return Ok(await _associationService.GetAssociationById(id));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<AssociationGetAllDto> UpdateAssociation(int id, AssociationUpdateDto associationUpdateDto)
+        public async Task<ActionResult<AssociationGetAllDto>> UpdateAssociation(int id, AssociationUpdateDto associationUpdateDto)
         {
-            return Ok(_associationService.UpdateAssociation(id, associationUpdateDto));
+            return Ok(await _associationService.UpdateAssociation(id, associationUpdateDto));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<AssociationGetAllDto>> DeleteAssociation(int id)
+        public async Task<ActionResult<List<AssociationGetAllDto>>> DeleteAssociation(int id)
         {
-            return Ok(_associationService.DeleteAssociation(id));
+            return Ok(await _associationService.DeleteAssociation(id));
         }
     }
 }
