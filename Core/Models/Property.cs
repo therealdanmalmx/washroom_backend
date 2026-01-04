@@ -10,5 +10,5 @@ public class Property
     public string City { get; set; } = string.Empty;
     public int PropertyAdministrationId { get; set; }
     public int AdssociationManagerId { get; set; }
-    public DateTime CreatedAt { get; set; } =  DateTime.Now;
+    public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }
