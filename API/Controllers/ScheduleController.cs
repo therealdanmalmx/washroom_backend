@@ -30,7 +30,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ScheduleGetAllDto>>? GetScheduleById(int id)
+        public async Task<ActionResult<ScheduleGetAllDto>>? GetScheduleById(Guid id)
         {
             var result = await _scheduleService.GetScheduleById(id);
             if (result == null)
@@ -41,7 +41,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<ScheduleGetAllDto>>>? UpdateSchedule(int id, ScheduleUpdateDto updateSchedule)
+        public async Task<ActionResult<List<ScheduleGetAllDto>>>? UpdateSchedule(Guid id, ScheduleUpdateDto updateSchedule)
         {
             var result = await _scheduleService.UpdateSchedules(id, updateSchedule);
             if(result == null)
@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<ScheduleGetAllDto>>>? DeleteSchedule(int id)
+        public async Task<ActionResult<List<ScheduleGetAllDto>>>? DeleteSchedule(Guid id)
         {
             var result = await _scheduleService.DeleteSchedules(id);
             if (result == null)

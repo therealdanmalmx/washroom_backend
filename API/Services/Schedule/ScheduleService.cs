@@ -26,7 +26,7 @@ public class ScheduleService : IScheduleService
         return result.Adapt<List<ScheduleGetAllDto>>();
     }
 
-    public async Task<ScheduleGetAllDto>? GetScheduleById(int id)
+    public async Task<ScheduleGetAllDto>? GetScheduleById(Guid id)
     {
         var result = await _scheduleRepository.GetScheduleById(id);
         if (result == null)
@@ -36,7 +36,7 @@ public class ScheduleService : IScheduleService
         return result.Adapt<ScheduleGetAllDto>();
     }
 
-    public async Task<List<ScheduleGetAllDto>> UpdateSchedules(int id, ScheduleUpdateDto updateSchedule)
+    public async Task<List<ScheduleGetAllDto>> UpdateSchedules(Guid id, ScheduleUpdateDto updateSchedule)
     {
         var scheduleToUpdate = updateSchedule.Adapt<Core.Models.Schedule>();
         var result = await _scheduleRepository.UpdateSchedule(id, scheduleToUpdate);
@@ -47,7 +47,7 @@ public class ScheduleService : IScheduleService
         return result.Adapt<List<ScheduleGetAllDto>>();
     }
 
-    public async Task<List<ScheduleGetAllDto>> DeleteSchedules(int id)
+    public async Task<List<ScheduleGetAllDto>> DeleteSchedules(Guid id)
     {
         var  scheduleToDelete = await _scheduleRepository.DeleteSchedule(id);
         if (scheduleToDelete == null)

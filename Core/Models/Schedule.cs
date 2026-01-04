@@ -2,10 +2,10 @@ namespace Core.Models;
 
 public class Schedule
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.CreateVersion7();
     public string Description { get; set; } =  string.Empty;
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
-    public int ScheduleStatusId { get; set; }
+    public Guid ScheduleStatusId { get; set; }
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }
