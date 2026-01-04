@@ -6,5 +6,5 @@ public class TenantWashroomBooking
     public DateOnly Date { get; set; }
     public int TenantId { get; set; }
     public int WashroomScheduleId { get; set; }
-    public DateTime CreatedAt { get; set; } =  DateTime.Now;
+    public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }
