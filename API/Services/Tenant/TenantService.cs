@@ -13,22 +13,22 @@ public class TenantService : ITenantService
         _tenantRepository = tenantRepository;
     }
 
-    public List<TenantGetAllDto> GetAllTenants()
+    public async Task<List<TenantGetAllDto>> GetAllTenants()
     {
-        var result = _tenantRepository.GetAllTenant();
+        var result = await _tenantRepository.GetAllTenant();
         return result.Adapt<List<TenantGetAllDto>>();
     }
 
-    public List<TenantGetAllDto> CreateTenant(TenantCreateDto newTenant)
+    public async Task<List<TenantGetAllDto>> CreateTenant(TenantCreateDto newTenant)
     {
         var newTentantEntry = newTenant.Adapt<Core.Models.Tenant>();
-        var result = _tenantRepository.CreateTenant(newTentantEntry);
+        var result = await _tenantRepository.CreateTenant(newTentantEntry);
         return result.Adapt<List<TenantGetAllDto>>();
     }
 
-    public TenantGetAllDto? GetTenantById(int id)
+    public async Task<TenantGetAllDto>? GetTenantById(int id)
     {
-        var result = _tenantRepository.GetTenantById(id);
+        var result = await _tenantRepository.GetTenantById(id);
         if (result == null)
         {
             return null;
@@ -36,10 +36,10 @@ public class TenantService : ITenantService
         return result.Adapt<TenantGetAllDto>();
     }
 
-    public List<TenantGetAllDto>? UpdateTenant(int id, TenantUpdateDto updatedTenant)
+    public async Task<List<TenantGetAllDto>>? UpdateTenant(int id, TenantUpdateDto updatedTenant)
     {
         var tenantToUpdate = updatedTenant.Adapt<Core.Models.Tenant>();
-        var result = _tenantRepository.UpdateTenant(id, tenantToUpdate);
+        var result = await _tenantRepository.UpdateTenant(id, tenantToUpdate);
         if (result == null)
         {
             return null;
@@ -47,9 +47,9 @@ public class TenantService : ITenantService
         return result.Adapt<List<TenantGetAllDto>>();
     }
 
-    public List<TenantGetAllDto>? DeleteTenant(int id)
+    public async Task<List<TenantGetAllDto>>? DeleteTenant(int id)
     {
-        var result = _tenantRepository.DeleteTenant(id);
+        var result = await _tenantRepository.DeleteTenant(id);
         if (result == null)
         {
             return null;
