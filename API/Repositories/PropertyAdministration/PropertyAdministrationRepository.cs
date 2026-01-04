@@ -1,33 +1,26 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class PropertyAdministrationRepository : IPropertyAdministrationRepository
 {
-    private List<PropertyAdministration> _propertyAdministrations =
-    [
-        new PropertyAdministration
-        {
-            Id = 1,
-            Name = "HSB",
-            Logo = "https://www.hsb.se/contentassets/2ba369972d73485598f9c965076774cc/logo_apsis.jpg",
-        },
-        new PropertyAdministration
-        {
-            Id = 2,
-            Name = "Riksbyggen",
-            Logo =
-                "https://mnd-assets.mynewsdesk.com/image/upload/c_fill,dpr_auto,f_auto,g_xy_center,q_auto:good,w_1782,x_299,y_207/0wwly1zv6uf8oro3hq4sj6",
-        },
-    ];
-    public List<PropertyAdministration> GetAllPropertyAdministrations()
+    private readonly DataContext _dB;
+    
+    public PropertyAdministrationRepository(DataContext dB)
     {
-        return _propertyAdministrations;
+        _dB = dB;
+    }
+    
+    public async Task<List<PropertyAdministration>> GetAllPropertyAdministrations()
+    {
+        return await _dB.PropertyAdministrations.ToListAsync();
     }
 
-    public PropertyAdministration GetPropertyAdministration(int id)
+    public async Task<PropertyAdministration> GetPropertyAdministration(int id)
     {
-        var singlePropertyAdministration =  _propertyAdministrations.FirstOrDefault(p => p.Id == id);
+        var singlePropertyAdministration = await _dB.PropertyAdministrations.FindAsync(id);
         if (singlePropertyAdministration == null)
         {
             return null;
@@ -36,31 +29,43 @@ public class PropertyAdministrationRepository : IPropertyAdministrationRepositor
         return singlePropertyAdministration;
     }
 
-    public List<PropertyAdministration> CreatePropertyAdministration(PropertyAdministration newPropertyAdministration)
+    public async Task<List<PropertyAdministration>> CreatePropertyAdministration(PropertyAdministration newPropertyAdministration)
     {
-        _propertyAdministrations.Add(newPropertyAdministration);
-        return _propertyAdministrations;
+        _dB.PropertyAdministrations.Add(newPropertyAdministration);
+        await _dB.SaveChangesAsync();
+        return await _dB.PropertyAdministrations.ToListAsync();
     }
 
-    public List<PropertyAdministration>? UpdatePropertyAdministration(int id, PropertyAdministration updatePropertyAdministration)
+    public async Task<List<PropertyAdministration>>? UpdatePropertyAdministration(int id, PropertyAdministration updatePropertyAdministration)
     {
-        var propertyAdministrationToUpdateIndex = _propertyAdministrations.FindIndex(pa => pa.Id == id);
-        if (propertyAdministrationToUpdateIndex == -1)
+        var propertyAdministrationToUpdate = await _dB.PropertyAdministrations.FindAsync(id);
+        if (propertyAdministrationToUpdate == null)
         {
             return null;
         }
-        _propertyAdministrations[propertyAdministrationToUpdateIndex] = updatePropertyAdministration;
-        return _propertyAdministrations;
+
+        if (!string.IsNullOrWhiteSpace(updatePropertyAdministration.Name))
+        {
+            propertyAdministrationToUpdate.Name = updatePropertyAdministration.Name;
+        }
+        if (!string.IsNullOrWhiteSpace(updatePropertyAdministration.Logo))
+        {
+            propertyAdministrationToUpdate.Logo = updatePropertyAdministration.Logo;
+        }
+        
+        await _dB.SaveChangesAsync();
+        return await _dB.PropertyAdministrations.ToListAsync();
     }
 
-    public List<PropertyAdministration>? DeletePropertyAdministration(int id)
+    public async Task<List<PropertyAdministration>>? DeletePropertyAdministration(int id)
     {
-        var propertyAdministrationToDelete = _propertyAdministrations.FirstOrDefault(pa => pa.Id == id);
+        var propertyAdministrationToDelete = await _dB.PropertyAdministrations.FindAsync(id);
         if (propertyAdministrationToDelete == null)
         {
             return null;
         }
-        _propertyAdministrations.Remove(propertyAdministrationToDelete);
-        return _propertyAdministrations;
+        _dB.PropertyAdministrations.Remove(propertyAdministrationToDelete);
+        await _dB.SaveChangesAsync();
+        return await _dB.PropertyAdministrations.ToListAsync();
     }
 }
