@@ -7,5 +7,5 @@ public class Schedule
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
     public int ScheduleStatusId { get; set; }
-    public DateTime CreatedAt { get; set; } =  DateTime.Now;
+    public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }
