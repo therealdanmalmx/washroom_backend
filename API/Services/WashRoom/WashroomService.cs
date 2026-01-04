@@ -13,22 +13,22 @@ public class WashroomService : IWashroomService
         _washroomRepository = washroomRepository;
     }
 
-    public List<WashRoomGetAllDto> GetAllWashRooms()
+    public async Task<List<WashRoomGetAllDto>> GetAllWashRooms()
     {
-        var result = _washroomRepository.GetAllWashrooms();
+        var result = await _washroomRepository.GetAllWashrooms();
         return result.Adapt<List<WashRoomGetAllDto>>();
     }
 
-    public List<WashRoomGetAllDto> CreateWashRoom(WashRoomCreateDto newWashroom)
+    public async Task<List<WashRoomGetAllDto>> CreateWashRoom(WashRoomCreateDto newWashroom)
     {
         var newWashroomEntry =  newWashroom.Adapt<Core.Models.WashRoom>();
-        var result = _washroomRepository.CrateWashrooms(newWashroomEntry);
+        var result = await _washroomRepository.CreateWashrooms(newWashroomEntry);
         return result.Adapt<List<WashRoomGetAllDto>>();
     }
 
-    public WashRoomGetAllDto? GetWashRoomById(int id)
+    public async Task<WashRoomGetAllDto>? GetWashRoomById(int id)
     {
-        var singleWashroom = _washroomRepository.GetWashroomById(id);
+        var singleWashroom = await _washroomRepository.GetWashroomById(id);
         if (singleWashroom == null)
         {
             return null;
@@ -36,10 +36,10 @@ public class WashroomService : IWashroomService
         return singleWashroom.Adapt<WashRoomGetAllDto>();
     }
 
-    public List<WashRoomGetAllDto>? UpdateWashRoom(int id, WashRoomUpdateDto updateWashroom)
+    public async Task<List<WashRoomGetAllDto>>? UpdateWashRoom(int id, WashRoomUpdateDto updateWashroom)
     {
         var washroomToUpdate = updateWashroom.Adapt<Core.Models.WashRoom>();
-        var result =  _washroomRepository.UpdateWashroom(id, washroomToUpdate);
+        var result =  await _washroomRepository.UpdateWashroom(id, washroomToUpdate);
         if (result == null)
         {
             return null;
@@ -47,9 +47,9 @@ public class WashroomService : IWashroomService
         return result.Adapt<List<WashRoomGetAllDto>>();
     }
 
-    public List<WashRoomGetAllDto>? DeleteWashRoom(int id)
+    public async Task<List<WashRoomGetAllDto>>? DeleteWashRoom(int id)
     {
-        var washroomToDelete = _washroomRepository.DeleteWashroom(id);
+        var washroomToDelete = await _washroomRepository.DeleteWashroom(id);
         if (washroomToDelete == null)
         {
             return null;

@@ -4,9 +4,9 @@ namespace API.Services.WashRoom;
 
 public interface IWashroomService
 {
-    List<WashRoomGetAllDto>  GetAllWashRooms();
-    List<WashRoomGetAllDto> CreateWashRoom(WashRoomCreateDto newWashroom);
-    WashRoomGetAllDto? GetWashRoomById(int id);
-    List<WashRoomGetAllDto>? UpdateWashRoom(int id, WashRoomUpdateDto updateWashroom);
-    List<WashRoomGetAllDto>? DeleteWashRoom(int id);
+    Task<List<WashRoomGetAllDto>>  GetAllWashRooms();
+    Task<List<WashRoomGetAllDto>> CreateWashRoom(WashRoomCreateDto newWashroom);
+    Task<WashRoomGetAllDto>? GetWashRoomById(int id);
+    Task<List<WashRoomGetAllDto>>? UpdateWashRoom(int id, WashRoomUpdateDto updateWashroom);
+    Task<List<WashRoomGetAllDto>>? DeleteWashRoom(int id);
 }
