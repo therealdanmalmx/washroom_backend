@@ -14,22 +14,22 @@ public class ScheduleStatusService : IScheduleStatusService
         _scheduleStatusRepository = scheduleStatusRepository;
     }
 
-    public List<ScheduleStatusGetAllDto> GetAllScheduleStatus()
+    public async Task<List<ScheduleStatusGetAllDto>> GetAllScheduleStatus()
     {
-        var result = _scheduleStatusRepository.GetAllScheduleStatus();
+        var result = await _scheduleStatusRepository.GetAllScheduleStatus();
         return result.Adapt<List<ScheduleStatusGetAllDto>>();
     }
 
-    public List<ScheduleStatusGetAllDto> CreateScheduleStatus(ScheduleStatusCreateDto newScheduleStatus)
+    public async Task<List<ScheduleStatusGetAllDto>> CreateScheduleStatus(ScheduleStatusCreateDto newScheduleStatus)
     {
         var newScheduleStatusEntry = newScheduleStatus.Adapt<ScheduleStatus>();
-        var result = _scheduleStatusRepository.CreateScheduleStatus(newScheduleStatusEntry);
+        var result = await _scheduleStatusRepository.CreateScheduleStatus(newScheduleStatusEntry);
         return result.Adapt<List<ScheduleStatusGetAllDto>>();
     }
 
-    public ScheduleStatusGetAllDto? GetScheduleStatusById(int id)
+    public async Task<ScheduleStatusGetAllDto>? GetScheduleStatusById(int id)
     {
-        var result = _scheduleStatusRepository.GetScheduleStatusById(id);
+        var result = await _scheduleStatusRepository.GetScheduleStatusById(id);
         if (result == null)
         {
             return null;
@@ -37,10 +37,10 @@ public class ScheduleStatusService : IScheduleStatusService
         return result.Adapt<ScheduleStatusGetAllDto>();
     }
 
-    public List<ScheduleStatusGetAllDto>? UpdateScheduleStatus(int id, ScheduleStatusUpdateDto newScheduleStatus)
+    public async Task<List<ScheduleStatusGetAllDto>>? UpdateScheduleStatus(int id, ScheduleStatusUpdateDto newScheduleStatus)
     {
         var scheduleStatusUpdate = newScheduleStatus.Adapt<ScheduleStatus>();
-        var result = _scheduleStatusRepository.UpdateScheduleStatus(id, scheduleStatusUpdate);
+        var result = await _scheduleStatusRepository.UpdateScheduleStatus(id, scheduleStatusUpdate);
         if (result == null)
         {
             return null;
@@ -48,9 +48,9 @@ public class ScheduleStatusService : IScheduleStatusService
         return result.Adapt<List<ScheduleStatusGetAllDto>>();
     }
 
-    public List<ScheduleStatusGetAllDto>? DeleteScheduleStatus(int id)
+    public async Task<List<ScheduleStatusGetAllDto>>? DeleteScheduleStatus(int id)
     {
-        var scheduleStatusDelete = _scheduleStatusRepository.DeleteScheduleStatus(id);
+        var scheduleStatusDelete = await _scheduleStatusRepository.DeleteScheduleStatus(id);
         if (scheduleStatusDelete == null)
         {
             return null;
