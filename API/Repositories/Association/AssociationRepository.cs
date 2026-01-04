@@ -25,7 +25,7 @@ public class AssociationRepository : IAssociationRepository
         return await _dB.Associations.ToListAsync();
     }
 
-    public async Task<Association>? GetAssociationById(int id)
+    public async Task<Association>? GetAssociationById(Guid id)
     {
         var singleAssociation = await _dB.Associations.FindAsync(id);
         if (singleAssociation == null)
@@ -36,7 +36,7 @@ public class AssociationRepository : IAssociationRepository
         
     }
 
-    public async Task<List<Association>>? UpdateAssociation(int id, Association association)
+    public async Task<List<Association>>? UpdateAssociation(Guid id, Association association)
     {
         var associationToUpdate = await _dB.Associations.FindAsync(id);
         if (associationToUpdate != null)
@@ -53,7 +53,7 @@ public class AssociationRepository : IAssociationRepository
 
     }
 
-    public async Task<List<Association>>? DeleteAssociation(int id)
+    public async Task<List<Association>>? DeleteAssociation(Guid id)
     {
         var associationToDelete = await _dB.Associations.FindAsync(id);
         if (associationToDelete == null)

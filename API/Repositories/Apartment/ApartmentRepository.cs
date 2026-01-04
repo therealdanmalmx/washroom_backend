@@ -24,7 +24,7 @@ public class ApartmentRepository : IApartmentRepository
         return await _dB.Apartments.ToListAsync();
     }
 
-    public async Task<Apartment>? GetApartment(int id)
+    public async Task<Apartment>? GetApartment(Guid id)
     {
         var singleApartment = await _dB.Apartments.FindAsync(id);
         if (singleApartment == null)
@@ -34,7 +34,7 @@ public class ApartmentRepository : IApartmentRepository
         return singleApartment;
     }
 
-    public async Task<List<Apartment>>? UpdateApartment(int id, Apartment updateApartment)
+    public async Task<List<Apartment>>? UpdateApartment(Guid id, Apartment updateApartment)
     {
         var dBApartmentEntry = await _dB.Apartments.FindAsync(id);
 
@@ -52,7 +52,7 @@ public class ApartmentRepository : IApartmentRepository
         return await _dB.Apartments.ToListAsync();
     }
 
-    public async Task<List<Apartment>>? DeleteApartment(int id)
+    public async Task<List<Apartment>>? DeleteApartment(Guid id)
     {
         var result = await _dB.Apartments.FindAsync(id);
         if (result == null)

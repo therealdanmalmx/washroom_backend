@@ -28,19 +28,19 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AssociationGetAllDto>> GetAssociationById(int id)
+        public async Task<ActionResult<AssociationGetAllDto>> GetAssociationById(Guid id)
         {
             return Ok(await _associationService.GetAssociationById(id));
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<AssociationGetAllDto>> UpdateAssociation(int id, AssociationUpdateDto associationUpdateDto)
+        public async Task<ActionResult<AssociationGetAllDto>> UpdateAssociation(Guid id, AssociationUpdateDto associationUpdateDto)
         {
             return Ok(await _associationService.UpdateAssociation(id, associationUpdateDto));
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<AssociationGetAllDto>>> DeleteAssociation(int id)
+        public async Task<ActionResult<List<AssociationGetAllDto>>> DeleteAssociation(Guid id)
         {
             return Ok(await _associationService.DeleteAssociation(id));
         }

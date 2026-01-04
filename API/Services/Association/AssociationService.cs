@@ -36,7 +36,7 @@ public class AssociationService : IAssociationService
         return  result.Adapt<List<AssociationCreateDto>>(); 
     }
 
-    public async Task<AssociationCreateDto>? GetAssociationById(int id)
+    public async Task<AssociationCreateDto>? GetAssociationById(Guid id)
     {
        var singleAssociation = await _associationRepository.GetAssociationById(id);
        if (singleAssociation == null)
@@ -46,7 +46,7 @@ public class AssociationService : IAssociationService
        return singleAssociation.Adapt<AssociationCreateDto>();
     }
 
-    public async Task<List<AssociationUpdateDto>> UpdateAssociation(int id, AssociationUpdateDto association)
+    public async Task<List<AssociationUpdateDto>> UpdateAssociation(Guid id, AssociationUpdateDto association)
     {
         var associationToUpdate = association.Adapt<Core.Models.Association>();
         var result = await _associationRepository.UpdateAssociation(id, associationToUpdate);
@@ -58,7 +58,7 @@ public class AssociationService : IAssociationService
         
     }
 
-    public async Task<List<AssociationGetAllDto>>? DeleteAssociation(int id)
+    public async Task<List<AssociationGetAllDto>>? DeleteAssociation(Guid id)
     {
         var result = await _associationRepository.DeleteAssociation(id);
 
