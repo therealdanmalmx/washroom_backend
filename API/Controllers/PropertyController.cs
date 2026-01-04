@@ -29,19 +29,19 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PropertyGetAllDto>> GetPropertyById(int id)
+        public async Task<ActionResult<PropertyGetAllDto>> GetPropertyById(Guid id)
         {
             return Ok(await _propertyService.GetPropertyById(id));
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<PropertyGetAllDto>> UpdateProperty(int id, PropertyUpdateDto propertyUpdateDto)
+        public async Task<ActionResult<PropertyGetAllDto>> UpdateProperty(Guid id, PropertyUpdateDto propertyUpdateDto)
         {
             return Ok(await _propertyService.UpdateProperty(id, propertyUpdateDto));
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<PropertyGetAllDto>> DeleteProperty(int id)
+        public async Task<ActionResult<PropertyGetAllDto>> DeleteProperty(Guid id)
         {
             return Ok(await _propertyService.DeleteProperty(id));
         }

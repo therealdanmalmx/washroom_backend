@@ -25,7 +25,7 @@ public class PropertyRepository : IPropertyRepository
         return await _dB.Properties.ToListAsync();
     }
 
-    public async Task<Property>? GetPropertyById(int id)
+    public async Task<Property>? GetPropertyById(Guid id)
     {
         var result = await _dB.Properties.FindAsync(id);
         if (result == null)
@@ -35,7 +35,7 @@ public class PropertyRepository : IPropertyRepository
         return result;
     }
 
-    public async Task<List<Property>>? UpdateProperty(int id, Property property)
+    public async Task<List<Property>>? UpdateProperty(Guid id, Property property)
     {
         var propertyToUpdate = await _dB.Properties.FindAsync(id);
         if (propertyToUpdate == null)
@@ -68,7 +68,7 @@ public class PropertyRepository : IPropertyRepository
         return await _dB.Properties.ToListAsync();
     }
 
-    public async Task<List<Property>>? DeleteProperty(int id)
+    public async Task<List<Property>>? DeleteProperty(Guid id)
     {
         var result = await _dB.Properties.FindAsync(id);
         if (result == null)
