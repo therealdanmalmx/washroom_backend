@@ -4,9 +4,9 @@ namespace API.Repositories;
 
 public interface IAssociationManagerRepository
 {
-    List<AssociationManager> GetAssociationManagers();
-    List<AssociationManager> CreateAssociationManager(AssociationManager newAssociationManager);
-    AssociationManager? GetAssociationManagerById(int id);
-    List<AssociationManager>? UpdateAssociationManager(int id, AssociationManager updateAssociationManager);
-    List<AssociationManager>? DeleteAssociationManager(int id);
+    Task<List<AssociationManager>> GetAssociationManagers();
+    Task<List<AssociationManager>> CreateAssociationManager(AssociationManager newAssociationManager);
+    Task<AssociationManager>? GetAssociationManagerById(int id);
+    Task<List<AssociationManager>>? UpdateAssociationManager(int id, AssociationManager updateAssociationManager);
+    Task<List<AssociationManager>>? DeleteAssociationManager(int id);
 }
