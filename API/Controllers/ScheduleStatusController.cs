@@ -16,22 +16,22 @@ namespace API.Controllers
         }
         
         [HttpGet]
-        public ActionResult<List<ScheduleStatusGetAllDto>> GetAllScheduleStatus()
+        public async Task<ActionResult<List<ScheduleStatusGetAllDto>>> GetAllScheduleStatus()
         {
-            return Ok(_scheduleStatusService.GetAllScheduleStatus());
+            return Ok(await _scheduleStatusService.GetAllScheduleStatus());
         }
 
         [HttpPost]
-        public ActionResult<List<ScheduleStatusGetAllDto>> CreateScheduleStatus(int id,
+        public async Task<ActionResult<List<ScheduleStatusGetAllDto>>> CreateScheduleStatus(int id,
             ScheduleStatusCreateDto newScheduleStatus)
         {
-            return Ok(_scheduleStatusService.CreateScheduleStatus(newScheduleStatus));
+            return Ok(await _scheduleStatusService.CreateScheduleStatus(newScheduleStatus));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ScheduleStatusGetAllDto> GetScheduleStatus(int id)
+        public async Task<ActionResult<ScheduleStatusGetAllDto>> GetScheduleStatus(int id)
         {
-            var result = _scheduleStatusService.GetScheduleStatusById((id));
+            var result = await _scheduleStatusService.GetScheduleStatusById((id));
             if (result == null)
             {
                 return NotFound();
@@ -40,10 +40,10 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<ScheduleStatusGetAllDto>> UpdateScheduleStatus(int id,
+        public async Task<ActionResult<List<ScheduleStatusGetAllDto>>> UpdateScheduleStatus(int id,
             ScheduleStatusUpdateDto newScheduleStatus)
         {
-            var result = _scheduleStatusService.UpdateScheduleStatus(id, newScheduleStatus);
+            var result = await _scheduleStatusService.UpdateScheduleStatus(id, newScheduleStatus);
             if (result == null)
             {
                 return NotFound();
@@ -52,9 +52,9 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<ScheduleStatusGetAllDto>> DeleteScheduleStatus(int id)
+        public async Task<ActionResult<List<ScheduleStatusGetAllDto>>> DeleteScheduleStatus(int id)
         {
-            var result = _scheduleStatusService.DeleteScheduleStatus(id);
+            var result = await _scheduleStatusService.DeleteScheduleStatus(id);
             if (result == null)
             {
                 return NotFound();

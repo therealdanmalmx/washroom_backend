@@ -1,38 +1,31 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class WashroomscheduleRepository : IWashoomscheduleRepository
 {
-    private List<WashRoomSchedule> _washRoomSchedules =
-    [
-        new WashRoomSchedule()
-        {
-            Id = 1,
-            ScheduleId = 1,
-            WashRoomId = 1,
-        },
-        new WashRoomSchedule()
-        {
-            Id = 2,
-            ScheduleId = 2,
-            WashRoomId = 2,
-        }
-    ];
-    public List<WashRoomSchedule> GetAllWashRoomSchedules()
+    private readonly DataContext _dB;
+    public WashroomscheduleRepository(DataContext dB)
     {
-        return _washRoomSchedules;
+        _dB = dB;
+    }
+    public async Task<List<WashRoomSchedule>> GetAllWashRoomSchedules()
+    {
+        return await _dB.WashRoomSchedules.ToListAsync();
     }
 
-    public List<WashRoomSchedule> CreateWashRoomSchedules(WashRoomSchedule newWashRoomSchedule)
+    public async Task<List<WashRoomSchedule>> CreateWashRoomSchedules(WashRoomSchedule newWashRoomSchedule)
     {
-        _washRoomSchedules.Add(newWashRoomSchedule);
-        return _washRoomSchedules;
+        _dB.WashRoomSchedules.Add(newWashRoomSchedule);
+        await _dB.SaveChangesAsync();
+        return await _dB.WashRoomSchedules.ToListAsync();
     }
 
-    public WashRoomSchedule? GetWashRoomScheduleById(int id)
+    public async Task<WashRoomSchedule>? GetWashRoomScheduleById(int id)
     {
-        var result = _washRoomSchedules.FirstOrDefault(x => x.Id == id);
+        var result = await _dB.WashRoomSchedules.FindAsync(id);
         if (result == null)
         {
             return null;
@@ -40,25 +33,30 @@ public class WashroomscheduleRepository : IWashoomscheduleRepository
         return result;
     }
 
-    public List<WashRoomSchedule>? UpdateWashRoomSchedule(int id, WashRoomSchedule updateWashRoomSchedule)
+    public async Task<List<WashRoomSchedule>>? UpdateWashRoomSchedule(int id, WashRoomSchedule updateWashRoomSchedule)
     {
-        var washRoomScheduleToUpdateIndex = _washRoomSchedules.FindIndex(x => x.Id == id);
-        if (washRoomScheduleToUpdateIndex == -1)
+        var washRoomScheduleToUpdate = await _dB.WashRoomSchedules.FindAsync(id);
+        if (washRoomScheduleToUpdate == null)
         {
             return null;
         }
-        _washRoomSchedules[washRoomScheduleToUpdateIndex] = updateWashRoomSchedule;
-        return _washRoomSchedules;
+        washRoomScheduleToUpdate.ScheduleId = updateWashRoomSchedule.ScheduleId;
+        washRoomScheduleToUpdate.WashRoomId = updateWashRoomSchedule.WashRoomId;
+        
+        await _dB.SaveChangesAsync();
+        return await _dB.WashRoomSchedules.ToListAsync();
     }
 
-    public List<WashRoomSchedule>? DeleteWashRoomSchedule(int id)
+    public async Task<List<WashRoomSchedule>>? DeleteWashRoomSchedule(int id)
     {
-        var washRoomScheduleToDelte =  _washRoomSchedules.FirstOrDefault(x => x.Id == id);
+        var washRoomScheduleToDelte = await _dB.WashRoomSchedules.FindAsync(id);
         if (washRoomScheduleToDelte == null)
         {
             return null;
         }
-        _washRoomSchedules.Remove(washRoomScheduleToDelte);
-        return _washRoomSchedules;
+        
+        _dB.WashRoomSchedules.Remove(washRoomScheduleToDelte);
+        await _dB.SaveChangesAsync();
+        return await _dB.WashRoomSchedules.ToListAsync();
     }
 }

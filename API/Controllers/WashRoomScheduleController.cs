@@ -16,22 +16,22 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<WashRoomScheduleGetAllDto>> GetAllWashRoomSchedule()
+        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> GetAllWashRoomSchedule()
         {
-            return Ok(_washroomScheduleService.GetAllWashRoomSchedules());
+            return Ok(await _washroomScheduleService.GetAllWashRoomSchedules());
         }
 
         [HttpPost]
-        public ActionResult<List<WashRoomScheduleGetAllDto>> CreateWashroomSchedule(
+        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> CreateWashroomSchedule(
             WashRoomScheduleCreateDto newWashRoomSchedule)
         {
-            return Ok(_washroomScheduleService.CreateWashRoomSchedules(newWashRoomSchedule));
+            return Ok(await _washroomScheduleService.CreateWashRoomSchedules(newWashRoomSchedule));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<WashRoomScheduleGetAllDto> GetWashRoomSchedule(int id)
+        public async Task<ActionResult<WashRoomScheduleGetAllDto>> GetWashRoomSchedule(int id)
         {
-            var result = _washroomScheduleService.GetWashRoomScheduleById(id);
+            var result = await _washroomScheduleService.GetWashRoomScheduleById(id);
             if (result == null)
             {
                 return NotFound();
@@ -40,10 +40,10 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<WashRoomScheduleGetAllDto>> UpdateWashroomSchedule(int id,
+        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> UpdateWashroomSchedule(int id,
             WashRoomScheduleUpdateDto newWashRoomSchedule)
         {
-            var result =  _washroomScheduleService.GetWashRoomScheduleById(id);
+            var result = await _washroomScheduleService.GetWashRoomScheduleById(id);
             if (result == null)
             {
                 return NotFound();
@@ -52,9 +52,9 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<WashRoomScheduleGetAllDto>> DeleteWashroomSchedule(int id)
+        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> DeleteWashroomSchedule(int id)
         {
-            var result = _washroomScheduleService.DeleteWashRoomSchedules(id);
+            var result = await _washroomScheduleService.DeleteWashRoomSchedules(id);
             if (result == null)
             {
                 return NotFound();

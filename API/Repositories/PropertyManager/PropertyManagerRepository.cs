@@ -1,44 +1,33 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
 {
     public class PropertyManagerRepository : IPropertyManagerRepository
     {
-        readonly List<PropertyManager> _propertyManagers =
-        [
-            new PropertyManager
-            {
-                Id = 1,
-                Name = "Niklas Lundqvist",
-                Phone = "0704568754",
-                Email = "niklas.lundqvist@hsb.com",
-                PropertyAdministrationId = 2
-            },
-
-            new PropertyManager
-            {
-                Id = 2,
-                Name = "Berit Andersson",
-                Phone = "0773424466",
-                Email = "berit.lundqvist@riksbyggen.com",
-                PropertyAdministrationId = 1
-            }
-        ];
         
-        public List<PropertyManager> GetAllPropertyManagers()
+        private readonly DataContext _dB;
+        public PropertyManagerRepository(DataContext dB)
         {
-            return _propertyManagers;
+            _dB = dB;
         }
 
-        public List<PropertyManager> CreatePropertyManager(PropertyManager newPropertyManager)
+        public async Task<List<PropertyManager>> GetAllPropertyManagers()
         {
-            _propertyManagers.Add(newPropertyManager);
-           return _propertyManagers;
+            return await _dB.PropertyManagers.ToListAsync();
         }
 
-        public PropertyManager? GetPropertyManagerById(int id)
+        public async Task<List<PropertyManager>> CreatePropertyManager(PropertyManager newPropertyManager)
         {
-            var singlePropertyManager = _propertyManagers.FirstOrDefault(pm => pm.Id == id);
+            _dB.PropertyManagers.Add(newPropertyManager);
+            await _dB.SaveChangesAsync();
+            return await _dB.PropertyManagers.ToListAsync();
+        }
+
+        public async Task<PropertyManager>? GetPropertyManagerById(int id)
+        {
+            var singlePropertyManager = await _dB.PropertyManagers.FindAsync(id);
             if (singlePropertyManager == null)
             {
                 return null;
@@ -47,25 +36,45 @@ namespace API.Repositories
             return singlePropertyManager;
         }
 
-        public List<PropertyManager>? UpdatePropertyManager(int id, PropertyManager updatePropertyManager)
+        public async Task<List<PropertyManager>>? UpdatePropertyManager(int id, PropertyManager updatePropertyManager)
         {
-            var propertyManagerToUpdateIndex = _propertyManagers.FindIndex(pa => pa.Id == id);
-            if (propertyManagerToUpdateIndex == -1)
+            var propertyManagerToUpdate = await _dB.PropertyManagers.FindAsync(id);
+            if (propertyManagerToUpdate == null)
             {
                 return null;
             }
-            _propertyManagers[propertyManagerToUpdateIndex] = updatePropertyManager;
-            return _propertyManagers;        }
 
-        public List<PropertyManager>? DeletePropertyManager(int id)
+            if (!string.IsNullOrWhiteSpace(updatePropertyManager.Name))
+            {
+                propertyManagerToUpdate.Name = updatePropertyManager.Name;
+            }
+            if (!string.IsNullOrWhiteSpace(updatePropertyManager.Email))
+            {
+                propertyManagerToUpdate.Email = updatePropertyManager.Email;
+            }
+            if (!string.IsNullOrWhiteSpace(updatePropertyManager.Phone))
+            {
+                propertyManagerToUpdate.Phone = updatePropertyManager.Phone;
+            }
+            if (!string.IsNullOrWhiteSpace(updatePropertyManager.Name))
+            {
+                propertyManagerToUpdate.Name = updatePropertyManager.Name;
+            }
+            
+            await _dB.SaveChangesAsync();
+            return await _dB.PropertyManagers.ToListAsync();
+        }
+
+        public async Task<List<PropertyManager>>? DeletePropertyManager(int id)
         {
-            var propertyManagerToDelete = _propertyManagers.FirstOrDefault(pm => pm.Id == id);
+            var propertyManagerToDelete = await _dB.PropertyManagers.FindAsync(id);
             if (propertyManagerToDelete == null)
             {
-            return null;
+                return null;
             }
-            _propertyManagers.Remove(propertyManagerToDelete);
-            return _propertyManagers;
+            _dB.PropertyManagers.Remove(propertyManagerToDelete);
+            await _dB.SaveChangesAsync();
+            return await _dB.PropertyManagers.ToListAsync();
         }
     }
 }

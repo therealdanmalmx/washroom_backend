@@ -13,22 +13,22 @@ public class PropertyManagerService : IPropertyManagerService
         _propertyManagerRepository = propertyManagerRepository;
     }
 
-    public List<PropertyManagerGetAllDto> GetAllPropertyManagers()
+    public async Task<List<PropertyManagerGetAllDto>> GetAllPropertyManagers()
     {
-        var result = _propertyManagerRepository.GetAllPropertyManagers();
+        var result = await _propertyManagerRepository.GetAllPropertyManagers();
         return result.Adapt<List<PropertyManagerGetAllDto>>();;
     }
 
-    public List<PropertyManagerGetAllDto> CreatePropertyManager(PropertyManagerCreateDto newPropertyManager)
+    public async Task<List<PropertyManagerGetAllDto>> CreatePropertyManager(PropertyManagerCreateDto newPropertyManager)
     {
         var newEntry = newPropertyManager.Adapt<Core.Models.PropertyManager>();
-        var result = _propertyManagerRepository.CreatePropertyManager(newEntry);
+        var result = await _propertyManagerRepository.CreatePropertyManager(newEntry);
         return result.Adapt<List<PropertyManagerGetAllDto>>();
     }
 
-    public PropertyManagerGetAllDto GetPropertyManagerById(int id)
+    public async Task<PropertyManagerGetAllDto> GetPropertyManagerById(int id)
     {
-        var result = _propertyManagerRepository.GetPropertyManagerById(id);
+        var result = await _propertyManagerRepository.GetPropertyManagerById(id);
         if (result == null)
         {
             return null;
@@ -36,11 +36,11 @@ public class PropertyManagerService : IPropertyManagerService
         return result.Adapt<PropertyManagerGetAllDto>();
     }
 
-    public List<PropertyManagerGetAllDto>? UpdatePropertyManager(int id, PropertyManagerUpdateDto updatePropertyManager)
+    public async Task<List<PropertyManagerGetAllDto>>? UpdatePropertyManager(int id, PropertyManagerUpdateDto updatePropertyManager)
     {
         var propertyManagerToUpdate = updatePropertyManager.Adapt<Core.Models.PropertyManager>();
 
-        var result = _propertyManagerRepository.UpdatePropertyManager(id, propertyManagerToUpdate);
+        var result = await _propertyManagerRepository.UpdatePropertyManager(id, propertyManagerToUpdate);
 
         if (result == null)
         {
@@ -49,7 +49,7 @@ public class PropertyManagerService : IPropertyManagerService
         return result.Adapt<List<PropertyManagerGetAllDto>>();
     }
 
-    public List<PropertyManagerGetAllDto>? DeletePropertyManager(int id)
+    public async Task<List<PropertyManagerGetAllDto>>? DeletePropertyManager(int id)
     {
         var propertyAdministrationToUpdate = _propertyManagerRepository.DeletePropertyManager(id);
         

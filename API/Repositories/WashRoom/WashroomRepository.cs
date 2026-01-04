@@ -1,39 +1,32 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class WashroomRepository : IWashroomRepository
 {
-    private List<WashRoom> _washRooms =
-    [
-        new WashRoom()
-        {
-            Id = 1,
-            Name = "Tvättrum 1",
-            PropertyId = 1
-        },
-        new WashRoom()
-        {
-            Id = 2,
-            Name = "Tvättrum 2",
-            PropertyId = 2
-        }
-    ];
-    
-    public List<WashRoom> GetAllWashrooms()
+    private readonly DataContext _dB;
+    public WashroomRepository(DataContext dB)
     {
-        return _washRooms;
+        _dB = dB;
     }
 
-    public List<WashRoom> CrateWashrooms(WashRoom newWashroom)
+    public async Task<List<WashRoom>> GetAllWashrooms()
     {
-        _washRooms.Add(newWashroom);
-        return _washRooms;
+        return await _dB.WashRooms.ToListAsync();
     }
 
-    public WashRoom? GetWashroomById(int id)
+    public async Task<List<WashRoom>> CreateWashrooms(WashRoom newWashroom)
     {
-        var result = _washRooms.FirstOrDefault(w => w.Id == id);
+        _dB.WashRooms.Add(newWashroom);
+        await _dB.SaveChangesAsync();
+        return await _dB.WashRooms.ToListAsync();
+    }
+
+    public async Task<WashRoom>? GetWashroomById(int id)
+    {
+        var result = await _dB.WashRooms.FindAsync(id);
         if (result == null)
         {
             return null;
@@ -41,25 +34,32 @@ public class WashroomRepository : IWashroomRepository
         return result;
     }
 
-    public List<WashRoom>? UpdateWashroom(int id, WashRoom updateWashroom)
+    public async Task<List<WashRoom>>? UpdateWashroom(int id, WashRoom updateWashroom)
     {
-        var washroomTouUpdateIndex = _washRooms.FindIndex(w => w.Id == id);
-        if (washroomTouUpdateIndex == -1)
+        var washroomTouUpdate = await _dB.WashRooms.FindAsync(id);
+        if (washroomTouUpdate == null)
         {
             return null;
         }
-        _washRooms[washroomTouUpdateIndex] = updateWashroom;
-        return _washRooms;
+
+        if (!string.IsNullOrEmpty(updateWashroom.Name))
+        {
+            washroomTouUpdate.Name = updateWashroom.Name;
+        }
+
+        await _dB.SaveChangesAsync();
+        return await _dB.WashRooms.ToListAsync();
     }
 
-    public List<WashRoom>? DeleteWashroom(int id)
+    public async Task<List<WashRoom>>? DeleteWashroom(int id)
     {
-        var result = _washRooms.FirstOrDefault(w => w.Id == id);
+        var result = await _dB.WashRooms.FindAsync(id);
         if (result == null)
         {
             return null;
         }
-        _washRooms.Remove(result);
-        return _washRooms;
+        _dB.WashRooms.Remove(result);
+        await _dB.SaveChangesAsync();
+        return await _dB.WashRooms.ToListAsync();
     }
 }

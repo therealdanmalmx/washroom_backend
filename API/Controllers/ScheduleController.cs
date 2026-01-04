@@ -18,21 +18,21 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<ScheduleGetAllDto>> GetAlLSchedules()
+        public async Task<ActionResult<List<ScheduleGetAllDto>>> GetAlLSchedules()
         {
-            return Ok(_scheduleService.GetAllSchedules());
+            return Ok(await _scheduleService.GetAllSchedules());
         }
 
         [HttpPost]
-        public ActionResult<List<ScheduleGetAllDto>> CreateSchedule(ScheduleCreateDto newSchedule)
+        public async Task<ActionResult<List<ScheduleGetAllDto>>> CreateSchedule(ScheduleCreateDto newSchedule)
         {
-            return Ok(_scheduleService.CreateSchedule(newSchedule));
+            return Ok(await _scheduleService.CreateSchedule(newSchedule));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ScheduleGetAllDto>? GetScheduleById(int id)
+        public async Task<ActionResult<ScheduleGetAllDto>>? GetScheduleById(int id)
         {
-            var result = _scheduleService.GetScheduleById(id);
+            var result = await _scheduleService.GetScheduleById(id);
             if (result == null)
             {
                 return NotFound();
@@ -41,9 +41,9 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<ScheduleGetAllDto>>? UpdateSchedule(int id, ScheduleUpdateDto updateSchedule)
+        public async Task<ActionResult<List<ScheduleGetAllDto>>>? UpdateSchedule(int id, ScheduleUpdateDto updateSchedule)
         {
-            var result = _scheduleService.UpdateSchedules(id, updateSchedule);
+            var result = await _scheduleService.UpdateSchedules(id, updateSchedule);
             if(result == null)
             {
                 return NotFound();
@@ -52,9 +52,9 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<ScheduleGetAllDto>>? DeleteSchedule(int id)
+        public async Task<ActionResult<List<ScheduleGetAllDto>>>? DeleteSchedule(int id)
         {
-            var result = _scheduleService.DeleteSchedules(id);
+            var result = await _scheduleService.DeleteSchedules(id);
             if (result == null)
             {
                 return NotFound();

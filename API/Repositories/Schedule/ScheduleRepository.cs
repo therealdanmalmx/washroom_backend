@@ -1,43 +1,33 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories.ScheduleRepository;
 
 public class ScheduleRepository : IScheduleRepository
 {
-    private List<Schedule> _schedules =
-    [
-        new Schedule()
-        {
-            Id = 1,
-            Description = "Tvättid 1",
-            StartTime = TimeOnly.Parse("07:00"),
-            EndTime = TimeOnly.Parse("12:00"),
-            ScheduleStatusId = 1
-        },
-        new Schedule()
-        {
-            Id = 2,
-            Description = "Tvättid 2",
-            StartTime = TimeOnly.Parse("12:00"),
-            EndTime = TimeOnly.Parse("16:00"),
-            ScheduleStatusId = 2
-        }
-    ];
+    private readonly DataContext _dB;
     
-    public List<Schedule> GetAllSchedules()
+    public ScheduleRepository(DataContext dB)
     {
-        return _schedules;
+        _dB = dB;
+    }
+    
+    public async Task<List<Schedule>> GetAllSchedules()
+    {
+        return await _dB.Schedules.ToListAsync();
     }
 
-    public List<Schedule> CreateSchedules(Schedule newSchedule)
+    public async Task<List<Schedule>> CreateSchedules(Schedule newSchedule)
     {
-        _schedules.Add(newSchedule);
-        return _schedules;
+        _dB.Schedules.Add(newSchedule);
+        await _dB.SaveChangesAsync();
+        return await _dB.Schedules.ToListAsync();
     }
 
-    public Schedule? GetScheduleById(int id)
+    public async Task<Schedule>? GetScheduleById(int id)
     {
-        var singleSchedule = _schedules.FirstOrDefault(s => s.Id == id);
+        var singleSchedule = await _dB.Schedules.FindAsync(id);
         if (singleSchedule == null)
         {
             return null;
@@ -45,25 +35,36 @@ public class ScheduleRepository : IScheduleRepository
         return singleSchedule;
     }
 
-    public List<Schedule>? UpdateSchedule(int id, Schedule updateSchedule)
+    public async Task<List<Schedule>>? UpdateSchedule(int id, Schedule updateSchedule)
     {
-        var shceduleToUpdateIndex = _schedules.FindIndex(s => s.Id == id);
-        if (shceduleToUpdateIndex == -1)
+        var shceduleToUpdate = await _dB.Schedules.FindAsync(id);
+        if (shceduleToUpdate == null)
         {
             return null;
         }
-        _schedules[shceduleToUpdateIndex] = updateSchedule;
-        return _schedules;
+
+        if (!string.IsNullOrEmpty(updateSchedule.Description))
+        {
+            shceduleToUpdate.Description = updateSchedule.Description;
+        }
+        shceduleToUpdate.StartTime =  updateSchedule.StartTime;
+        shceduleToUpdate.EndTime =  updateSchedule.EndTime;
+
+        await _dB.SaveChangesAsync();
+        return await _dB.Schedules.ToListAsync();
+        
     }
 
-    public List<Schedule>? DeleteSchedule(int id)
+    public async Task<List<Schedule>>? DeleteSchedule(int id)
     {
-        var scheduleToDelete =  _schedules.FirstOrDefault(s => s.Id == id);
+        var scheduleToDelete = await _dB.Schedules.FindAsync(id);
         if (scheduleToDelete == null)
         {
             return null;
         }
-        _schedules.Remove(scheduleToDelete);
-        return _schedules;
+        
+        _dB.Schedules.Remove(scheduleToDelete);
+        await _dB.SaveChangesAsync();
+        return await _dB.Schedules.ToListAsync();
     }
 }

@@ -19,22 +19,22 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public ActionResult<List<TenantWashroomBookingGetAllDto>> GetTenantWashroomBooking()
+        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>> GetTenantWashroomBooking()
         {
-            return Ok(_tenantWashroomService.GetAllTenantWashroomBooking());
+            return Ok(await _tenantWashroomService.GetAllTenantWashroomBooking());
         }
 
         [HttpPost]
-        public ActionResult<List<TenantWashroomBookingGetAllDto>> CreateTenantWashroomBooking(
+        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>> CreateTenantWashroomBooking(
             TenantWashroomBookingCreateDto newTenantWashroomBooking)
         {
-            return Ok(_tenantWashroomService.CreateTenantWashroomBookings(newTenantWashroomBooking));
+            return Ok(await _tenantWashroomService.CreateTenantWashroomBookings(newTenantWashroomBooking));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TenantWashroomBookingGetAllDto>? GetTenantWashroomBookingById(int id)
+        public async Task<ActionResult<TenantWashroomBookingGetAllDto>>? GetTenantWashroomBookingById(int id)
         {
-            var result =  _tenantWashroomService.GetTenantWashroomBookingById(id);
+            var result =  await _tenantWashroomService.GetTenantWashroomBookingById(id);
             if (result == null)
             {
                 return NotFound();
@@ -43,10 +43,10 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<TenantWashroomBookingGetAllDto>>? UpdateTenahtWashroomBooking(int id,
+        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>>? UpdateTenahtWashroomBooking(int id,
             TenantWashroomBookingUpdateDto updateTenantWashroomBooking)
         {
-            var result = _tenantWashroomService.UpdateTenatntWashroomBooking(id, updateTenantWashroomBooking);
+            var result = await _tenantWashroomService.UpdateTenatntWashroomBooking(id, updateTenantWashroomBooking);
             if (result == null)
             {
                 return NotFound();
@@ -55,9 +55,9 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<TenantWashroomBookingGetAllDto>>? DeleteTenantWashroomBooking(int id)
+        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>>? DeleteTenantWashroomBooking(int id)
         {
-            var result = _tenantWashroomService.DeleteTenantWashroomBooking(id);
+            var result = await _tenantWashroomService.DeleteTenantWashroomBooking(id);
             if (result == null)
             {
                 return NotFound();

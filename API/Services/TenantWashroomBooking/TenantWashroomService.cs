@@ -13,22 +13,22 @@ public class TenantWashroomService : ITenantWashroomService
         _tenantWashroomBookingRepository = tenantWashroomBookingRepository;
     }
 
-    public List<TenantWashroomBookingGetAllDto> GetAllTenantWashroomBooking()
+    public async Task<List<TenantWashroomBookingGetAllDto>> GetAllTenantWashroomBooking()
     {
-        var result = _tenantWashroomBookingRepository.GetAllTenantWashroomBooking();
+        var result = await _tenantWashroomBookingRepository.GetAllTenantWashroomBooking();
         return result.Adapt<List<TenantWashroomBookingGetAllDto>>();
     }
 
-    public List<TenantWashroomBookingGetAllDto> CreateTenantWashroomBookings(TenantWashroomBookingCreateDto newTenantWashroomBooking)
+    public async Task<List<TenantWashroomBookingGetAllDto>> CreateTenantWashroomBookings(TenantWashroomBookingCreateDto newTenantWashroomBooking)
     {
         var newTentantWashroomBookingEntry =  newTenantWashroomBooking.Adapt<Core.Models.TenantWashroomBooking>();
-        var result = _tenantWashroomBookingRepository.CreateTenantWashroomooking(newTentantWashroomBookingEntry);
+        var result = await _tenantWashroomBookingRepository.CreateTenantWashroomooking(newTentantWashroomBookingEntry);
         return result.Adapt<List<TenantWashroomBookingGetAllDto>>();
     }
 
-    public TenantWashroomBookingGetAllDto? GetTenantWashroomBookingById(int id)
+    public async Task<TenantWashroomBookingGetAllDto>? GetTenantWashroomBookingById(int id)
     {
-        var result = _tenantWashroomBookingRepository.GetTenantWashroomBookingById(id);
+        var result = await _tenantWashroomBookingRepository.GetTenantWashroomBookingById(id);
         if (result == null)
         {
             return null;
@@ -36,10 +36,10 @@ public class TenantWashroomService : ITenantWashroomService
         return result.Adapt<TenantWashroomBookingGetAllDto>();
     }
 
-    public List<TenantWashroomBookingGetAllDto>? UpdateTenatntWashroomBooking(int id, TenantWashroomBookingUpdateDto updateTenantWashroomBooking)
+    public async Task<List<TenantWashroomBookingGetAllDto>>? UpdateTenatntWashroomBooking(int id, TenantWashroomBookingUpdateDto updateTenantWashroomBooking)
     {
         var tenantWashroomBookingToUpdtae = updateTenantWashroomBooking.Adapt<Core.Models.TenantWashroomBooking>();
-        var result = _tenantWashroomBookingRepository.UpdateTenatWashroomBooking(id, tenantWashroomBookingToUpdtae);
+        var result = await _tenantWashroomBookingRepository.UpdateTenatWashroomBooking(id, tenantWashroomBookingToUpdtae);
         if (result == null)
         {
             return null;
@@ -47,9 +47,9 @@ public class TenantWashroomService : ITenantWashroomService
         return result.Adapt<List<TenantWashroomBookingGetAllDto>>();
     }
 
-    public List<TenantWashroomBookingGetAllDto>? DeleteTenantWashroomBooking(int id)
+    public async Task<List<TenantWashroomBookingGetAllDto>>? DeleteTenantWashroomBooking(int id)
     {
-        var result = _tenantWashroomBookingRepository.DeleteTenantWashroomBookingById(id);
+        var result = await _tenantWashroomBookingRepository.DeleteTenantWashroomBookingById(id);
         if (result == null)
         {
             return null;

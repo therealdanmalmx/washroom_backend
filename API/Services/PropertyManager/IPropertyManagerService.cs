@@ -4,12 +4,11 @@ namespace API.Services.PropertyManager;
 
 public interface IPropertyManagerService
 {
-    List<PropertyManagerGetAllDto> GetAllPropertyManagers();
-    List<PropertyManagerGetAllDto> CreatePropertyManager(PropertyManagerCreateDto newPropertyManager);
-    PropertyManagerGetAllDto? GetPropertyManagerById(int id);
-    List<PropertyManagerGetAllDto>? UpdatePropertyManager(int id, PropertyManagerUpdateDto updatePropertyManager);
-
-    List<PropertyManagerGetAllDto>? DeletePropertyManager(int id);
+    Task<List<PropertyManagerGetAllDto>> GetAllPropertyManagers();
+    Task<List<PropertyManagerGetAllDto>> CreatePropertyManager(PropertyManagerCreateDto newPropertyManager);
+    Task<PropertyManagerGetAllDto>? GetPropertyManagerById(int id);
+    Task<List<PropertyManagerGetAllDto>>? UpdatePropertyManager(int id, PropertyManagerUpdateDto updatePropertyManager);
+    Task<List<PropertyManagerGetAllDto>>? DeletePropertyManager(int id);
 
 
 

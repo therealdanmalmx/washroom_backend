@@ -16,35 +16,35 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<PropertyManagerGetAllDto>> GetAllPropertyManagers()
+        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> GetAllPropertyManagers()
         {
-            return Ok(_propertyManagerService.GetAllPropertyManagers());
+            return Ok(await _propertyManagerService.GetAllPropertyManagers());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<PropertyManagerGetAllDto> GetPropertyManagerById(int id)
+        public async Task<ActionResult<PropertyManagerGetAllDto>> GetPropertyManagerById(int id)
         {
-            return Ok(_propertyManagerService.GetPropertyManagerById(id));
+            return Ok(await _propertyManagerService.GetPropertyManagerById(id));
         }
 
         [HttpPost]
-        public ActionResult<List<PropertyManagerGetAllDto>> CreatePropertyManager(
+        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> CreatePropertyManager(
             PropertyManagerCreateDto newPropertyManager)
         {
-            return Ok(_propertyManagerService.CreatePropertyManager(newPropertyManager));
+            return Ok(await _propertyManagerService.CreatePropertyManager(newPropertyManager));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<PropertyManagerGetAllDto>> UpdatePropertyManager(int id,
+        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> UpdatePropertyManager(int id,
             PropertyManagerUpdateDto updatePropertyManager)
         {
-            return Ok(_propertyManagerService.UpdatePropertyManager(id, updatePropertyManager));
+            return Ok(await _propertyManagerService.UpdatePropertyManager(id, updatePropertyManager));
         }
         
         [HttpDelete("{id}")]
-        public ActionResult<List<PropertyManagerGetAllDto>> DeletePropertyManager(int id)
+        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> DeletePropertyManager(int id)
         {
-            var result = _propertyManagerService.DeletePropertyManager(id);
+            var result = await _propertyManagerService.DeletePropertyManager(id);
             if (result == null)
             {
                 return NotFound($"Property manager with id: {id} not found");

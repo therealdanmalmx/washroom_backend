@@ -1,36 +1,32 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories.SheduleStatus;
 
 public class ScheduleStatusRepository : IScheduleStatusRepository
 {
-    List<ScheduleStatus> _scheduleStatuses = 
-    [
-        new ScheduleStatus()
-        {
-            Id = 1,
-            Description = "Available",
-        },
-        new ScheduleStatus()
-        {
-            Id = 2,
-            Description = "Booked",
-        }
-    ];
-    public List<ScheduleStatus> GetAllScheduleStatus()
+    private readonly DataContext _dB;
+    public ScheduleStatusRepository(DataContext dB)
     {
-        return _scheduleStatuses;
+        _dB = dB;
+    }
+    
+    public async Task<List<ScheduleStatus>> GetAllScheduleStatus()
+    {
+        return await _dB.ScheduleStatuses.ToListAsync();
     }
 
-    public List<ScheduleStatus> CreateScheduleStatus(ScheduleStatus newScheduleStatus)
+    public async Task<List<ScheduleStatus>> CreateScheduleStatus(ScheduleStatus newScheduleStatus)
     {
-        _scheduleStatuses.Add(newScheduleStatus);
-        return _scheduleStatuses;
+        _dB.ScheduleStatuses.Add(newScheduleStatus);
+        await _dB.SaveChangesAsync();
+        return await _dB.ScheduleStatuses.ToListAsync();
     }
 
-    public ScheduleStatus? GetScheduleStatusById(int id)
+    public async Task<ScheduleStatus>? GetScheduleStatusById(int id)
     {
-        var singleScheduleStatus = _scheduleStatuses.FirstOrDefault(s => s.Id == id);
+        var singleScheduleStatus = await _dB.ScheduleStatuses.FindAsync(id);
         if (singleScheduleStatus == null)
         {
             return null;
@@ -38,25 +34,32 @@ public class ScheduleStatusRepository : IScheduleStatusRepository
         return singleScheduleStatus;
     }
 
-    public List<ScheduleStatus>? UpdateScheduleStatus(int id, ScheduleStatus updateScheduleStatus)
+    public async Task<List<ScheduleStatus>>? UpdateScheduleStatus(int id, ScheduleStatus updateScheduleStatus)
     {
-        var scheduleStatusToUpdateIndex = _scheduleStatuses.FindIndex(s => s.Id == id);
-        if (scheduleStatusToUpdateIndex == -1)
+        var scheduleStatusToUpdate = await _dB.ScheduleStatuses.FindAsync(id);
+        if (scheduleStatusToUpdate == null)
         {
             return null;
         }
-        _scheduleStatuses[scheduleStatusToUpdateIndex] = updateScheduleStatus;
-        return _scheduleStatuses;
+
+        if (!string.IsNullOrWhiteSpace(updateScheduleStatus.Description))
+        {
+            scheduleStatusToUpdate.Description = updateScheduleStatus.Description;
+        }
+
+        await _dB.SaveChangesAsync();
+        return await _dB.ScheduleStatuses.ToListAsync();
     }
 
-    public List<ScheduleStatus>? DeleteScheduleStatus(int id)
+    public async Task<List<ScheduleStatus>>? DeleteScheduleStatus(int id)
     {
-        var scheduleStatusToDelete = _scheduleStatuses.Find(s => s.Id == id);
+        var scheduleStatusToDelete = await _dB.ScheduleStatuses.FindAsync(id);
         if (scheduleStatusToDelete == null)
         {
             return null;
         }
-        _scheduleStatuses.Remove(scheduleStatusToDelete);
-        return _scheduleStatuses;
+        _dB.ScheduleStatuses.Remove(scheduleStatusToDelete);
+        await _dB.SaveChangesAsync();
+        return await _dB.ScheduleStatuses.ToListAsync();
     }
 }

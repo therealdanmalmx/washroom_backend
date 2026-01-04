@@ -16,21 +16,21 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<TenantGetAllDto>> GetAllTenants()
+        public async Task<ActionResult<List<TenantGetAllDto>>> GetAllTenants()
         {
-            return Ok(_tenantService.GetAllTenants());
+            return Ok(await _tenantService.GetAllTenants());
         }
 
         [HttpPost]
-        public ActionResult<List<TenantGetAllDto>> CreateTenant(TenantCreateDto newTenant)
+        public async Task<ActionResult<List<TenantGetAllDto>>> CreateTenant(TenantCreateDto newTenant)
         {
-            return Ok(_tenantService.CreateTenant(newTenant));
+            return Ok(await _tenantService.CreateTenant(newTenant));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TenantGetAllDto> GetTenantById(int id)
+        public async Task<ActionResult<TenantGetAllDto>> GetTenantById(int id)
         {
-            var result = _tenantService.GetTenantById(id);
+            var result = await _tenantService.GetTenantById(id);
             if (result == null)
             {
                 return NotFound();
@@ -39,16 +39,16 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<TenantGetAllDto> UpdateTenant(int id, TenantUpdateDto updatedTenant)
+        public async Task<ActionResult<TenantGetAllDto>> UpdateTenant(int id, TenantUpdateDto updatedTenant)
         {
-            var result =  _tenantService.UpdateTenant(id, updatedTenant);
+            var result =  await _tenantService.UpdateTenant(id, updatedTenant);
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<TenantGetAllDto>> DeleteTenant(int id)
+        public async Task<ActionResult<List<TenantGetAllDto>>> DeleteTenant(int id)
         {
-            var result = _tenantService.DeleteTenant(id);
+            var result = await _tenantService.DeleteTenant(id);
             return Ok(result);
         }
     }

@@ -4,10 +4,10 @@ namespace API.Services.WashRoomSchedule;
 
 public interface IWashroomScheduleService
 {
-    List<WashRoomScheduleGetAllDto> GetAllWashRoomSchedules();
-    List<WashRoomScheduleGetAllDto> CreateWashRoomSchedules(WashRoomScheduleCreateDto newWashRoomSchedule);
-    WashRoomScheduleGetAllDto? GetWashRoomScheduleById(int id);
-    List<WashRoomScheduleGetAllDto>? UpdateWashRoomSchedules(int id, WashRoomScheduleUpdateDto updateWashRoomSchedule);
-    List<WashRoomScheduleGetAllDto>? DeleteWashRoomSchedules(int id);
+    Task<List<WashRoomScheduleGetAllDto>> GetAllWashRoomSchedules();
+    Task<List<WashRoomScheduleGetAllDto>> CreateWashRoomSchedules(WashRoomScheduleCreateDto newWashRoomSchedule);
+    Task<WashRoomScheduleGetAllDto>? GetWashRoomScheduleById(int id);
+    Task<List<WashRoomScheduleGetAllDto>>? UpdateWashRoomSchedules(int id, WashRoomScheduleUpdateDto updateWashRoomSchedule);
+    Task<List<WashRoomScheduleGetAllDto>>? DeleteWashRoomSchedules(int id);
     
 }

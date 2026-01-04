@@ -4,9 +4,9 @@ namespace API.Repositories;
 
 public interface ITenantWashroomBookingRepository
 {
-    List<TenantWashroomBooking> GetAllTenantWashroomBooking();
-    List<TenantWashroomBooking>CreateTenantWashroomooking(TenantWashroomBooking tenantWashroomBooking);
-    TenantWashroomBooking? GetTenantWashroomBookingById(int id);
-    List<TenantWashroomBooking>? UpdateTenatWashroomBooking(int id, TenantWashroomBooking tenantWashroomBooking);
-    List<TenantWashroomBooking>? DeleteTenantWashroomBookingById(int id);
+    Task<List<TenantWashroomBooking>> GetAllTenantWashroomBooking();
+    Task<List<TenantWashroomBooking>>CreateTenantWashroomooking(TenantWashroomBooking tenantWashroomBooking);
+    Task<TenantWashroomBooking>? GetTenantWashroomBookingById(int id);
+    Task<List<TenantWashroomBooking>>? UpdateTenatWashroomBooking(int id, TenantWashroomBooking tenantWashroomBooking);
+    Task<List<TenantWashroomBooking>>? DeleteTenantWashroomBookingById(int id);
 }

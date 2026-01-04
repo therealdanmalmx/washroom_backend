@@ -1,41 +1,32 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class TenantWashroomBookingRepository : ITenantWashroomBookingRepository
 {
-    private List<TenantWashroomBooking> _tenantWashroomBookings =
-    [
-        new TenantWashroomBooking()
-        {
-            Id = 1,
-            Date = DateOnly.FromDateTime(DateTime.Now),
-            TenantId = 1,
-            WashroomScheduleId = 1
-        },
-        new TenantWashroomBooking()
-        {
-            Id = 2,
-            Date = DateOnly.FromDateTime(DateTime.Now.AddMonths(+2)),
-            TenantId = 2,
-            WashroomScheduleId = 2
-        }
-
-    ];
-    public List<TenantWashroomBooking> GetAllTenantWashroomBooking()
+    private readonly DataContext _dB;
+    public TenantWashroomBookingRepository(DataContext dB)
     {
-        return _tenantWashroomBookings;
+        _dB = dB;
+    }
+    
+    public async Task<List<TenantWashroomBooking>> GetAllTenantWashroomBooking()
+    {
+        return await _dB.TenantWashroomBookings.ToListAsync();
     }
 
-    public List<TenantWashroomBooking> CreateTenantWashroomooking(TenantWashroomBooking tenantWashroomBooking)
+    public async Task<List<TenantWashroomBooking>> CreateTenantWashroomooking(TenantWashroomBooking tenantWashroomBooking)
     {
-        _tenantWashroomBookings.Add(tenantWashroomBooking);
-        return _tenantWashroomBookings;
+        _dB.TenantWashroomBookings.Add(tenantWashroomBooking);
+        await _dB.SaveChangesAsync();
+        return await _dB.TenantWashroomBookings.ToListAsync();
     }
 
-    public TenantWashroomBooking? GetTenantWashroomBookingById(int id)
+    public async Task<TenantWashroomBooking>? GetTenantWashroomBookingById(int id)
     {
-        var result = _tenantWashroomBookings.FirstOrDefault(x => x.Id == id);
+        var result = await _dB.TenantWashroomBookings.FindAsync(id);
         if (result == null)
         {
             return null;
@@ -43,25 +34,28 @@ public class TenantWashroomBookingRepository : ITenantWashroomBookingRepository
         return result;
     }
 
-    public List<TenantWashroomBooking>? UpdateTenatWashroomBooking(int id, TenantWashroomBooking tenantWashroomBooking)
+    public async Task<List<TenantWashroomBooking>>? UpdateTenatWashroomBooking(int id, TenantWashroomBooking tenantWashroomBooking)
     {
-        var tenantWashroomBookingToUpdateIndex = _tenantWashroomBookings.FindIndex(x => x.Id == id);
-        if (tenantWashroomBookingToUpdateIndex == -1)
+        var tenantWashroomBookingToUpdate = await _dB.TenantWashroomBookings.FindAsync(id);
+        if (tenantWashroomBookingToUpdate == null)
         {
             return null;
         }
-        _tenantWashroomBookings[tenantWashroomBookingToUpdateIndex] = tenantWashroomBooking;
-        return _tenantWashroomBookings;
+        tenantWashroomBookingToUpdate.Date =  tenantWashroomBooking.Date;
+        
+        await _dB.SaveChangesAsync();
+        return await _dB.TenantWashroomBookings.ToListAsync();
     }
 
-    public List<TenantWashroomBooking>? DeleteTenantWashroomBookingById(int id)
+    public async Task<List<TenantWashroomBooking>>? DeleteTenantWashroomBookingById(int id)
     {
-        var result = _tenantWashroomBookings.FirstOrDefault(x => x.Id == id);
+        var result = await _dB.TenantWashroomBookings.FindAsync(id);
         if (result == null)
         {
             return null;
         }
-        _tenantWashroomBookings.Remove(result);
-        return _tenantWashroomBookings;
+        _dB.TenantWashroomBookings.Remove(result);
+        await _dB.SaveChangesAsync();
+        return await _dB.TenantWashroomBookings.ToListAsync();
     }
 }
