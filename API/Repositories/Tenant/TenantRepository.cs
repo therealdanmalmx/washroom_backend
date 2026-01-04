@@ -1,42 +1,31 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class TenantRepository : ITenantRepository
 {
-    List<Tenant> _tenants =
-    [
-        new Tenant()
-        {
-            Id = 1,
-            Name = "Mikael Andersson",
-            Phone = "0757789977",
-            Email = "m.a@comhem.com",
-            ApartmentId = 1
-        },
-        new Tenant()
-        {
-            Id = 2,
-            Name = "Lena Larsson",
-            Phone = "0724569875",
-            Email = "larson.lena@hotmail.com",
-            ApartmentId = 2
-        }
-    ];
-    public List<Tenant> GetAllTenant()
+    private readonly DataContext _dB;
+    public TenantRepository(DataContext dB)
     {
-        return _tenants;
+        _dB = dB;
+    }
+    public async Task<List<Tenant>> GetAllTenant()
+    {
+        return await _dB.Tenants.ToListAsync();
     }
 
-    public List<Tenant> CreateTenant(Tenant tenant)
+    public async Task<List<Tenant>> CreateTenant(Tenant tenant)
     {
-        _tenants.Add(tenant);
-        return _tenants;
+        _dB.Tenants.Add(tenant);
+        await _dB.SaveChangesAsync();
+        return await _dB.Tenants.ToListAsync();
     }
 
-    public Tenant? GetTenantById(int id)
+    public async Task<Tenant>? GetTenantById(int id)
     {
-        var singleTenant = _tenants.Find(t => t.Id == id);
+        var singleTenant = await _dB.Tenants.FindAsync(id);
         if (singleTenant == null)
         {
             return null;
@@ -44,26 +33,39 @@ public class TenantRepository : ITenantRepository
         return singleTenant;
         
     }
-
-    public List<Tenant>? UpdateTenant(int id, Tenant updateTenant)
+    public async Task<List<Tenant>>? UpdateTenant(int id, Tenant updateTenant)
     {
-        var tenatUpdateIndex = _tenants.FindIndex(t => t.Id == updateTenant.Id);
-        if (tenatUpdateIndex == -1)
+        var tenatUpdate = await _dB.Tenants.FindAsync(id);
+        if (tenatUpdate == null)
         {
             return null;
         }
-        _tenants[tenatUpdateIndex] = updateTenant;
-        return _tenants;
-    }
 
-    public List<Tenant>? DeleteTenant(int id)
+        if (!string.IsNullOrWhiteSpace(updateTenant.Name))
+        {
+            tenatUpdate.Name = updateTenant.Name;
+        }
+        if (!string.IsNullOrWhiteSpace(updateTenant.Email))
+        {
+            tenatUpdate.Email = updateTenant.Email;
+        }
+        if (!string.IsNullOrWhiteSpace(updateTenant.Phone))
+        {
+            tenatUpdate.Phone = updateTenant.Phone;
+        }
+        
+        await _dB.SaveChangesAsync();
+        return await _dB.Tenants.ToListAsync();
+    }
+    public async Task<List<Tenant>>? DeleteTenant(int id)
     {
-        var result = _tenants.FirstOrDefault(t => t.Id == id);
+        var result = await _dB.Tenants.FindAsync(id);
         if (result == null)
         {
             return null;
         }
-        _tenants.Remove(result);
-        return _tenants;
+        _dB.Tenants.Remove(result);
+        await _dB.SaveChangesAsync();
+        return await _dB.Tenants.ToListAsync();
     }
 }
