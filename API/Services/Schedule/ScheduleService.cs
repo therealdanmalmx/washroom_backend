@@ -13,22 +13,22 @@ public class ScheduleService : IScheduleService
         _scheduleRepository = scheduleRepository;
     }
 
-    public List<ScheduleGetAllDto> GetAllSchedules()
+    public async Task<List<ScheduleGetAllDto>> GetAllSchedules()
     {
-        var result = _scheduleRepository.GetAllSchedules();
+        var result = await _scheduleRepository.GetAllSchedules();
         return result.Adapt<List<ScheduleGetAllDto>>(); 
     }
 
-    public List<ScheduleGetAllDto> CreateSchedule(ScheduleCreateDto newSchedule)
+    public async Task<List<ScheduleGetAllDto>> CreateSchedule(ScheduleCreateDto newSchedule)
     {
         var newScheduleEntry = newSchedule.Adapt<Core.Models.Schedule>();
-        var result = _scheduleRepository.CreateSchedules(newScheduleEntry);
+        var result = await _scheduleRepository.CreateSchedules(newScheduleEntry);
         return result.Adapt<List<ScheduleGetAllDto>>();
     }
 
-    public ScheduleGetAllDto? GetScheduleById(int id)
+    public async Task<ScheduleGetAllDto>? GetScheduleById(int id)
     {
-        var result = _scheduleRepository.GetScheduleById(id);
+        var result = await _scheduleRepository.GetScheduleById(id);
         if (result == null)
         {
             return null;
@@ -36,10 +36,10 @@ public class ScheduleService : IScheduleService
         return result.Adapt<ScheduleGetAllDto>();
     }
 
-    public List<ScheduleGetAllDto> UpdateSchedules(int id, ScheduleUpdateDto updateSchedule)
+    public async Task<List<ScheduleGetAllDto>> UpdateSchedules(int id, ScheduleUpdateDto updateSchedule)
     {
         var scheduleToUpdate = updateSchedule.Adapt<Core.Models.Schedule>();
-        var result = _scheduleRepository.UpdateSchedule(id, scheduleToUpdate);
+        var result = await _scheduleRepository.UpdateSchedule(id, scheduleToUpdate);
         if (result == null)
         {
             return null;
@@ -47,9 +47,9 @@ public class ScheduleService : IScheduleService
         return result.Adapt<List<ScheduleGetAllDto>>();
     }
 
-    public List<ScheduleGetAllDto> DeleteSchedules(int id)
+    public async Task<List<ScheduleGetAllDto>> DeleteSchedules(int id)
     {
-        var  scheduleToDelete = _scheduleRepository.DeleteSchedule(id);
+        var  scheduleToDelete = await _scheduleRepository.DeleteSchedule(id);
         if (scheduleToDelete == null)
         {
             return null;
