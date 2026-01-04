@@ -1,49 +1,33 @@
+using API.Data;
 using Core.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories;
 
 public class PropertyRepository : IPropertyRepository
 {
-    private List<Property> _properties =
-    [
-        new Property()
-        {
-            Id = 1,
-            Name = "Kråkan 1",
-            Street = "Torstensonsgatan",
-            Number = "53",
-            PostalCode = "503 42",
-            City = "Borås",
-            PropertyAdministrationId = 1,
-            AdssociationManagerId = 1,
-        },
-        new Property()
-        {
-            Id = 2,
-            Name = "Stuphålet",
-            Street = "Silverssonsgatan",
-            Number = "10",
-            PostalCode = "40566",
-            City = "Göteborg",
-            PropertyAdministrationId = 2,
-            AdssociationManagerId = 2,
-        }
-    ];
+    private readonly DataContext _dB;
     
-    public List<Property> GetAllProperties()
+    public PropertyRepository(DataContext dB)
     {
-        return _properties;
+        _dB = dB;
+    }
+    
+    public async Task<List<Property>> GetAllProperties()
+    {
+        return await _dB.Properties.ToListAsync();
     }
 
-    public List<Property> CreateProperty(Property property)
+    public async Task<List<Property>> CreateProperty(Property property)
     {
-        _properties.Add(property);
-        return _properties;
+        _dB.Properties.Add(property);
+        await _dB.SaveChangesAsync();
+        return await _dB.Properties.ToListAsync();
     }
 
-    public Property? GetPropertyById(int id)
+    public async Task<Property>? GetPropertyById(int id)
     {
-        var result = _properties.FirstOrDefault(p => p.Id == id);
+        var result = await _dB.Properties.FindAsync(id);
         if (result == null)
         {
             return null;
@@ -51,25 +35,48 @@ public class PropertyRepository : IPropertyRepository
         return result;
     }
 
-    public List<Property>? UpdateProperty(int id, Property property)
+    public async Task<List<Property>>? UpdateProperty(int id, Property property)
     {
-        var propertyToUpdateIndex = _properties.FindIndex(p => p.Id == id);
-        if (propertyToUpdateIndex == -1)
+        var propertyToUpdate = await _dB.Properties.FindAsync(id);
+        if (propertyToUpdate == null)
         {
             return null;
         }
-        _properties[propertyToUpdateIndex] = property;
-        return _properties;
+
+        if (!string.IsNullOrWhiteSpace(property.Name))
+        {
+            propertyToUpdate.Name = property.Name;
+        }
+        if (!string.IsNullOrWhiteSpace(property.Street))
+        {
+            propertyToUpdate.Street = property.Street;
+        }
+        if (!string.IsNullOrWhiteSpace(property.Number))
+        {
+            propertyToUpdate.Number = property.Number;
+        }
+        if (!string.IsNullOrWhiteSpace(property.PostalCode))
+        {
+            propertyToUpdate.PostalCode = property.PostalCode;
+        }
+        if (!string.IsNullOrWhiteSpace(property.City))
+        {
+            propertyToUpdate.City = property.City;
+        }
+        
+        await _dB.SaveChangesAsync();
+        return await _dB.Properties.ToListAsync();
     }
 
-    public List<Property>? DeleteProperty(int id)
+    public async Task<List<Property>>? DeleteProperty(int id)
     {
-        var result = _properties.FirstOrDefault(p => p.Id == id);
+        var result = await _dB.Properties.FindAsync(id);
         if (result == null)
         {
             return null;
         }
-        _properties.Remove(result);
-        return _properties;
+        _dB.Properties.Remove(result);
+        await _dB.SaveChangesAsync();
+        return await _dB.Properties.ToListAsync();
     }
 }
