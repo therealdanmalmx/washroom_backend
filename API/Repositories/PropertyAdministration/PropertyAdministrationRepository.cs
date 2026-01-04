@@ -18,7 +18,7 @@ public class PropertyAdministrationRepository : IPropertyAdministrationRepositor
         return await _dB.PropertyAdministrations.ToListAsync();
     }
 
-    public async Task<PropertyAdministration> GetPropertyAdministration(int id)
+    public async Task<PropertyAdministration> GetPropertyAdministration(Guid id)
     {
         var singlePropertyAdministration = await _dB.PropertyAdministrations.FindAsync(id);
         if (singlePropertyAdministration == null)
@@ -36,7 +36,7 @@ public class PropertyAdministrationRepository : IPropertyAdministrationRepositor
         return await _dB.PropertyAdministrations.ToListAsync();
     }
 
-    public async Task<List<PropertyAdministration>>? UpdatePropertyAdministration(int id, PropertyAdministration updatePropertyAdministration)
+    public async Task<List<PropertyAdministration>>? UpdatePropertyAdministration(Guid id, PropertyAdministration updatePropertyAdministration)
     {
         var propertyAdministrationToUpdate = await _dB.PropertyAdministrations.FindAsync(id);
         if (propertyAdministrationToUpdate == null)
@@ -57,7 +57,7 @@ public class PropertyAdministrationRepository : IPropertyAdministrationRepositor
         return await _dB.PropertyAdministrations.ToListAsync();
     }
 
-    public async Task<List<PropertyAdministration>>? DeletePropertyAdministration(int id)
+    public async Task<List<PropertyAdministration>>? DeletePropertyAdministration(Guid id)
     {
         var propertyAdministrationToDelete = await _dB.PropertyAdministrations.FindAsync(id);
         if (propertyAdministrationToDelete == null)

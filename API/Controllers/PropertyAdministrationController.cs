@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PropertyAdministrationGetAllDto>> GetPropertyAdministration(int id)
+        public async Task<ActionResult<PropertyAdministrationGetAllDto>> GetPropertyAdministration(Guid id)
         {
             return Ok(await _propertyAdministrationService.GetPropertyAdministration(id));
         }
@@ -36,7 +36,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<PropertyAdministrationGetAllDto>>> UpdatePropertyAdministration(int id,
+        public async Task<ActionResult<List<PropertyAdministrationGetAllDto>>> UpdatePropertyAdministration(Guid id,
             PropertyAdministrationUpdateDto updatedPropertyAdministration)
         {
             var result = await _propertyAdministrationService.UpdatePropertyAdministration(id, updatedPropertyAdministration);
@@ -48,7 +48,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<PropertyAdministrationGetAllDto>>> DeletePropertyAdministration(int id)
+        public async Task<ActionResult<List<PropertyAdministrationGetAllDto>>> DeletePropertyAdministration(Guid id)
         {
             var result = await _propertyAdministrationService.DeletePropertyAdministration(id);
             if (result == null)
