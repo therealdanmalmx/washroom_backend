@@ -29,7 +29,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<WashRoomScheduleGetAllDto>> GetWashRoomSchedule(int id)
+        public async Task<ActionResult<WashRoomScheduleGetAllDto>> GetWashRoomSchedule(Guid id)
         {
             var result = await _washroomScheduleService.GetWashRoomScheduleById(id);
             if (result == null)
@@ -40,7 +40,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> UpdateWashroomSchedule(int id,
+        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> UpdateWashroomSchedule(Guid id,
             WashRoomScheduleUpdateDto newWashRoomSchedule)
         {
             var result = await _washroomScheduleService.GetWashRoomScheduleById(id);
@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> DeleteWashroomSchedule(int id)
+        public async Task<ActionResult<List<WashRoomScheduleGetAllDto>>> DeleteWashroomSchedule(Guid id)
         {
             var result = await _washroomScheduleService.DeleteWashRoomSchedules(id);
             if (result == null)
