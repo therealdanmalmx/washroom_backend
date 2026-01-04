@@ -13,16 +13,16 @@ public class PropertyService : IPropertyService
         _propertyRepository = propertyRepository;
     }
 
-    public List<PropertyGetAllDto> GetAllProperties()
+    public async Task<List<PropertyGetAllDto>> GetAllProperties()
     {
-        var result = _propertyRepository.GetAllProperties();
+        var result = await _propertyRepository.GetAllProperties();
         return result.Adapt<List<PropertyGetAllDto>>();
     }
 
-    public List<PropertyGetAllDto>? CreateProperty(PropertyCreateDto newProperty)
+    public async Task<List<PropertyGetAllDto>>? CreateProperty(PropertyCreateDto newProperty)
     {
         var newPropertyEntry = newProperty.Adapt<Core.Models.Property>();
-        var result = _propertyRepository.CreateProperty(newPropertyEntry);
+        var result = await _propertyRepository.CreateProperty(newPropertyEntry);
         if (result == null)
         {
             return null;
@@ -30,9 +30,9 @@ public class PropertyService : IPropertyService
         return result.Adapt<List<PropertyGetAllDto>>();
     }
 
-    public PropertyGetAllDto? GetPropertyById(int id)
+    public async Task<PropertyGetAllDto>? GetPropertyById(int id)
     {
-        var result = _propertyRepository.GetPropertyById(id);
+        var result = await _propertyRepository.GetPropertyById(id);
         if (result == null)
         {
             return null;
@@ -40,10 +40,10 @@ public class PropertyService : IPropertyService
         return result.Adapt<PropertyGetAllDto>();
     }
 
-    public List<PropertyGetAllDto> UpdateProperty(int id, PropertyUpdateDto propertyUpdateDto)
+    public async Task<List<PropertyGetAllDto>> UpdateProperty(int id, PropertyUpdateDto propertyUpdateDto)
     {
         var updateProperty = propertyUpdateDto.Adapt<Core.Models.Property>();
-        var result = _propertyRepository.UpdateProperty(id, updateProperty);
+        var result = await _propertyRepository.UpdateProperty(id, updateProperty);
         if (result == null)
         {
             return null;
@@ -51,9 +51,9 @@ public class PropertyService : IPropertyService
         return result.Adapt<List<PropertyGetAllDto>>();
     }
 
-    public List<PropertyGetAllDto> DeleteProperty(int id)
+    public async Task<List<PropertyGetAllDto>> DeleteProperty(int id)
     {
-        var result = _propertyRepository.DeleteProperty(id);
+        var result = await _propertyRepository.DeleteProperty(id);
         if (result == null)
         {
             return null;

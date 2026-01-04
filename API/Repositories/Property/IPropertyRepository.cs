@@ -4,9 +4,9 @@ namespace API.Repositories;
 
 public interface IPropertyRepository
 {
-    List<Property> GetAllProperties();
-    List<Property> CreateProperty(Property property);
-    Property? GetPropertyById(int id);
-    List<Property> UpdateProperty(int id, Property property);
-    List<Property> DeleteProperty(int id);
+    Task<List<Property>> GetAllProperties(); 
+    Task<List<Property>> CreateProperty(Property property);
+    Task<Property>? GetPropertyById(int id);
+    Task<List<Property>> UpdateProperty(int id, Property property);
+    Task<List<Property>> DeleteProperty(int id);
 }

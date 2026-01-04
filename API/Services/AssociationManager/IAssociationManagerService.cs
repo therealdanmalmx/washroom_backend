@@ -4,9 +4,9 @@ namespace API.Services.AssociationManager;
 
 public interface IAssociationManagerService
 {
-    List<AssociationManagerGetAllDto> GetAllAssociationManagers();
-    List<AssociationManagerCreateDto> CreateAssociationManager(AssociationManagerCreateDto newAssociationManager);
-    AssociationManagerGetAllDto? GetAssociationManagerById(int id);
-    List<AssociationManagerGetAllDto>? UpdateAssociationManager(int id, AssociationManagerUpdateDto updateAssociationManager);
-    List<AssociationManagerGetAllDto>? DeleteAssociationManager(int id);
+    Task<List<AssociationManagerGetAllDto>> GetAllAssociationManagers();
+    Task<List<AssociationManagerCreateDto>> CreateAssociationManager(AssociationManagerCreateDto newAssociationManager);
+    Task<AssociationManagerGetAllDto>? GetAssociationManagerById(int id);
+    Task<List<AssociationManagerGetAllDto>>? UpdateAssociationManager(int id, AssociationManagerUpdateDto updateAssociationManager);
+    Task<List<AssociationManagerGetAllDto>>? DeleteAssociationManager(int id);
 }

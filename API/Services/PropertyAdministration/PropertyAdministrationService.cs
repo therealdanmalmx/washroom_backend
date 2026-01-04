@@ -14,31 +14,31 @@ public class PropertyAdministrationService : IPropertyAdministrationService
         _propertyAdministrationRepository = propertyAdministrationRepository;
     }
 
-    public List<PropertyAdministrationGetAllDto> GetAllPropertyAdministrations()
+    public async Task<List<PropertyAdministrationGetAllDto>> GetAllPropertyAdministrations()
     {
-        var result = _propertyAdministrationRepository.GetAllPropertyAdministrations();
+        var result = await _propertyAdministrationRepository.GetAllPropertyAdministrations();
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 
-    public PropertyAdministrationGetAllDto GetPropertyAdministration(int id)
+    public async Task<PropertyAdministrationGetAllDto> GetPropertyAdministration(int id)
     {
-        var  result = _propertyAdministrationRepository.GetPropertyAdministration(id);
+        var  result = await _propertyAdministrationRepository.GetPropertyAdministration(id);
         return result.Adapt<PropertyAdministrationGetAllDto>();
     }
 
-    public List<PropertyAdministrationGetAllDto> CreatePropertyAdministration(PropertyAdministrationCreateDto newPropertyAdministration)
+    public async Task<List<PropertyAdministrationGetAllDto>> CreatePropertyAdministration(PropertyAdministrationCreateDto newPropertyAdministration)
     {
         
         var newEntry = newPropertyAdministration.Adapt<PropertyAdministration>();
-        var result = _propertyAdministrationRepository.CreatePropertyAdministration(newEntry);
+        var result = await _propertyAdministrationRepository.CreatePropertyAdministration(newEntry);
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 
-    public List<PropertyAdministrationGetAllDto>? UpdatePropertyAdministration(int id, PropertyAdministrationUpdateDto updatePropertyAdministration)
+    public async Task<List<PropertyAdministrationGetAllDto>>? UpdatePropertyAdministration(int id, PropertyAdministrationUpdateDto updatePropertyAdministration)
     {
         var propertyAdministrationToUpdate = updatePropertyAdministration.Adapt<PropertyAdministration>();
         
-        var result = _propertyAdministrationRepository.UpdatePropertyAdministration(id, propertyAdministrationToUpdate);
+        var result = await _propertyAdministrationRepository.UpdatePropertyAdministration(id, propertyAdministrationToUpdate);
         if (result is null)
         {
             return null;
@@ -47,9 +47,9 @@ public class PropertyAdministrationService : IPropertyAdministrationService
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 
-    public List<PropertyAdministrationGetAllDto>? DeletePropertyAdministration(int id)
+    public async Task<List<PropertyAdministrationGetAllDto>>? DeletePropertyAdministration(int id)
     {
-        var result = _propertyAdministrationRepository.DeletePropertyAdministration(id);
+        var result = await _propertyAdministrationRepository.DeletePropertyAdministration(id);
         if (result is null)
         {
             return null;

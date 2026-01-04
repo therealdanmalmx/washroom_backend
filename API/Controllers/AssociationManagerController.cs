@@ -18,35 +18,35 @@ namespace API.Controllers
        }
 
        [HttpGet]
-        public ActionResult<List<AssociationManagerGetAllDto>> GetAllAssociationManagers()
+        public async Task<ActionResult<List<AssociationManagerGetAllDto>>> GetAllAssociationManagers()
         {
-            return Ok(_associationManagerService.GetAllAssociationManagers());
+            return Ok(await _associationManagerService.GetAllAssociationManagers());
         }
 
         [HttpPost]
-        public ActionResult<List<AssociationManagerGetAllDto>> CreateAssociationManager(
+        public async Task<ActionResult<List<AssociationManagerGetAllDto>>> CreateAssociationManager(
             AssociationManagerCreateDto newAssociationManager)
         {
-            return  Ok(_associationManagerService.CreateAssociationManager(newAssociationManager));
+            return  Ok(await _associationManagerService.CreateAssociationManager(newAssociationManager));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<AssociationManagerGetAllDto> GetAssociationManagerById(int id)
+        public async Task<ActionResult<AssociationManagerGetAllDto>> GetAssociationManagerById(int id)
         {
-            return Ok(_associationManagerService.GetAssociationManagerById(id));
+            return Ok(await _associationManagerService.GetAssociationManagerById(id));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<AssociationManagerGetAllDto>> UpdateAssociationManager(int id,
+        public async Task<ActionResult<List<AssociationManagerGetAllDto>>> UpdateAssociationManager(int id,
             AssociationManagerUpdateDto associationManagerUpdateDto)
         {
-            return Ok(_associationManagerService.UpdateAssociationManager(id, associationManagerUpdateDto));
+            return Ok(await _associationManagerService.UpdateAssociationManager(id, associationManagerUpdateDto));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<AssociationManagerGetAllDto> DeleteAssociationManager(int id)
+        public async Task<ActionResult<AssociationManagerGetAllDto>> DeleteAssociationManager(int id)
         {
-            return Ok(_associationManagerService.DeleteAssociationManager(id));
+            return Ok(await _associationManagerService.DeleteAssociationManager(id));
         }
         
     }

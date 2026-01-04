@@ -17,33 +17,33 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<PropertyGetAllDto>> GetAllProperties()
+        public async Task<ActionResult<List<PropertyGetAllDto>>> GetAllProperties()
         {
-            return Ok(_propertyService.GetAllProperties());
+            return Ok(await _propertyService.GetAllProperties());
         }
 
         [HttpPost]
-        public ActionResult<List<PropertyGetAllDto>> CreateProperty(PropertyCreateDto newProperty)
+        public async Task<ActionResult<List<PropertyGetAllDto>>> CreateProperty(PropertyCreateDto newProperty)
         {
-            return Ok(_propertyService.CreateProperty(newProperty));
+            return Ok(await _propertyService.CreateProperty(newProperty));
         }
 
         [HttpGet("{id}")]
-        public ActionResult<PropertyGetAllDto> GetPropertyById(int id)
+        public async Task<ActionResult<PropertyGetAllDto>> GetPropertyById(int id)
         {
-            return Ok(_propertyService.GetPropertyById(id));
+            return Ok(await _propertyService.GetPropertyById(id));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<PropertyGetAllDto> UpdateProperty(int id, PropertyUpdateDto propertyUpdateDto)
+        public async Task<ActionResult<PropertyGetAllDto>> UpdateProperty(int id, PropertyUpdateDto propertyUpdateDto)
         {
-            return Ok(_propertyService.UpdateProperty(id, propertyUpdateDto));
+            return Ok(await _propertyService.UpdateProperty(id, propertyUpdateDto));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<PropertyGetAllDto> DeleteProperty(int id)
+        public async Task<ActionResult<PropertyGetAllDto>> DeleteProperty(int id)
         {
-            return Ok(_propertyService.DeleteProperty(id));
+            return Ok(await _propertyService.DeleteProperty(id));
         }
         
     }
