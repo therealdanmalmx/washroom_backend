@@ -15,16 +15,16 @@ public class AssociationManagerService : IAssociationManagerService
     }
 
 
-    public List<AssociationManagerGetAllDto> GetAllAssociationManagers()
+    public async Task<List<AssociationManagerGetAllDto>> GetAllAssociationManagers()
     {
-        var result = _associationManagerRepository.GetAssociationManagers();
+        var result = await _associationManagerRepository.GetAssociationManagers();
         return result.Adapt<List<AssociationManagerGetAllDto>>();
     }
 
-    public List<AssociationManagerCreateDto> CreateAssociationManager(AssociationManagerCreateDto newAssociationManager)
+    public async Task<List<AssociationManagerCreateDto>> CreateAssociationManager(AssociationManagerCreateDto newAssociationManager)
     {
         var newAssociationManagerEntry = newAssociationManager.Adapt<Core.Models.AssociationManager>();
-        var result = _associationManagerRepository.CreateAssociationManager(newAssociationManagerEntry);
+        var result = await _associationManagerRepository.CreateAssociationManager(newAssociationManagerEntry);
         if (result == null)
         {
             return null;
@@ -32,9 +32,9 @@ public class AssociationManagerService : IAssociationManagerService
         return result.Adapt<List<AssociationManagerCreateDto>>();
     }
 
-    public AssociationManagerGetAllDto GetAssociationManagerById(int id)
+    public async Task<AssociationManagerGetAllDto>? GetAssociationManagerById(int id)
     {
-        var result = _associationManagerRepository.GetAssociationManagerById(id);
+        var result = await _associationManagerRepository.GetAssociationManagerById(id);
         if (result == null)
         {
             return null;
@@ -42,10 +42,10 @@ public class AssociationManagerService : IAssociationManagerService
         return result.Adapt<AssociationManagerGetAllDto>();
     }
 
-    public List<AssociationManagerGetAllDto> UpdateAssociationManager(int id, AssociationManagerUpdateDto updateAssociationManager)
+    public async Task<List<AssociationManagerGetAllDto>>? UpdateAssociationManager(int id, AssociationManagerUpdateDto updateAssociationManager)
     {
         var associationManagerToUpdate = updateAssociationManager.Adapt<Core.Models.AssociationManager>();
-        var result = _associationManagerRepository.UpdateAssociationManager(id, associationManagerToUpdate);
+        var result = await _associationManagerRepository.UpdateAssociationManager(id, associationManagerToUpdate);
         if (result == null)
         {
             return null;
@@ -53,9 +53,9 @@ public class AssociationManagerService : IAssociationManagerService
         return  result.Adapt<List<AssociationManagerGetAllDto>>();
     }
 
-    public List<AssociationManagerGetAllDto> DeleteAssociationManager(int id)
+    public async Task<List<AssociationManagerGetAllDto>>? DeleteAssociationManager(int id)
     {
-        var resutl = _associationManagerRepository.DeleteAssociationManager(id);
+        var resutl = await _associationManagerRepository.DeleteAssociationManager(id);
         if (resutl == null)
         {
             return null;
