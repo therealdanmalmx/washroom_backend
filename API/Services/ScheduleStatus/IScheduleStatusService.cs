@@ -4,9 +4,9 @@ namespace API.Services;
 
 public interface IScheduleStatusService
 {
-    List<ScheduleStatusGetAllDto> GetAllScheduleStatus();
-    List<ScheduleStatusGetAllDto> CreateScheduleStatus(ScheduleStatusCreateDto newScheduleStatus);
-    ScheduleStatusGetAllDto? GetScheduleStatusById(int id);
-    List<ScheduleStatusGetAllDto>? UpdateScheduleStatus(int id, ScheduleStatusUpdateDto newScheduleStatus);
-    List<ScheduleStatusGetAllDto>? DeleteScheduleStatus(int id);
+    Task<List<ScheduleStatusGetAllDto>> GetAllScheduleStatus();
+    Task<List<ScheduleStatusGetAllDto>> CreateScheduleStatus(ScheduleStatusCreateDto newScheduleStatus);
+    Task<ScheduleStatusGetAllDto>? GetScheduleStatusById(int id);
+    Task<List<ScheduleStatusGetAllDto>>? UpdateScheduleStatus(int id, ScheduleStatusUpdateDto newScheduleStatus);
+    Task<List<ScheduleStatusGetAllDto>>? DeleteScheduleStatus(int id);
 }
