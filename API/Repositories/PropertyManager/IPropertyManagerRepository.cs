@@ -6,9 +6,9 @@ namespace API.Repositories
     {
         Task<List<PropertyManager>> GetAllPropertyManagers();
         Task<List<PropertyManager>> CreatePropertyManager(PropertyManager newPropertyManager);
-        Task<PropertyManager>? GetPropertyManagerById(int id);
-        Task<List<PropertyManager>>? UpdatePropertyManager(int id, PropertyManager updatePropertyManager);
-        Task<List<PropertyManager>>? DeletePropertyManager(int id);
+        Task<PropertyManager>? GetPropertyManagerById(Guid id);
+        Task<List<PropertyManager>>? UpdatePropertyManager(Guid id, PropertyManager updatePropertyManager);
+        Task<List<PropertyManager>>? DeletePropertyManager(Guid id);
 
     }
     

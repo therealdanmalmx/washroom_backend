@@ -25,7 +25,7 @@ namespace API.Repositories
             return await _dB.PropertyManagers.ToListAsync();
         }
 
-        public async Task<PropertyManager>? GetPropertyManagerById(int id)
+        public async Task<PropertyManager>? GetPropertyManagerById(Guid id)
         {
             var singlePropertyManager = await _dB.PropertyManagers.FindAsync(id);
             if (singlePropertyManager == null)
@@ -36,7 +36,7 @@ namespace API.Repositories
             return singlePropertyManager;
         }
 
-        public async Task<List<PropertyManager>>? UpdatePropertyManager(int id, PropertyManager updatePropertyManager)
+        public async Task<List<PropertyManager>>? UpdatePropertyManager(Guid id, PropertyManager updatePropertyManager)
         {
             var propertyManagerToUpdate = await _dB.PropertyManagers.FindAsync(id);
             if (propertyManagerToUpdate == null)
@@ -65,7 +65,7 @@ namespace API.Repositories
             return await _dB.PropertyManagers.ToListAsync();
         }
 
-        public async Task<List<PropertyManager>>? DeletePropertyManager(int id)
+        public async Task<List<PropertyManager>>? DeletePropertyManager(Guid id)
         {
             var propertyManagerToDelete = await _dB.PropertyManagers.FindAsync(id);
             if (propertyManagerToDelete == null)
