@@ -11,6 +11,7 @@ using API.Services.PropertyManager;
 using API.Services.Schedule;
 using API.Services.Tenant;
 using API.Services.TenantWashroomBooking;
+using API.Services.WashRoom;
 using API.Services.WashRoomSchedule;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -55,6 +56,9 @@ builder.Services.AddScoped<IScheduleStatusService, ScheduleStatusService>();
 
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
+
+builder.Services.AddScoped<IWashroomRepository, WashroomRepository>();
+builder.Services.AddScoped<IWashroomService, WashroomService>();
 
 builder.Services.AddScoped<IWashoomscheduleRepository, WashroomscheduleRepository>();
 builder.Services.AddScoped<IWashroomScheduleService, WashroomScheduleService>();
