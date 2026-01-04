@@ -52,7 +52,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<ScheduleStatusGetAllDto>>> DeleteScheduleStatus(int id)
+        public async Task<ActionResult<List<ScheduleStatusGetAllDto>>> DeleteScheduleStatus(Guid id)
         {
             var result = await _scheduleStatusService.DeleteScheduleStatus(id);
             if (result == null)

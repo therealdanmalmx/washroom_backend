@@ -23,7 +23,7 @@ public class TenantRepository : ITenantRepository
         return await _dB.Tenants.ToListAsync();
     }
 
-    public async Task<Tenant>? GetTenantById(int id)
+    public async Task<Tenant>? GetTenantById(Guid id)
     {
         var singleTenant = await _dB.Tenants.FindAsync(id);
         if (singleTenant == null)
@@ -33,7 +33,7 @@ public class TenantRepository : ITenantRepository
         return singleTenant;
         
     }
-    public async Task<List<Tenant>>? UpdateTenant(int id, Tenant updateTenant)
+    public async Task<List<Tenant>>? UpdateTenant(Guid id, Tenant updateTenant)
     {
         var tenatUpdate = await _dB.Tenants.FindAsync(id);
         if (tenatUpdate == null)
@@ -57,7 +57,7 @@ public class TenantRepository : ITenantRepository
         await _dB.SaveChangesAsync();
         return await _dB.Tenants.ToListAsync();
     }
-    public async Task<List<Tenant>>? DeleteTenant(int id)
+    public async Task<List<Tenant>>? DeleteTenant(Guid id)
     {
         var result = await _dB.Tenants.FindAsync(id);
         if (result == null)

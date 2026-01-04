@@ -28,7 +28,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TenantGetAllDto>> GetTenantById(int id)
+        public async Task<ActionResult<TenantGetAllDto>> GetTenantById(Guid id)
         {
             var result = await _tenantService.GetTenantById(id);
             if (result == null)
@@ -39,14 +39,14 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<TenantGetAllDto>> UpdateTenant(int id, TenantUpdateDto updatedTenant)
+        public async Task<ActionResult<TenantGetAllDto>> UpdateTenant(Guid id, TenantUpdateDto updatedTenant)
         {
             var result =  await _tenantService.UpdateTenant(id, updatedTenant);
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<TenantGetAllDto>>> DeleteTenant(int id)
+        public async Task<ActionResult<List<TenantGetAllDto>>> DeleteTenant(Guid id)
         {
             var result = await _tenantService.DeleteTenant(id);
             return Ok(result);
