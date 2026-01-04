@@ -13,22 +13,22 @@ public class WashroomScheduleService : IWashroomScheduleService
         _washoomscheduleRepository = washoomscheduleRepository;
     }
 
-    public List<WashRoomScheduleGetAllDto> GetAllWashRoomSchedules()
+    public async Task<List<WashRoomScheduleGetAllDto>> GetAllWashRoomSchedules()
     {
-        var result =  _washoomscheduleRepository.GetAllWashRoomSchedules();
+        var result = await _washoomscheduleRepository.GetAllWashRoomSchedules();
         return result.Adapt<List<WashRoomScheduleGetAllDto>>();
     }
 
-    public List<WashRoomScheduleGetAllDto> CreateWashRoomSchedules(WashRoomScheduleCreateDto newWashRoomSchedule)
+    public async Task<List<WashRoomScheduleGetAllDto>> CreateWashRoomSchedules(WashRoomScheduleCreateDto newWashRoomSchedule)
     {
         var newWashRoomStatusEntry = newWashRoomSchedule.Adapt<Core.Models.WashRoomSchedule>();
-        var result = _washoomscheduleRepository.CreateWashRoomSchedules(newWashRoomStatusEntry);
+        var result = await _washoomscheduleRepository.CreateWashRoomSchedules(newWashRoomStatusEntry);
         return result.Adapt<List<WashRoomScheduleGetAllDto>>();
     }
 
-    public WashRoomScheduleGetAllDto? GetWashRoomScheduleById(int id)
+    public async Task<WashRoomScheduleGetAllDto>? GetWashRoomScheduleById(int id)
     {
-        var result = _washoomscheduleRepository.GetWashRoomScheduleById(id);
+        var result = await _washoomscheduleRepository.GetWashRoomScheduleById(id);
         if (result == null)
         {
             return null;
@@ -36,10 +36,10 @@ public class WashroomScheduleService : IWashroomScheduleService
         return result.Adapt<WashRoomScheduleGetAllDto>();
     }
 
-    public List<WashRoomScheduleGetAllDto>? UpdateWashRoomSchedules(int id, WashRoomScheduleUpdateDto updateWashRoomSchedule)
+    public async Task<List<WashRoomScheduleGetAllDto>>? UpdateWashRoomSchedules(int id, WashRoomScheduleUpdateDto updateWashRoomSchedule)
     {
         var washRoomScheduleToUpdate = updateWashRoomSchedule.Adapt<Core.Models.WashRoomSchedule>();
-        var result = _washoomscheduleRepository.UpdateWashRoomSchedule(id, washRoomScheduleToUpdate);
+        var result = await _washoomscheduleRepository.UpdateWashRoomSchedule(id, washRoomScheduleToUpdate);
         if (result == null)
         {
             return null;
@@ -47,9 +47,9 @@ public class WashroomScheduleService : IWashroomScheduleService
         return result.Adapt<List<WashRoomScheduleGetAllDto>>();
     }
 
-    public List<WashRoomScheduleGetAllDto>? DeleteWashRoomSchedules(int id)
+    public async Task<List<WashRoomScheduleGetAllDto>>? DeleteWashRoomSchedules(int id)
     {
-        var washRoomScheduleToDelete = _washoomscheduleRepository.DeleteWashRoomSchedule(id);
+        var washRoomScheduleToDelete = await _washoomscheduleRepository.DeleteWashRoomSchedule(id);
         if (washRoomScheduleToDelete == null)
         {
             return null;
