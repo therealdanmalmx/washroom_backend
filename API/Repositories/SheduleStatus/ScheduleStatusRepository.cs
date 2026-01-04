@@ -24,7 +24,7 @@ public class ScheduleStatusRepository : IScheduleStatusRepository
         return await _dB.ScheduleStatuses.ToListAsync();
     }
 
-    public async Task<ScheduleStatus>? GetScheduleStatusById(int id)
+    public async Task<ScheduleStatus>? GetScheduleStatusById(Guid id)
     {
         var singleScheduleStatus = await _dB.ScheduleStatuses.FindAsync(id);
         if (singleScheduleStatus == null)
@@ -34,7 +34,7 @@ public class ScheduleStatusRepository : IScheduleStatusRepository
         return singleScheduleStatus;
     }
 
-    public async Task<List<ScheduleStatus>>? UpdateScheduleStatus(int id, ScheduleStatus updateScheduleStatus)
+    public async Task<List<ScheduleStatus>>? UpdateScheduleStatus(Guid id, ScheduleStatus updateScheduleStatus)
     {
         var scheduleStatusToUpdate = await _dB.ScheduleStatuses.FindAsync(id);
         if (scheduleStatusToUpdate == null)
@@ -51,7 +51,7 @@ public class ScheduleStatusRepository : IScheduleStatusRepository
         return await _dB.ScheduleStatuses.ToListAsync();
     }
 
-    public async Task<List<ScheduleStatus>>? DeleteScheduleStatus(int id)
+    public async Task<List<ScheduleStatus>>? DeleteScheduleStatus(Guid id)
     {
         var scheduleStatusToDelete = await _dB.ScheduleStatuses.FindAsync(id);
         if (scheduleStatusToDelete == null)
