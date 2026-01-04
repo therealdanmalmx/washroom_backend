@@ -6,7 +6,7 @@ public interface ITenantWashroomBookingRepository
 {
     Task<List<TenantWashroomBooking>> GetAllTenantWashroomBooking();
     Task<List<TenantWashroomBooking>>CreateTenantWashroomooking(TenantWashroomBooking tenantWashroomBooking);
-    Task<TenantWashroomBooking>? GetTenantWashroomBookingById(int id);
-    Task<List<TenantWashroomBooking>>? UpdateTenatWashroomBooking(int id, TenantWashroomBooking tenantWashroomBooking);
-    Task<List<TenantWashroomBooking>>? DeleteTenantWashroomBookingById(int id);
+    Task<TenantWashroomBooking>? GetTenantWashroomBookingById(Guid id);
+    Task<List<TenantWashroomBooking>>? UpdateTenatWashroomBooking(Guid id, TenantWashroomBooking tenantWashroomBooking);
+    Task<List<TenantWashroomBooking>>? DeleteTenantWashroomBookingById(Guid id);
 }

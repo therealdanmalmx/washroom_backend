@@ -2,9 +2,9 @@ namespace Core.Models;
 
 public class TenantWashroomBooking
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.CreateVersion7();
     public DateOnly Date { get; set; }
-    public int TenantId { get; set; }
-    public int WashroomScheduleId { get; set; }
+    public Guid TenantId { get; set; }
+    public Guid WashroomScheduleId { get; set; }
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }

@@ -24,7 +24,7 @@ public class TenantWashroomBookingRepository : ITenantWashroomBookingRepository
         return await _dB.TenantWashroomBookings.ToListAsync();
     }
 
-    public async Task<TenantWashroomBooking>? GetTenantWashroomBookingById(int id)
+    public async Task<TenantWashroomBooking>? GetTenantWashroomBookingById(Guid id)
     {
         var result = await _dB.TenantWashroomBookings.FindAsync(id);
         if (result == null)
@@ -34,7 +34,7 @@ public class TenantWashroomBookingRepository : ITenantWashroomBookingRepository
         return result;
     }
 
-    public async Task<List<TenantWashroomBooking>>? UpdateTenatWashroomBooking(int id, TenantWashroomBooking tenantWashroomBooking)
+    public async Task<List<TenantWashroomBooking>>? UpdateTenatWashroomBooking(Guid id, TenantWashroomBooking tenantWashroomBooking)
     {
         var tenantWashroomBookingToUpdate = await _dB.TenantWashroomBookings.FindAsync(id);
         if (tenantWashroomBookingToUpdate == null)
@@ -47,7 +47,7 @@ public class TenantWashroomBookingRepository : ITenantWashroomBookingRepository
         return await _dB.TenantWashroomBookings.ToListAsync();
     }
 
-    public async Task<List<TenantWashroomBooking>>? DeleteTenantWashroomBookingById(int id)
+    public async Task<List<TenantWashroomBooking>>? DeleteTenantWashroomBookingById(Guid id)
     {
         var result = await _dB.TenantWashroomBookings.FindAsync(id);
         if (result == null)
