@@ -26,7 +26,7 @@ public class PropertyManagerService : IPropertyManagerService
         return result.Adapt<List<PropertyManagerGetAllDto>>();
     }
 
-    public async Task<PropertyManagerGetAllDto> GetPropertyManagerById(int id)
+    public async Task<PropertyManagerGetAllDto> GetPropertyManagerById(Guid id)
     {
         var result = await _propertyManagerRepository.GetPropertyManagerById(id);
         if (result == null)
@@ -36,7 +36,7 @@ public class PropertyManagerService : IPropertyManagerService
         return result.Adapt<PropertyManagerGetAllDto>();
     }
 
-    public async Task<List<PropertyManagerGetAllDto>>? UpdatePropertyManager(int id, PropertyManagerUpdateDto updatePropertyManager)
+    public async Task<List<PropertyManagerGetAllDto>>? UpdatePropertyManager(Guid id, PropertyManagerUpdateDto updatePropertyManager)
     {
         var propertyManagerToUpdate = updatePropertyManager.Adapt<Core.Models.PropertyManager>();
 
@@ -49,7 +49,7 @@ public class PropertyManagerService : IPropertyManagerService
         return result.Adapt<List<PropertyManagerGetAllDto>>();
     }
 
-    public async Task<List<PropertyManagerGetAllDto>>? DeletePropertyManager(int id)
+    public async Task<List<PropertyManagerGetAllDto>>? DeletePropertyManager(Guid id)
     {
         var propertyAdministrationToUpdate = _propertyManagerRepository.DeletePropertyManager(id);
         

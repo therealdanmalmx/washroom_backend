@@ -29,7 +29,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PropertyGetAllDto>> GetPropertyById(int id)
+        public async Task<ActionResult<PropertyGetAllDto>> GetPropertyById(Guid id)
         {
             var result = await _apartmentService.GetApartmentById(id);
             if (result == null)
@@ -40,7 +40,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<ApartmentGetAllDto>>> UpdateProperty(int id, ApartmentUpdateDto propertyUpdateDto)
+        public async Task<ActionResult<List<ApartmentGetAllDto>>> UpdateProperty(Guid id, ApartmentUpdateDto propertyUpdateDto)
         {
             var result = await _apartmentService.UpdateApartment(id, propertyUpdateDto)!;
             if (result is null)
@@ -51,7 +51,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<ApartmentGetAllDto>>> DeleteApartment(int id)
+        public async Task<ActionResult<List<ApartmentGetAllDto>>> DeleteApartment(Guid id)
         {
             var result = await _apartmentService.DeleteApartment(id);
             if (result == null)

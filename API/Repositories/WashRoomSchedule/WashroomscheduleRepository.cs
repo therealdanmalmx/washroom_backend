@@ -23,7 +23,7 @@ public class WashroomscheduleRepository : IWashoomscheduleRepository
         return await _dB.WashRoomSchedules.ToListAsync();
     }
 
-    public async Task<WashRoomSchedule>? GetWashRoomScheduleById(int id)
+    public async Task<WashRoomSchedule>? GetWashRoomScheduleById(Guid id)
     {
         var result = await _dB.WashRoomSchedules.FindAsync(id);
         if (result == null)
@@ -33,7 +33,7 @@ public class WashroomscheduleRepository : IWashoomscheduleRepository
         return result;
     }
 
-    public async Task<List<WashRoomSchedule>>? UpdateWashRoomSchedule(int id, WashRoomSchedule updateWashRoomSchedule)
+    public async Task<List<WashRoomSchedule>>? UpdateWashRoomSchedule(Guid id, WashRoomSchedule updateWashRoomSchedule)
     {
         var washRoomScheduleToUpdate = await _dB.WashRoomSchedules.FindAsync(id);
         if (washRoomScheduleToUpdate == null)
@@ -47,7 +47,7 @@ public class WashroomscheduleRepository : IWashoomscheduleRepository
         return await _dB.WashRoomSchedules.ToListAsync();
     }
 
-    public async Task<List<WashRoomSchedule>>? DeleteWashRoomSchedule(int id)
+    public async Task<List<WashRoomSchedule>>? DeleteWashRoomSchedule(Guid id)
     {
         var washRoomScheduleToDelte = await _dB.WashRoomSchedules.FindAsync(id);
         if (washRoomScheduleToDelte == null)

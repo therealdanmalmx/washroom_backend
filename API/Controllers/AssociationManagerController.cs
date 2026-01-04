@@ -31,20 +31,20 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AssociationManagerGetAllDto>> GetAssociationManagerById(int id)
+        public async Task<ActionResult<AssociationManagerGetAllDto>> GetAssociationManagerById(Guid id)
         {
             return Ok(await _associationManagerService.GetAssociationManagerById(id));
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<AssociationManagerGetAllDto>>> UpdateAssociationManager(int id,
+        public async Task<ActionResult<List<AssociationManagerGetAllDto>>> UpdateAssociationManager(Guid id,
             AssociationManagerUpdateDto associationManagerUpdateDto)
         {
             return Ok(await _associationManagerService.UpdateAssociationManager(id, associationManagerUpdateDto));
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AssociationManagerGetAllDto>> DeleteAssociationManager(int id)
+        public async Task<ActionResult<AssociationManagerGetAllDto>> DeleteAssociationManager(Guid id)
         {
             return Ok(await _associationManagerService.DeleteAssociationManager(id));
         }

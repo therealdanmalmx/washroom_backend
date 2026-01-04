@@ -6,7 +6,7 @@ public interface IAssociationRepository
 {
     Task<List<Association>> GetAllAssociations();
     Task<List<Association>> CreateAssociation(Association association);
-    Task<Association>? GetAssociationById(int id);
-    Task<List<Association>>? UpdateAssociation(int id, Association association);
-    Task<List<Association>>? DeleteAssociation(int id);
+    Task<Association>? GetAssociationById(Guid id);
+    Task<List<Association>>? UpdateAssociation(Guid id, Association association);
+    Task<List<Association>>? DeleteAssociation(Guid id);
 }

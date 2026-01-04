@@ -2,8 +2,8 @@ namespace Core.Models;
 
 public class WashRoomSchedule
 {
-    public int Id { get; set; }
-    public int ScheduleId { get; set; }
-    public int  WashRoomId { get; set; }
+    public Guid Id { get; set; } = Guid.CreateVersion7();
+    public Guid ScheduleId { get; set; }
+    public Guid  WashRoomId { get; set; }
     public DateTime CretaedAt { get; set; } = DateTime.UtcNow;
 }

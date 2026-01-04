@@ -30,7 +30,7 @@ public class PropertyService : IPropertyService
         return result.Adapt<List<PropertyGetAllDto>>();
     }
 
-    public async Task<PropertyGetAllDto>? GetPropertyById(int id)
+    public async Task<PropertyGetAllDto>? GetPropertyById(Guid id)
     {
         var result = await _propertyRepository.GetPropertyById(id);
         if (result == null)
@@ -40,7 +40,7 @@ public class PropertyService : IPropertyService
         return result.Adapt<PropertyGetAllDto>();
     }
 
-    public async Task<List<PropertyGetAllDto>> UpdateProperty(int id, PropertyUpdateDto propertyUpdateDto)
+    public async Task<List<PropertyGetAllDto>> UpdateProperty(Guid id, PropertyUpdateDto propertyUpdateDto)
     {
         var updateProperty = propertyUpdateDto.Adapt<Core.Models.Property>();
         var result = await _propertyRepository.UpdateProperty(id, updateProperty);
@@ -51,7 +51,7 @@ public class PropertyService : IPropertyService
         return result.Adapt<List<PropertyGetAllDto>>();
     }
 
-    public async Task<List<PropertyGetAllDto>> DeleteProperty(int id)
+    public async Task<List<PropertyGetAllDto>> DeleteProperty(Guid id)
     {
         var result = await _propertyRepository.DeleteProperty(id);
         if (result == null)

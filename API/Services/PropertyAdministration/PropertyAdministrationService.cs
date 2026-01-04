@@ -20,7 +20,7 @@ public class PropertyAdministrationService : IPropertyAdministrationService
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 
-    public async Task<PropertyAdministrationGetAllDto> GetPropertyAdministration(int id)
+    public async Task<PropertyAdministrationGetAllDto> GetPropertyAdministration(Guid id)
     {
         var  result = await _propertyAdministrationRepository.GetPropertyAdministration(id);
         return result.Adapt<PropertyAdministrationGetAllDto>();
@@ -34,7 +34,7 @@ public class PropertyAdministrationService : IPropertyAdministrationService
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 
-    public async Task<List<PropertyAdministrationGetAllDto>>? UpdatePropertyAdministration(int id, PropertyAdministrationUpdateDto updatePropertyAdministration)
+    public async Task<List<PropertyAdministrationGetAllDto>>? UpdatePropertyAdministration(Guid id, PropertyAdministrationUpdateDto updatePropertyAdministration)
     {
         var propertyAdministrationToUpdate = updatePropertyAdministration.Adapt<PropertyAdministration>();
         
@@ -47,7 +47,7 @@ public class PropertyAdministrationService : IPropertyAdministrationService
         return result.Adapt<List<PropertyAdministrationGetAllDto>>();
     }
 
-    public async Task<List<PropertyAdministrationGetAllDto>>? DeletePropertyAdministration(int id)
+    public async Task<List<PropertyAdministrationGetAllDto>>? DeletePropertyAdministration(Guid id)
     {
         var result = await _propertyAdministrationRepository.DeletePropertyAdministration(id);
         if (result is null)

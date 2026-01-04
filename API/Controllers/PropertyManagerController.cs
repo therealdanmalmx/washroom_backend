@@ -22,7 +22,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PropertyManagerGetAllDto>> GetPropertyManagerById(int id)
+        public async Task<ActionResult<PropertyManagerGetAllDto>> GetPropertyManagerById(Guid id)
         {
             return Ok(await _propertyManagerService.GetPropertyManagerById(id));
         }
@@ -35,14 +35,14 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> UpdatePropertyManager(int id,
+        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> UpdatePropertyManager(Guid id,
             PropertyManagerUpdateDto updatePropertyManager)
         {
             return Ok(await _propertyManagerService.UpdatePropertyManager(id, updatePropertyManager));
         }
         
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> DeletePropertyManager(int id)
+        public async Task<ActionResult<List<PropertyManagerGetAllDto>>> DeletePropertyManager(Guid id)
         {
             var result = await _propertyManagerService.DeletePropertyManager(id);
             if (result == null)

@@ -2,6 +2,6 @@ namespace Core.DTOs.WasroomSchedule;
 
 public class WashRoomScheduleUpdateDto
 {
-    public int ScheduleId { get; set; }
-    public int  WashRoomId { get; set; }
+    public Guid ScheduleId { get; set; }
+    public Guid  WashRoomId { get; set; }
 }

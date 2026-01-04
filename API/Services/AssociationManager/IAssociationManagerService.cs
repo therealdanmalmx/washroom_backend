@@ -6,7 +6,7 @@ public interface IAssociationManagerService
 {
     Task<List<AssociationManagerGetAllDto>> GetAllAssociationManagers();
     Task<List<AssociationManagerCreateDto>> CreateAssociationManager(AssociationManagerCreateDto newAssociationManager);
-    Task<AssociationManagerGetAllDto>? GetAssociationManagerById(int id);
-    Task<List<AssociationManagerGetAllDto>>? UpdateAssociationManager(int id, AssociationManagerUpdateDto updateAssociationManager);
-    Task<List<AssociationManagerGetAllDto>>? DeleteAssociationManager(int id);
+    Task<AssociationManagerGetAllDto>? GetAssociationManagerById(Guid id);
+    Task<List<AssociationManagerGetAllDto>>? UpdateAssociationManager(Guid id, AssociationManagerUpdateDto updateAssociationManager);
+    Task<List<AssociationManagerGetAllDto>>? DeleteAssociationManager(Guid id);
 }

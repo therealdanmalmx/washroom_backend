@@ -26,7 +26,7 @@ public class WashroomScheduleService : IWashroomScheduleService
         return result.Adapt<List<WashRoomScheduleGetAllDto>>();
     }
 
-    public async Task<WashRoomScheduleGetAllDto>? GetWashRoomScheduleById(int id)
+    public async Task<WashRoomScheduleGetAllDto>? GetWashRoomScheduleById(Guid id)
     {
         var result = await _washoomscheduleRepository.GetWashRoomScheduleById(id);
         if (result == null)
@@ -36,7 +36,7 @@ public class WashroomScheduleService : IWashroomScheduleService
         return result.Adapt<WashRoomScheduleGetAllDto>();
     }
 
-    public async Task<List<WashRoomScheduleGetAllDto>>? UpdateWashRoomSchedules(int id, WashRoomScheduleUpdateDto updateWashRoomSchedule)
+    public async Task<List<WashRoomScheduleGetAllDto>>? UpdateWashRoomSchedules(Guid id, WashRoomScheduleUpdateDto updateWashRoomSchedule)
     {
         var washRoomScheduleToUpdate = updateWashRoomSchedule.Adapt<Core.Models.WashRoomSchedule>();
         var result = await _washoomscheduleRepository.UpdateWashRoomSchedule(id, washRoomScheduleToUpdate);
@@ -47,7 +47,7 @@ public class WashroomScheduleService : IWashroomScheduleService
         return result.Adapt<List<WashRoomScheduleGetAllDto>>();
     }
 
-    public async Task<List<WashRoomScheduleGetAllDto>>? DeleteWashRoomSchedules(int id)
+    public async Task<List<WashRoomScheduleGetAllDto>>? DeleteWashRoomSchedules(Guid id)
     {
         var washRoomScheduleToDelete = await _washoomscheduleRepository.DeleteWashRoomSchedule(id);
         if (washRoomScheduleToDelete == null)

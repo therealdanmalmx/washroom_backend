@@ -6,7 +6,7 @@ public interface ITenantService
 {
     Task<List<TenantGetAllDto>> GetAllTenants();
     Task<List<TenantGetAllDto>> CreateTenant(TenantCreateDto newTenant);
-    Task<TenantGetAllDto>? GetTenantById(int id);
-    Task<List<TenantGetAllDto>> UpdateTenant(int id, TenantUpdateDto updatedTenant);
-    Task<List<TenantGetAllDto>> DeleteTenant(int id);
+    Task<TenantGetAllDto>? GetTenantById(Guid id);
+    Task<List<TenantGetAllDto>> UpdateTenant(Guid id, TenantUpdateDto updatedTenant);
+    Task<List<TenantGetAllDto>> DeleteTenant(Guid id);
 }

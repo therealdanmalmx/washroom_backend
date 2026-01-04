@@ -6,7 +6,7 @@ public interface IApartmentRepository
 {
     Task<List<Apartment>> GetAllApartments();
     Task<List<Apartment>> CreateApartment(Apartment newApartment);
-    Task<Apartment>? GetApartment(int id);
-    Task<List<Apartment>>? UpdateApartment(int id, Apartment updateApartment);
-    Task<List<Apartment>>? DeleteApartment(int id);
+    Task<Apartment>? GetApartment(Guid id);
+    Task<List<Apartment>>? UpdateApartment(Guid id, Apartment updateApartment);
+    Task<List<Apartment>>? DeleteApartment(Guid id);
 }

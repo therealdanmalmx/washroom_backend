@@ -32,7 +32,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TenantWashroomBookingGetAllDto>>? GetTenantWashroomBookingById(int id)
+        public async Task<ActionResult<TenantWashroomBookingGetAllDto>>? GetTenantWashroomBookingById(Guid id)
         {
             var result =  await _tenantWashroomService.GetTenantWashroomBookingById(id);
             if (result == null)
@@ -43,7 +43,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>>? UpdateTenahtWashroomBooking(int id,
+        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>>? UpdateTenahtWashroomBooking(Guid id,
             TenantWashroomBookingUpdateDto updateTenantWashroomBooking)
         {
             var result = await _tenantWashroomService.UpdateTenatntWashroomBooking(id, updateTenantWashroomBooking);
@@ -55,7 +55,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>>? DeleteTenantWashroomBooking(int id)
+        public async Task<ActionResult<List<TenantWashroomBookingGetAllDto>>>? DeleteTenantWashroomBooking(Guid id)
         {
             var result = await _tenantWashroomService.DeleteTenantWashroomBooking(id);
             if (result == null)

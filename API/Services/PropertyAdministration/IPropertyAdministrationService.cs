@@ -7,8 +7,8 @@ public interface IPropertyAdministrationService
 {
     Task<List<PropertyAdministrationGetAllDto>> GetAllPropertyAdministrations();
     Task<List<PropertyAdministrationGetAllDto>> CreatePropertyAdministration(PropertyAdministrationCreateDto newPropertyAdministration);
-    Task<PropertyAdministrationGetAllDto>? GetPropertyAdministration(int id);
-    Task<List<PropertyAdministrationGetAllDto>>? UpdatePropertyAdministration(int id, PropertyAdministrationUpdateDto updatePropertyAdministration);
-    Task<List<PropertyAdministrationGetAllDto>>? DeletePropertyAdministration(int id);
+    Task<PropertyAdministrationGetAllDto>? GetPropertyAdministration(Guid id);
+    Task<List<PropertyAdministrationGetAllDto>>? UpdatePropertyAdministration(Guid id, PropertyAdministrationUpdateDto updatePropertyAdministration);
+    Task<List<PropertyAdministrationGetAllDto>>? DeletePropertyAdministration(Guid id);
 
 }

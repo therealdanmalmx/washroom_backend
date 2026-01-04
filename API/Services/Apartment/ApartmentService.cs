@@ -30,13 +30,13 @@ public class ApartmentService : IApartmentService
         return result.Adapt<List<ApartmentGetAllDto>>();
     }
 
-    public async Task<ApartmentGetAllDto?> GetApartmentById(int id)
+    public async Task<ApartmentGetAllDto?> GetApartmentById(Guid id)
     {
         var  result = await _apartmentRepository.GetApartment(id);
         return result.Adapt<ApartmentGetAllDto>();
     }
 
-    public async Task<List<ApartmentGetAllDto>>? UpdateApartment(int id, ApartmentUpdateDto updatedApartment)
+    public async Task<List<ApartmentGetAllDto>>? UpdateApartment(Guid id, ApartmentUpdateDto updatedApartment)
     {
         var apartmentUpdate = updatedApartment.Adapt<Core.Models.Apartment>();
         var result = _apartmentRepository.UpdateApartment(id, apartmentUpdate);
@@ -47,7 +47,7 @@ public class ApartmentService : IApartmentService
         return result.Adapt<List<ApartmentGetAllDto>>();
     }
 
-    public async Task<List<ApartmentGetAllDto>>? DeleteApartment(int id)
+    public async Task<List<ApartmentGetAllDto>>? DeleteApartment(Guid id)
     {
         var result = await _apartmentRepository.DeleteApartment(id);
         if (result == null)

@@ -26,7 +26,7 @@ public class TenantService : ITenantService
         return result.Adapt<List<TenantGetAllDto>>();
     }
 
-    public async Task<TenantGetAllDto>? GetTenantById(int id)
+    public async Task<TenantGetAllDto>? GetTenantById(Guid id)
     {
         var result = await _tenantRepository.GetTenantById(id);
         if (result == null)
@@ -36,7 +36,7 @@ public class TenantService : ITenantService
         return result.Adapt<TenantGetAllDto>();
     }
 
-    public async Task<List<TenantGetAllDto>>? UpdateTenant(int id, TenantUpdateDto updatedTenant)
+    public async Task<List<TenantGetAllDto>>? UpdateTenant(Guid id, TenantUpdateDto updatedTenant)
     {
         var tenantToUpdate = updatedTenant.Adapt<Core.Models.Tenant>();
         var result = await _tenantRepository.UpdateTenant(id, tenantToUpdate);
@@ -47,7 +47,7 @@ public class TenantService : ITenantService
         return result.Adapt<List<TenantGetAllDto>>();
     }
 
-    public async Task<List<TenantGetAllDto>>? DeleteTenant(int id)
+    public async Task<List<TenantGetAllDto>>? DeleteTenant(Guid id)
     {
         var result = await _tenantRepository.DeleteTenant(id);
         if (result == null)
