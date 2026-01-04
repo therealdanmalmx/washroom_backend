@@ -32,7 +32,7 @@ public class AssociationManagerService : IAssociationManagerService
         return result.Adapt<List<AssociationManagerCreateDto>>();
     }
 
-    public async Task<AssociationManagerGetAllDto>? GetAssociationManagerById(int id)
+    public async Task<AssociationManagerGetAllDto>? GetAssociationManagerById(Guid id)
     {
         var result = await _associationManagerRepository.GetAssociationManagerById(id);
         if (result == null)
@@ -42,7 +42,7 @@ public class AssociationManagerService : IAssociationManagerService
         return result.Adapt<AssociationManagerGetAllDto>();
     }
 
-    public async Task<List<AssociationManagerGetAllDto>>? UpdateAssociationManager(int id, AssociationManagerUpdateDto updateAssociationManager)
+    public async Task<List<AssociationManagerGetAllDto>>? UpdateAssociationManager(Guid id, AssociationManagerUpdateDto updateAssociationManager)
     {
         var associationManagerToUpdate = updateAssociationManager.Adapt<Core.Models.AssociationManager>();
         var result = await _associationManagerRepository.UpdateAssociationManager(id, associationManagerToUpdate);
@@ -53,7 +53,7 @@ public class AssociationManagerService : IAssociationManagerService
         return  result.Adapt<List<AssociationManagerGetAllDto>>();
     }
 
-    public async Task<List<AssociationManagerGetAllDto>>? DeleteAssociationManager(int id)
+    public async Task<List<AssociationManagerGetAllDto>>? DeleteAssociationManager(Guid id)
     {
         var resutl = await _associationManagerRepository.DeleteAssociationManager(id);
         if (resutl == null)

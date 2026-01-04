@@ -25,7 +25,7 @@ public class AssociationManagerRepository : IAssociationManagerRepository
         return await _dB.AssociationManagers.ToListAsync();
     }
     
-    public async Task<AssociationManager>? GetAssociationManagerById(int id)
+    public async Task<AssociationManager>? GetAssociationManagerById(Guid id)
     {
         var singleAssociationManager = await _dB.AssociationManagers.FindAsync(id);
         if (singleAssociationManager == null)
@@ -36,7 +36,7 @@ public class AssociationManagerRepository : IAssociationManagerRepository
     }
 
 
-    public async Task<List<AssociationManager>>? UpdateAssociationManager(int id, AssociationManager updateAssociationManager)
+    public async Task<List<AssociationManager>>? UpdateAssociationManager(Guid id, AssociationManager updateAssociationManager)
     {
         var associationManagerToUpdate = await _dB.AssociationManagers.FindAsync(id);
         if (associationManagerToUpdate == null)
@@ -62,7 +62,7 @@ public class AssociationManagerRepository : IAssociationManagerRepository
         
     }
 
-    public async Task<List<AssociationManager>>? DeleteAssociationManager(int id)
+    public async Task<List<AssociationManager>>? DeleteAssociationManager(Guid id)
     {
         var associationManagerToDelete = await _dB.AssociationManagers.FindAsync(id);
         if (associationManagerToDelete == null)
