@@ -60,6 +60,7 @@ public class AssociationRepository : IAssociationRepository
         {
             return null;
         }
+        _dB.Associations.Remove(associationToDelete);
         await _dB.SaveChangesAsync();
         return await _dB.Associations.ToListAsync();
     }
