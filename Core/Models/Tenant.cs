@@ -7,5 +7,6 @@ public class Tenant
     public string Phone { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public Guid ApartmentId { get; set; }
+    public Apartment Apartment { get; set; } = new();
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }
