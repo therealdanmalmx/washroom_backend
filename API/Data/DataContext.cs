@@ -5,10 +5,7 @@ namespace API.Data;
 
 public class DataContext : DbContext
 {
-    public DataContext(DbContextOptions<DataContext> options) : base(options)
-    {
-        
-    }
+    public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
     public DbSet<Apartment> Apartments { get; set; }
     public DbSet<Association> Associations { get; set; }
