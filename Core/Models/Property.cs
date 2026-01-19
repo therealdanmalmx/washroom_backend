@@ -14,4 +14,5 @@ public class Property
     public AssociationManager AssociationManager { get; set; } = new();
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
     public List<Apartment> Apartments { get; set; } = new();
+    public List<WashRoom> WashRooms { get; set; } = new();
 }

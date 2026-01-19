@@ -7,5 +7,7 @@ public class Schedule
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
     public Guid ScheduleStatusId { get; set; }
+    public ScheduleStatus ScheduleStatus { get; set; } = new();
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
+    public List<WashRoomSchedule> WashRoomSchedules { get; set; } = new();
 }

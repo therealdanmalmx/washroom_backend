@@ -9,4 +9,5 @@ public class Tenant
     public Guid ApartmentId { get; set; }
     public Apartment Apartment { get; set; } = new();
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
+    public List<TenantWashroomBooking> TenantWashroomBookings { get; set; } = new();
 }
