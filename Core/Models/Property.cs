@@ -10,9 +10,9 @@ public class Property
     public string City { get; set; } = string.Empty;
     public Guid PropertyAdministrationId { get; set; }
     public PropertyAdministration? PropertyAdministration { get; set; }
-    public Guid AdssociationManagerId { get; set; }
-    public AssociationManager AssociationManager { get; set; } = new();
-    public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
+    public Guid? AssociationManagerId { get; set; }
+    public AssociationManager? AssociationManager { get; set; }
     public List<Apartment> Apartments { get; set; } = new();
     public List<WashRoom> WashRooms { get; set; } = new();
+    public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }
