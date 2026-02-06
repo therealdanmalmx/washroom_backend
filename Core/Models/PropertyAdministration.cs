@@ -11,5 +11,7 @@ namespace Core.Models
         public required string Name { get; set; }
         public string Logo { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public List<PropertyManager> PropertyManagers { get; set; } = new();
+        public List<Property> Properties { get; set; } = new();
     }
 }

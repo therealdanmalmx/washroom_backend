@@ -9,6 +9,10 @@ public class Property
     public string PostalCode { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public Guid PropertyAdministrationId { get; set; }
-    public Guid AdssociationManagerId { get; set; }
+    public PropertyAdministration? PropertyAdministration { get; set; }
+    public Guid? AssociationManagerId { get; set; }
+    public AssociationManager? AssociationManager { get; set; }
+    public List<Apartment> Apartments { get; set; } = new();
+    public List<WashRoom> WashRooms { get; set; } = new();
     public DateTime CreatedAt { get; set; } =  DateTime.UtcNow;
 }
