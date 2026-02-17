@@ -1,4 +1,4 @@
-using API.Repositories;
+/* using API.Repositories;
 using Core.DTOs.Tenant;
 using Mapster;
 
@@ -56,4 +56,5 @@ public class TenantService : ITenantService
         }
         return result.Adapt<List<TenantGetAllDto>>();
     }
-}
+} 
+*/

@@ -13,6 +13,7 @@ using API.Services.Tenant;
 using API.Services.TenantWashroomBooking;
 using API.Services.WashRoom;
 using API.Services.WashRoomSchedule;
+using Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -31,7 +32,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<DataContext>(options => 
     options.UseNpgsql(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<DataContext>();
+builder.Services.AddDefaultIdentity<Tenant>().AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddScoped<IPropertyAdministrationRepository, PropertyAdministrationRepository>();
 builder.Services.AddScoped<IPropertyAdministrationService, PropertyAdministrationService>();
@@ -51,8 +52,8 @@ builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<IApartmentRepository, ApartmentRepository>();
 builder.Services.AddScoped<IApartmentService, ApartmentService>();
 
-builder.Services.AddScoped<ITenantRepository, TenantRepository>();
-builder.Services.AddScoped<ITenantService, TenantService>();
+//builder.Services.AddScoped<ITenantRepository, TenantRepository>();
+//builder.Services.AddScoped<ITenantService, TenantService>();
 
 builder.Services.AddScoped<IScheduleStatusRepository, ScheduleStatusRepository>();
 builder.Services.AddScoped<IScheduleStatusService, ScheduleStatusService>();
