@@ -19,7 +19,7 @@ washroom_backend/
 
 - **.NET 10.0** - Target framework
 - **ASP.NET Core Web API** - RESTful API framework
-- **OpenAPI/Swagger** - API documentation
+- **OpenAPI/Scalar** - API documentation
 - **Scalar** - API reference UI
 
 ## Prerequisites
