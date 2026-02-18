@@ -1,4 +1,4 @@
-using API.Data;
+/* using API.Data;
 using Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,15 +40,7 @@ public class TenantRepository : ITenantRepository
         {
             return null;
         }
-
-        if (!string.IsNullOrWhiteSpace(updateTenant.Name))
-        {
-            tenatUpdate.Name = updateTenant.Name;
-        }
-        if (!string.IsNullOrWhiteSpace(updateTenant.Email))
-        {
-            tenatUpdate.Email = updateTenant.Email;
-        }
+        
         if (!string.IsNullOrWhiteSpace(updateTenant.Phone))
         {
             tenatUpdate.Phone = updateTenant.Phone;
@@ -69,3 +61,4 @@ public class TenantRepository : ITenantRepository
         return await _dB.Tenants.ToListAsync();
     }
 }
+*/
