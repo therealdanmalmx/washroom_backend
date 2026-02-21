@@ -20,6 +20,7 @@ public class DataContext : IdentityDbContext<Tenant>
     public DbSet<TenantWashroomBooking> TenantWashroomBookings { get; set; }
     public DbSet<WashRoom> WashRooms { get; set; }
     public DbSet<WashRoomSchedule> WashRoomSchedules { get; set; }
+    public DbSet<Tenant> Tenants { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
