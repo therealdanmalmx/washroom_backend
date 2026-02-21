@@ -1,3 +1,4 @@
+using System.Text;
 using API.Data;
 using API.Repositories;
 using API.Repositories.ScheduleRepository;
@@ -14,8 +15,10 @@ using API.Services.TenantWashroomBooking;
 using API.Services.WashRoom;
 using API.Services.WashRoomSchedule;
 using Core.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +36,23 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddDefaultIdentity<Tenant>().AddEntityFrameworkStores<DataContext>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JwtIssuer"],
+            ValidAudience = builder.Configuration["JwtAudience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["JwtSecurityKey"]!)
+            )
+        };
+    });
 
 builder.Services.AddScoped<IPropertyAdministrationRepository, PropertyAdministrationRepository>();
 builder.Services.AddScoped<IPropertyAdministrationService, PropertyAdministrationService>();
