@@ -1,4 +1,5 @@
-using API.Services.Tenant;
+/*
+ using API.Services.Tenant;
 using Core.DTOs.Tenant;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,3 +54,4 @@ namespace API.Controllers
         }
     }
 }
+*/

@@ -9,5 +9,5 @@ public class PropertyGetAllDto
     public string PostalCode { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public Guid PropertyAdministrationId { get; set; }
-    public Guid AdssociationManagerId { get; set; }
+    public Guid AssociationManagerId { get; set; }
 }
