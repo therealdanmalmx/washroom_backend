@@ -33,9 +33,10 @@ namespace API.Migrations
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)");
 
-                    b.Property<Guid>("PropertyId")
+                    b.Property<Guid?>("PropertyId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -246,7 +247,11 @@ namespace API.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("ApartmentId")
+                    b.Property<string>("ApartmentId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("ApartmentId1")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -286,6 +291,13 @@ namespace API.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("PropertyId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("PropertyId1")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -298,7 +310,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApartmentId");
+                    b.HasIndex("ApartmentId1");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -306,6 +318,8 @@ namespace API.Migrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("PropertyId1");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -563,9 +577,7 @@ namespace API.Migrations
                 {
                     b.HasOne("Core.Models.Property", "Property")
                         .WithMany("Apartments")
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PropertyId");
 
                     b.Navigation("Property");
                 });
@@ -624,11 +636,19 @@ namespace API.Migrations
                 {
                     b.HasOne("Core.Models.Apartment", "Apartment")
                         .WithMany("Tenants")
-                        .HasForeignKey("ApartmentId")
+                        .HasForeignKey("ApartmentId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Models.Property", "Property")
+                        .WithMany()
+                        .HasForeignKey("PropertyId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Apartment");
+
+                    b.Navigation("Property");
                 });
 
             modelBuilder.Entity("Core.Models.TenantWashroomBooking", b =>

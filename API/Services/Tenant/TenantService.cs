@@ -1,59 +1,38 @@
 using API.Repositories;
 using Core.DTOs.Tenant;
 using Mapster;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Services.Tenant;
 
 public class TenantService : ITenantService
 {
-    private readonly ITenantRepository _tenantRepository;
+    private readonly UserManager<Core.Models.Tenant> _tenantManager;
 
-    public TenantService(ITenantRepository tenantRepository)
+    public TenantService(UserManager<Core.Models.Tenant> tenantManager)
     {
-        _tenantRepository = tenantRepository;
+        _tenantManager = tenantManager;
     }
 
-    public async Task<List<TenantGetAllDto>> GetAllTenants()
+    public async Task<TenantRegistrationResponse> RegisterTenant(TenantRegistrationRequest request)
     {
-        var result = await _tenantRepository.GetAllTenant();
-        return result.Adapt<List<TenantGetAllDto>>();
-    }
-
-    public async Task<List<TenantGetAllDto>> CreateTenant(TenantCreateDto newTenant)
-    {
-        var newTentantEntry = newTenant.Adapt<Core.Models.Tenant>();
-        var result = await _tenantRepository.CreateTenant(newTentantEntry);
-        return result.Adapt<List<TenantGetAllDto>>();
-    }
-
-    public async Task<TenantGetAllDto>? GetTenantById(Guid id)
-    {
-        var result = await _tenantRepository.GetTenantById(id);
-        if (result == null)
+        var newTenant = new Core.Models.Tenant()
         {
-            return null;
-        }
-        return result.Adapt<TenantGetAllDto>();
-    }
+            UserName = request.UserName, 
+            PhoneNumber = request.PhoneNumber, 
+            Email = request.Email, 
+            ApartmentId = request.ApartmentId, 
+            PropertyId = request.PropertyId
+        };
 
-    public async Task<List<TenantGetAllDto>>? UpdateTenant(Guid id, TenantUpdateDto updatedTenant)
-    {
-        var tenantToUpdate = updatedTenant.Adapt<Core.Models.Tenant>();
-        var result = await _tenantRepository.UpdateTenant(id, tenantToUpdate);
-        if (result == null)
-        {
-            return null;
-        }
-        return result.Adapt<List<TenantGetAllDto>>();
-    }
+        var result = await _tenantManager.CreateAsync(newTenant, request.Password);
 
-    public async Task<List<TenantGetAllDto>>? DeleteTenant(Guid id)
-    {
-        var result = await _tenantRepository.DeleteTenant(id);
-        if (result == null)
+        if (!result.Succeeded)
         {
-            return null;
+            var errors = result.Errors.Select(e => e.Description);
+            return new TenantRegistrationResponse(false, errors);
         }
-        return result.Adapt<List<TenantGetAllDto>>();
+
+        return new TenantRegistrationResponse(true);
     }
 } 

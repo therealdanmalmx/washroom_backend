@@ -1,4 +1,5 @@
-using API.Data;
+/*
+ using API.Data;
 using Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,3 +57,4 @@ public class TenantRepository : ITenantRepository
         return await _dB.Tenants.ToListAsync();
     }
 }
+*/
