@@ -9,11 +9,11 @@ public class TenantRegistrationResponse
 
     public TenantRegistrationResponse(bool isSuccessful)
     {
-        isSuccessful = IsSuccessful;
+        IsSuccessful = isSuccessful;
     }
     public TenantRegistrationResponse(bool isSuccessful, IEnumerable<string>? errors)
     {
-        isSuccessful = IsSuccessful;
-        errors = Errors;
+        IsSuccessful = isSuccessful;
+        Errors = errors;
     }
 }
