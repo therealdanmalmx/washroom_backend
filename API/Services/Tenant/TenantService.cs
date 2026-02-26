@@ -2,6 +2,7 @@ using API.Repositories;
 using Core.DTOs.Tenant;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services.Tenant;
 
@@ -20,7 +21,7 @@ public class TenantService : ITenantService
         {
             UserName = request.UserName, 
             PhoneNumber = request.PhoneNumber, 
-            Email = request.Email, 
+            Email = request.Email,
             ApartmentId = request.ApartmentId, 
             PropertyId = request.PropertyId
         };
@@ -34,5 +35,15 @@ public class TenantService : ITenantService
         }
 
         return new TenantRegistrationResponse(true);
+    }
+
+    public async Task<List<Core.Models.Tenant>> GetAllTenants()
+    {
+        if (_tenantManager.Users == null)
+        {
+            return [];
+        }
+
+        return await _tenantManager.Users.ToListAsync();
     }
 } 
