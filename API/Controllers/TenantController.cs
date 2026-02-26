@@ -1,5 +1,4 @@
-/*
- using API.Services.Tenant;
+using API.Services.Tenant;
 using Core.DTOs.Tenant;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,41 +16,24 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TenantGetAllDto>>> GetAllTenants()
+        public async Task<ActionResult<IEnumerable<TenantRegistrationResponse>>> GetAllParticipants()
         {
-            return Ok(await _tenantService.GetAllTenants());
+            var result = await _tenantService.GetAllTenants();
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<TenantGetAllDto>>> CreateTenant(TenantCreateDto newTenant)
+        public async Task<ActionResult<TenantRegistrationResponse>> RegisterParticipant(
+            TenantRegistrationRequest request)
         {
-            return Ok(await _tenantService.CreateTenant(newTenant));
-        }
+            var result = await _tenantService.RegisterTenant(request);
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TenantGetAllDto>> GetTenantById(Guid id)
-        {
-            var result = await _tenantService.GetTenantById(id);
-            if (result == null)
+            if (!result.IsSuccessful)
             {
-                return NotFound();
+                return BadRequest(new TenantRegistrationResponse(false, result.Errors));
             }
-            return Ok(result);
-        }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<TenantGetAllDto>> UpdateTenant(Guid id, TenantUpdateDto updatedTenant)
-        {
-            var result =  await _tenantService.UpdateTenant(id, updatedTenant);
-            return Ok(result);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<TenantGetAllDto>>> DeleteTenant(Guid id)
-        {
-            var result = await _tenantService.DeleteTenant(id);
-            return Ok(result);
+            return Ok(new TenantRegistrationResponse(true));
         }
     }
 }
-*/
