@@ -72,8 +72,7 @@ builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<IApartmentRepository, ApartmentRepository>();
 builder.Services.AddScoped<IApartmentService, ApartmentService>();
 
-//builder.Services.AddScoped<ITenantRepository, TenantRepository>();
-//builder.Services.AddScoped<ITenantService, TenantService>();
+builder.Services.AddScoped<ITenantService, TenantService>();
 
 builder.Services.AddScoped<IScheduleStatusRepository, ScheduleStatusRepository>();
 builder.Services.AddScoped<IScheduleStatusService, ScheduleStatusService>();
