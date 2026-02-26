@@ -17,13 +17,13 @@ public class TenantService : ITenantService
 
     public async Task<TenantRegistrationResponse> RegisterTenant(TenantRegistrationRequest request)
     {
-        var newTenant = new Core.Models.Tenant()
+        var newTenant = new Core.Models.Tenant
         {
-            UserName = request.UserName, 
+            UserName = request.Email, 
             PhoneNumber = request.PhoneNumber, 
             Email = request.Email,
-            ApartmentId = request.ApartmentId, 
-            PropertyId = request.PropertyId
+            ApartmentId = request.ApartmentId,
+            PropertyId = request.PropertyId,
         };
 
         var result = await _tenantManager.CreateAsync(newTenant, request.Password);
