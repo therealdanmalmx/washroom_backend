@@ -8,25 +8,27 @@ namespace API.Controllers
     [ApiController]
     public class TenantController : ControllerBase
     {
-        private readonly ITenantService _tenantService;
+        private readonly ITenantRegisterService _tenantRegisterService;
+        private readonly ITenantLoginService _tenantLoginService;
 
-        public TenantController(ITenantService tenantService)
+        public TenantController(ITenantRegisterService tenantRegisterService, ITenantLoginService tenantLoginService)
         {
-            _tenantService = tenantService;
+            _tenantRegisterService = tenantRegisterService;
+            _tenantLoginService = tenantLoginService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TenantRegistrationResponse>>> GetAllParticipants()
         {
-            var result = await _tenantService.GetAllTenants();
+            var result = await _tenantRegisterService.GetAllTenants();
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<ActionResult<TenantRegistrationResponse>> RegisterParticipant(
             TenantRegistrationRequest request)
         {
-            var result = await _tenantService.RegisterTenant(request);
+            var result = await _tenantRegisterService.RegisterTenant(request);
 
             if (!result.IsSuccessful)
             {
@@ -34,6 +36,19 @@ namespace API.Controllers
             }
 
             return Ok(new TenantRegistrationResponse(true));
+        }
+        
+        [HttpPost("login")]
+        public async Task<ActionResult<TenantLoginResponse>> Login(TenantLoginRequest request)
+        {
+            var result = await _tenantLoginService.Login(request);
+
+            if (!result.IsSuccessful)
+            {
+                return new TenantLoginResponse(false, result.Errors);
+            }
+
+            return Ok(result);
         }
     }
 }
