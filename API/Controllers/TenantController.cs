@@ -1,5 +1,4 @@
-/*
- using API.Services.Tenant;
+using API.Services.Tenant;
 using Core.DTOs.Tenant;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,49 +8,47 @@ namespace API.Controllers
     [ApiController]
     public class TenantController : ControllerBase
     {
-        private readonly ITenantService _tenantService;
+        private readonly ITenantRegisterService _tenantRegisterService;
+        private readonly ITenantLoginService _tenantLoginService;
 
-        public TenantController(ITenantService tenantService)
+        public TenantController(ITenantRegisterService tenantRegisterService, ITenantLoginService tenantLoginService)
         {
-            _tenantService = tenantService;
+            _tenantRegisterService = tenantRegisterService;
+            _tenantLoginService = tenantLoginService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<TenantGetAllDto>>> GetAllTenants()
+        public async Task<ActionResult<IEnumerable<TenantRegistrationResponse>>> GetAllParticipants()
         {
-            return Ok(await _tenantService.GetAllTenants());
+            var result = await _tenantRegisterService.GetAllTenants();
+            return Ok(result);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<List<TenantGetAllDto>>> CreateTenant(TenantCreateDto newTenant)
+        [HttpPost("register")]
+        public async Task<ActionResult<TenantRegistrationResponse>> RegisterParticipant(
+            TenantRegistrationRequest request)
         {
-            return Ok(await _tenantService.CreateTenant(newTenant));
-        }
+            var result = await _tenantRegisterService.RegisterTenant(request);
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TenantGetAllDto>> GetTenantById(Guid id)
-        {
-            var result = await _tenantService.GetTenantById(id);
-            if (result == null)
+            if (!result.IsSuccessful)
             {
-                return NotFound();
+                return BadRequest(new TenantRegistrationResponse(false, result.Errors));
             }
-            return Ok(result);
-        }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<TenantGetAllDto>> UpdateTenant(Guid id, TenantUpdateDto updatedTenant)
-        {
-            var result =  await _tenantService.UpdateTenant(id, updatedTenant);
-            return Ok(result);
+            return Ok(new TenantRegistrationResponse(true));
         }
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<List<TenantGetAllDto>>> DeleteTenant(Guid id)
+        
+        [HttpPost("login")]
+        public async Task<ActionResult<TenantLoginResponse>> Login(TenantLoginRequest request)
         {
-            var result = await _tenantService.DeleteTenant(id);
+            var result = await _tenantLoginService.Login(request);
+
+            if (!result.IsSuccessful)
+            {
+                return new TenantLoginResponse(false, result.Errors);
+            }
+
             return Ok(result);
         }
     }
 }
-*/

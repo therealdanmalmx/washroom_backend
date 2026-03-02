@@ -1,28 +1,27 @@
-using API.Repositories;
 using Core.DTOs.Tenant;
-using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Services.Tenant;
 
-public class TenantService : ITenantService
+public class TenantRegisterService : ITenantRegisterService
 {
     private readonly UserManager<Core.Models.Tenant> _tenantManager;
 
-    public TenantService(UserManager<Core.Models.Tenant> tenantManager)
+    public TenantRegisterService(UserManager<Core.Models.Tenant> tenantManager)
     {
         _tenantManager = tenantManager;
     }
 
     public async Task<TenantRegistrationResponse> RegisterTenant(TenantRegistrationRequest request)
     {
-        var newTenant = new Core.Models.Tenant()
+        var newTenant = new Core.Models.Tenant
         {
-            UserName = request.UserName, 
+            UserName = request.Email, 
             PhoneNumber = request.PhoneNumber, 
-            Email = request.Email, 
-            ApartmentId = request.ApartmentId, 
-            PropertyId = request.PropertyId
+            Email = request.Email,
+            ApartmentId = request.ApartmentId,
+            PropertyId = request.PropertyId,
         };
 
         var result = await _tenantManager.CreateAsync(newTenant, request.Password);
@@ -34,5 +33,15 @@ public class TenantService : ITenantService
         }
 
         return new TenantRegistrationResponse(true);
+    }
+
+    public async Task<List<Core.Models.Tenant>> GetAllTenants()
+    {
+        if (_tenantManager.Users == null)
+        {
+            return [];
+        }
+
+        return await _tenantManager.Users.ToListAsync();
     }
 } 

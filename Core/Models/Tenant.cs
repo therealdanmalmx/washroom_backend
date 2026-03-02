@@ -5,10 +5,21 @@ namespace Core.Models;
 
 public class Tenant : IdentityUser
 {
-    public string ApartmentId { get; init; }
-    public Apartment Apartment { get; init; } = new();
-    public string PropertyId { get; init; }
-    public Property Property { get; set; } = new();
-    public DateTime CreatedAt { get; init; } =  DateTime.UtcNow;
+    public Guid ApartmentId { get; init; }
+    public Apartment Apartment { get; init; }
+    public Guid PropertyId { get; init; }
+    public Property Property { get; set; }
+    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
     public List<TenantWashroomBooking> TenantWashroomBookings { get; set; } = new();
+
+    public Tenant() { }
+    public Tenant(string userName, string email, string phoneNumber, Guid apartmentId,
+        Guid propertyId)
+    {
+        UserName = userName;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        ApartmentId = apartmentId;
+        PropertyId = propertyId;
+    }
 }

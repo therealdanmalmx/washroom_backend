@@ -247,11 +247,7 @@ namespace API.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("ApartmentId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ApartmentId1")
+                    b.Property<Guid>("ApartmentId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -291,11 +287,7 @@ namespace API.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("PropertyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("PropertyId1")
+                    b.Property<Guid>("PropertyId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("SecurityStamp")
@@ -310,7 +302,7 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApartmentId1");
+                    b.HasIndex("ApartmentId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -319,7 +311,7 @@ namespace API.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("PropertyId1");
+                    b.HasIndex("PropertyId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -636,13 +628,13 @@ namespace API.Migrations
                 {
                     b.HasOne("Core.Models.Apartment", "Apartment")
                         .WithMany("Tenants")
-                        .HasForeignKey("ApartmentId1")
+                        .HasForeignKey("ApartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Models.Property", "Property")
                         .WithMany()
-                        .HasForeignKey("PropertyId1")
+                        .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

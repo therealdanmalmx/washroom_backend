@@ -4,7 +4,7 @@ namespace Core.Models;
 
 public class Apartment
 {
-    public Guid Id { get; set; } =  Guid.CreateVersion7();
+    public Guid Id { get; set; } = Guid.CreateVersion7();
     [StringLength((10))]
     public string Number { get; set; } = string.Empty;
     public Guid? PropertyId { get; set; }

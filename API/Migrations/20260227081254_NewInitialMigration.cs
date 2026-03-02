@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class NewInitial : Migration
+    public partial class NewInitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,8 +207,8 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Number = table.Column<string>(type: "text", nullable: false),
-                    PropertyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Number = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
+                    PropertyId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -218,8 +218,7 @@ namespace API.Migrations
                         name: "FK_Apartments_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -247,8 +246,8 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "character varying(12)", maxLength: 12, nullable: false),
                     ApartmentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PropertyId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -272,6 +271,12 @@ namespace API.Migrations
                         name: "FK_AspNetUsers_Apartments_ApartmentId",
                         column: x => x.ApartmentId,
                         principalTable: "Apartments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -453,6 +458,11 @@ namespace API.Migrations
                 name: "IX_AspNetUsers_ApartmentId",
                 table: "AspNetUsers",
                 column: "ApartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_PropertyId",
+                table: "AspNetUsers",
+                column: "PropertyId");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
