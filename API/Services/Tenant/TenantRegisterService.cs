@@ -1,16 +1,14 @@
-using API.Repositories;
 using Core.DTOs.Tenant;
-using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services.Tenant;
 
-public class TenantService : ITenantService
+public class TenantRegisterService : ITenantRegisterService
 {
     private readonly UserManager<Core.Models.Tenant> _tenantManager;
 
-    public TenantService(UserManager<Core.Models.Tenant> tenantManager)
+    public TenantRegisterService(UserManager<Core.Models.Tenant> tenantManager)
     {
         _tenantManager = tenantManager;
     }
