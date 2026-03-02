@@ -72,7 +72,8 @@ builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<IApartmentRepository, ApartmentRepository>();
 builder.Services.AddScoped<IApartmentService, ApartmentService>();
 
-builder.Services.AddScoped<ITenantService, TenantService>();
+builder.Services.AddScoped<ITenantRegisterService, TenantRegisterService>();
+builder.Services.AddScoped<ITenantLoginService, TenantLoginService>();
 
 builder.Services.AddScoped<IScheduleStatusRepository, ScheduleStatusRepository>();
 builder.Services.AddScoped<IScheduleStatusService, ScheduleStatusService>();
@@ -100,6 +101,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
